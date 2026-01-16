@@ -14,9 +14,17 @@
         "tab": "Safe Smart Account",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Smart Account",
             "pages": [
-              "smart_account/overview"
+              "smart-account/overview",
+              "smart-account/concepts",
+              "smart-account/modules",
+              "smart-account/guards",
+              "smart-account/fallback-handler",
+              "smart-account/migration",
+              "smart-account/signatures",
+              "smart-account/audits",
+              "smart-account/bug-bounty"
             ]
           },
           {
