@@ -1,0 +1,2 @@
+# safe-docs
+Safe Documentation
