@@ -21,29 +21,30 @@ The launchpad contract works around the 4337 limitations, which allows the deplo
 The creation of new Safes occurs in the following three high-level steps.
 
 <Steps>
-    ### Creation by Factory
+    <Step title="Creation by Factory">
     -  Bundler informs `Entrypoint` to `handleUserOps`.
     -  Entrypoint calls `SenderCreator` to call `SafeProxyFactory`.
     - `SenderCreator` requests `safeProxy` creation from `SafeProxyFactory` using `createProxyWithNonce`.
     - `SafeProxyFactory` creates a new `SafeProxy` using `create2`.
     - `SafeProxy` is created with a singleton address set to `Launchpad` .
     - `initHash` is stored in the `SafeProxy` storage.
-    
-    ### Validation Phase
+    </Step> 
+    <Step title="Validation Phase">
     - `Entrypoint` validates user operations in `SafeProxy` via `validateUserOp`.
     - `SafeProxy` delegates validation to `Launchpad`.
     - `Launchpad` ensures the presence of `initHash` from phase one and calls `Safe7579.launchpadValidators`.
     - `ValidatorModule` gets installed by `Launchpad`.
     - `ValidatorModule` validates user operations and returns `packedValidationData`.
     - `Launchpad` returns packedValidationData to `SafeProxy`, `SafeProxy` returns to `Entrypoint`.
-    
-    ### Execution Phase
+    </Step> 
+    <Step title="Execution Phase">
     - `Entrypoint` triggers `launchpad.setupSafe()` in `SafeProxy`.
     - `SafeProxy` delegates the setup to `Launchpad`.
     - `LaunchPad` upgrades `SafeStorage.singleton` to `SafeSingleton`.
     - `LaunchPad` calls `SafeProxy.setup()` to initialize `SafeSingleton`.
     - Setup function in `SafeProxy.setup()` delegatecalls to `lauchpad.initSafe7579`.
     - `initSafe7579()` initializes `Safe7579` with executors, fallbacks, hooks, `IERC7484` registry.
+    </Step> 
 </Steps>
 
 The following detailed sequence outlines the creation, validation, and execution phases in the system's operation.

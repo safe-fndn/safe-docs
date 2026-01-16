@@ -30,39 +30,17 @@ ERC-4337 is currently under development and still needs to be finalized, so deve
 
 ERC-4337 provides a bunch of benefits along with all the inherent advantages of utilizing smart accounts:
 
-<Grid
-  container
-  spacing={2}
-  display='flex'
-  alignContent='flex-start'
-  mt={3}
->
-  <Grid item xs={12} md={4}>
-    <CustomCard
-      title={'Flexibility of payments'}
-      description={'Users can decide how to pay the gas fees. Use native tokens like ETH, ERC-20 tokens, or even sponsored transactions.'}
-      url=""
-      newTab={false}
-    />
-  </Grid>
-  <Grid item xs={12} md={4}>
-    <CustomCard
-      title={'Freedom of Authentication'}
-      description={'It enables the use of different authentication mechanisms, such as multi-signature, passkeys, and future quantum-proof cryptography.'}
-      url=""
-      newTab={false}
-    />
-  </Grid>
-  <Grid item xs={12} md={4}>
-    <CustomCard
-      title={'Decentralization'}
-      description={'It\'s supported by various providers, avoiding lock-in to a single-relayer technology, offering an anti-fragile approach with no single point of failure.'}
-      url=""
-      newTab={false}
-    />
-  </Grid>
-</Grid>
-
+<Columns cols={2}>
+  <Card title="Flexibility of payments">
+    Users can decide how to pay the gas fees. Use native tokens like ETH, ERC-20 tokens, or even sponsored transactions.
+  </Card>
+  <Card title="Freedom of Authentication">
+    It enables the use of different authentication mechanisms, such as multi-signature, passkeys, and future quantum-proof cryptography.
+  </Card>
+  <Card title="Decentralization">
+    It\'s supported by various providers, avoiding lock-in to a single-relayer technology, offering an anti-fragile approach with no single point of failure.
+  </Card>
+</Columns>
 
 ## Further reading
 
