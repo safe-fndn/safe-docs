@@ -48,6 +48,12 @@
               "features/passkeys/overview",
               "features/passkeys/passkeys-safe"
             ]
+          },
+          {
+            "group": "More",
+            "pages": [
+              "more/glossary"
+            ]
           }
         ]
       }
