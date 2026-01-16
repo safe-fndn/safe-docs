@@ -10,10 +10,6 @@ These contracts can utilize EIP-7212 precompiles for signature verification on s
 
 ## Passkey contracts
 
-<Callout type="info" emoji="ℹ️">
-  This section covers implementation details of the passkeys with Safe. If you'd rather get straight to building, head over to our [guide](../../sdk/signers/passkeys.mdx) and [tutorials](./tutorials/react.mdx) sections.
-</Callout>
-
 ### `SafeWebAuthnSignerProxy`
 
 A proxy contract is uniquely deployed for each `Passkey` signer. The signer information, such as Public key coordinates, Verifier address, and Singleton address, is immutable. All calls to the signer are forwarded to the `SafeWebAuthnSignerSingleton` contract.
