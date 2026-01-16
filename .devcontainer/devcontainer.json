@@ -1,0 +1,4 @@
+{
+	"name": "Safe Docs",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:dev-24-bookworm",
+}
