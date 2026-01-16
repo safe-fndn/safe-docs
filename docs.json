@@ -20,6 +20,34 @@
               "smart_account/quickstart",
               "smart_account/development"
             ]
+          },
+          {
+            "group": "ERC 4337",
+            "pages": [
+              "erc-4337/overview",
+              "erc-4337/4337-safe"
+            ]
+          },
+          {
+            "group": "ERC 7579",
+            "pages": [
+              "erc-7579/overview",
+              "erc-7579/7579-safe"
+            ]
+          },
+          {
+            "group": "EIP 7702",
+            "pages": [
+              "eip-7702/overview",
+              "eip-7702/7702-safe"
+            ]
+          },
+          {
+            "group": "Passkeys",
+            "pages": [
+              "passkeys/overview",
+              "passkeys/passkeys-safe"
+            ]
           }
         ]
       }
