@@ -5,61 +5,83 @@ description: ""
 
 ## Owners
 
-Each Safe account maintains its own list of [owners](/more/glossary#owner) in the storage in the form of Ethereum addresses. Owners can be added or removed by other owners.
+Each Safe Smart Account stores a list of [owners](/more/glossary#owner) on-chain as Ethereum addresses. Owners collectively control the account: they can approve transactions and update the Safe’s configuration. Adding or removing an owner requires a valid Safe transaction approved by the current owners (according to the threshold).
 
 ## Threshold
 
-Safe Smart Account maintains a [threshold](/more/glossary#threshold), the minimum number of owners required to confirm a transaction before it gets executed. The threshold of owners required to confirm a transaction is also stored in the storage. Owners of a Safe account can change the threshold value as well. A Safe account can have any number of owners, and the threshold value can be set between one and the total number of owners.
+A Safe also stores a [threshold](/more/glossary#threshold): the minimum number of owner approvals required to execute a transaction.
+
+Owners can update the threshold through a Safe transaction. The threshold must be between **1** and the **total number of owners**.
 
 ## Signature verification
 
-Safe Smart Account, being a contract account, does not have a private key to sign transactions, and EVM cannot verify incoming transactions to a contract account. Hence, a contract account has to do the authentication and authorization in its code. When a transaction is submitted to a Safe account, it is first verified by the Safe account to ensure that the transaction is valid. If the required number of owners has signed the transaction, the transaction is allowed to be executed. If the required number of owners has not signed the transaction, the transaction reverts to the signature validation step.
-A Safe Smart Account verifies if each signer is an owner of the Safe account and verifies the signature based on the signature type. To learn more about the signature types supported by Safe and encoding, refer to the [Signatures](/smart-account/signatures) page.
+Because a Safe is a smart contract, it does not have a private key. The EVM therefore cannot “authenticate” a Safe transaction the way it does for EOAs. Instead, the Safe contract performs authentication and authorization in its own code.
+
+When a transaction is submitted to a Safe, the Safe:
+1. Computes the transaction hash from the submitted parameters.
+2. Verifies that each signer is a current owner.
+3. Validates each signature according to its type (for example EOAs, contract signatures, or other supported schemes).
+4. Checks that the number of valid approvals meets the threshold.
+5. Executes the transaction if the checks pass; otherwise, the call reverts.
+
+To learn about supported signature types and encoding, see [Signatures](/smart-account/signatures).
 
 ## Transaction flow
 
-Transactions through a Safe Smart Account can be primarily divided into two types:
+Safe executes transactions through two main paths: **Safe transactions** (approved by owners) and **module transactions** (initiated by enabled modules).
 
-### Safe Transaction
+### Safe transaction
 
-Safe Smart Account contract provides `execTransaction` function to submit and execute a Safe transaction which is signed by the owners of the Safe Smart Account.
+Safe Smart Account exposes `execTransaction` to execute a transaction that has been approved by the owners.
 
-To execute a transaction with the Safe Smart Account, the `execTransaction` method needs to be called with the following parameters:
+To execute a Safe transaction, call `execTransaction` with:
 
-- `to`: The recipient address of the transaction.
-- `value`: The amount of Ether (in wei) to send with the transaction.
-- `data`: The data payload of the transaction, typically used to call a function on the recipient contract.
-- `operation`: Safe Smart Account supports `CALL` and `DELEGATECALL.`
-- `safeTxGas`: Gas that should be used for the Safe transaction.
-- `baseGas`: This is the amount of gas independent of the specific Safe transactions, but used for general things such as signature checks and the base transaction fee. `SafeTxGas` and `baseGas` combined are comparable to the gas limit of a regular transaction.
-- `gasPrice`: Same like for a regular Ethereum transaction. Setting the gas price to 0 means that no refund is paid out.
-- `gasToken`: For regular Ethereum transactions, gas is always paid in Ether. A Safe Smart Account enables users to pay in ERC20 tokens or Ether. The desired token is specified here. If `0x0`, then Ether is used. Gas costs are calculated by `(baseGas + txGas) * gasPrice`.
-- `refundReceiver`: The refund does not necessarily have to go to the account submitting the transaction but can be paid out to any account specified here. If set to `0`, `tx.origin` will be used.
-- `signatures`: All parameters are used to generate a transaction hash and signed by the owners of the Safe Smart Account. A list of hex encoded signatures is expected (`execTransaction` expects that the signatures are sorted by owner address. This is required to easily validate no confirmation duplicates exist).
+- `to`: Recipient address.
+- `value`: Amount of ETH to send (in wei).
+- `data`: Calldata, typically a function call on `to`.
+- `operation`: Execution type: `CALL` or `DELEGATECALL`.
+- `safeTxGas`: Gas allocated to the Safe transaction execution.
+- `baseGas`: Gas overhead for tasks such as signature checks and refunds.
+  `safeTxGas + baseGas` is comparable to the gas limit of a regular transaction.
+- `gasPrice`: Gas price used for refunds. If set to `0`, no refund is paid.
+- `gasToken`: Token used to pay the refund. Use `0x0` for ETH; otherwise an ERC-20 token address.
+  Refund cost is calculated as `(baseGas + safeTxGas) * gasPrice`.
+- `refundReceiver`: Address that receives the refund. If set to `0`, `tx.origin` is used.
+- `signatures`: Hex-encoded owner signatures over the transaction hash.
+  Signatures must be **sorted by owner address** so the Safe can efficiently prevent duplicates.
 
-### Module Transaction
+### Module transaction
 
-Safe Smart Account contract provides `execTransactionFromModule` and `execTransactionFromModuleReturnData` functions to accept transactions from modules. A module can be any Ethereum address and can bypass signature verification logic to execute transactions through a Safe Smart Account.
+Safe also exposes `execTransactionFromModule` and `execTransactionFromModuleReturnData` to execute transactions initiated by enabled modules.
 
-- `to`: The recipient address of the transaction.
-- `value`: The amount of Ether (in wei) to send with the transaction.
-- `data`: The data payload of the transaction, typically used to call a function on the recipient contract.
-- `operation`: The type of operation to execute, either `CALL` or `DELEGATECALL.`
+A module can be any contract address that has been explicitly enabled on the Safe. Once enabled, a module can execute transactions through the Safe **without going through owner signature verification** (which is why modules are security-critical).
 
-Here are some core components of a Safe Smart Account that you will learn about:
+Module calls include:
+- `to`: Recipient address.
+- `value`: Amount of ETH to send (in wei).
+- `data`: Calldata, typically a function call on `to`.
+- `operation`: Execution type: `CALL` or `DELEGATECALL`.
+
+## Core components
+
+The following components are central to how Safe Smart Accounts are extended and secured.
 
 ## Safe Modules
 
-[Safe Modules](/more/glossary#safe-module) are smart contracts that extend Safe's functionality with added custom features while the module logic remains separate from Safe's core contracts. 
+[Safe Modules](/more/glossary#safe-module) are smart contracts that extend Safe functionality while keeping module logic separate from the Safe core contracts.
 
-More information is available in the [Safe Modules](/smart-account/modules) page.
+Learn more on the [Safe Modules](/smart-account/modules) page.
 
 ## Safe Guards
 
-[Safe Guards](/more/glossary#safe-guard) make checks before and after a Safe transaction.
+[Safe Guards](/more/glossary#safe-guard) perform checks before and after a Safe transaction is executed.
 
-More information is available in the [Safe Guards](/smart-account/guards) page.
+Learn more on the [Safe Guards](/smart-account/guards) page.
 
 ## Signatures
 
-Safe Smart Account support alternative signature schemes such as [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712) and relaying by making the confirmation/verification logic independent of `msg.sender`. Read more about the [signature schemes](https://github.com/safe-global/safe-smart-account/blob/main/docs/signatures.md) supported by Safe.
+Safe supports multiple signature schemes, including [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) and [EIP-712](https://eips.ethereum.org/EIPS/eip-712). It also supports relayed execution by keeping confirmation and verification logic independent of `msg.sender`.
+
+For details on supported signature schemes and encoding, see:
+- [Signatures](/smart-account/signatures)
+- [Safe signature documentation](https://github.com/safe-global/safe-smart-account/blob/main/docs/signatures.md)
