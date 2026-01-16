@@ -16,9 +16,7 @@
           {
             "group": "Getting started",
             "pages": [
-              "smart_account/intro",
-              "smart_account/quickstart",
-              "smart_account/development"
+              "smart_account/overview"
             ]
           },
           {
