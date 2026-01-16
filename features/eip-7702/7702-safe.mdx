@@ -25,7 +25,7 @@ This approach uses the [SafeEIP7702Proxy](https://github.com/5afe/safe-eip7702/b
 
 This approach has a gas overhead as a new proxy contract has to be deployed for each EOA account, as the `setupDataHash` may be unique for each user. However, using this approach, users can use Safe\{Wallet\} with minor modifications and import the EOA account as a Safe account. 
 
-![diagram-7702-approach-1](../../../assets/diagram-7702-approach-1.png)
+![diagram-7702-approach-1](/assets/diagram-7702-approach-1.png)
 
 Follow the instructions here to use this approach to set code in EOA: https://github.com/5afe/safe-eip7702/tree/main/safe-eip7702-contracts#execute-scripts
 
@@ -35,7 +35,7 @@ This approach uses the [SafeEIP7702](https://github.com/safe-global/safe-smart-a
 
 Because this approach doesn't use a proxy contract, storage slot 0 remains unused. The Safe Transaction Service and other services that depend on the value at storage slot 0 will not work with this approach.
 
-![diagram-7702-approach-2](../../../assets/diagram-7702-approach-2.png)
+![diagram-7702-approach-2](/assets/diagram-7702-approach-2.png)
 
 ### SafeLite
 
@@ -47,7 +47,7 @@ SafeLite is not compatible with Safe\{Wallet\} as it doesn't use the same storag
 
 It doesn't have the features of the existing Safe contracts such as Modules, Fallback Handler, and Guards.
 
-![diagram-7702-approach-3](../../../assets/diagram-7702-approach-3.png)
+![diagram-7702-approach-3](/assets/diagram-7702-approach-3.png)
 
 <Danger>
   All the above approaches are experimental and the contracts are not yet audited. Use them at your own risk.
