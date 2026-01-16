@@ -20,6 +20,12 @@
               "smart_account/quickstart",
               "smart_account/development"
             ]
+          },
+          {
+            "group": "More",
+            "pages": [
+              "more/glossary"
+            ]
           }
         ]
       }
