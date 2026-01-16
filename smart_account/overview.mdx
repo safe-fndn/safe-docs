@@ -1,113 +1,202 @@
 ---
 title: "Overview"
-description: "How do Safe Smart Accounts work?"
+description: "How Safe Smart Accounts work"
 ---
 
-## EOAs
+## Externally-Owned Accounts (EOAs)
 
-[EOAs](/more/glossary#externally-owned-account), for short, are Ethereum accounts that use traditional key pairs. That is, they consist of a single private key that can be used to make transactions and sign messages. If you gain access to that private key, you gain complete control of the account. This means that your private key is a single point of failure between you and your funds being lost.
+[Externally-Owned Accounts (EOAs)](/more/glossary#externally-owned-account) are the traditional type of Ethereum account. They are controlled by a single private key, which is used to sign transactions and messages.
+
+Anyone with access to this private key has **full control** over the account. As a result, EOAs have a **single point of failure**: if the private key is lost or compromised, the funds and permissions associated with the account are lost as well.
 
 ## Smart Accounts
 
-The other type of Ethereum account is a [Smart Account](/more/glossary#smart-account), also sometimes called Smart Contract Account. Like EOAs, smart contract accounts each have a unique public Ethereum address, and it is impossible to tell them apart from EOAs by looking at an Ethereum address. Smart contract accounts, too, can receive funds and make transactions like EOAs but cannot initiate them. Generally, the key difference is that no single private key is used to verify transactions. Instead, the smart contract code defines the logic behind how the account completes transactions. Smart contracts are programs that run on the Ethereum blockchain and execute when specific conditions are met. Their functionality within contract accounts means that such accounts, in contrast to EOAs, can, for example, implement access rights that specify by whom, how, and under which conditions transactions can be executed, as well as more complex logic.
+The second type of Ethereum account is the [Smart Account](/more/glossary#smart-account), also referred to as a smart contract account.
 
-# Difference between EOAs and Contract Accounts
+Like EOAs, smart accounts:
+- have a unique Ethereum address
+- can receive funds
+- can interact with other contracts
+
+From the outside, smart accounts are indistinguishable from EOAs based on their address alone.
+
+The key difference is **how transactions are authorized**.  
+Smart accounts do not rely on a single private key. Instead, **on-chain smart contract logic** defines who can execute transactions, under which conditions, and how they are validated.
+
+Because this logic is programmable, smart accounts can support advanced features such as:
+- multi-signature authorization
+- fine-grained access control
+- transaction batching
+- account recovery mechanisms
+- custom execution rules
+
+## EOAs vs. Smart Accounts
 
 ![Ethereum Accounts](/images/safe-smart-accounts.png)
 
 ## Safe Smart Account
 
-Safe Smart Account is a Smart Account with multi-signature functionality at its core. It is secure and flexible, and it can be used to manage funds and execute transactions on the Ethereum blockchain.
-The vision for Safe Smart Accounts is to become the standard core used in all smart contract-based wallets. It also aims to make the benefits of Account Abstraction accessible to users and developers.
+A **Safe Smart Account** is a smart account with **multi-signature security** at its core. It is designed to be both secure by default and highly extensible, making it suitable for managing funds and executing transactions across Ethereum and other EVM-compatible networks.
 
-The architectural design of Safe Smart Account keeps the following principles in mind.
+The long-term vision for Safe Smart Accounts is to serve as the **standard account abstraction layer** for smart contract–based wallets, making the benefits of Account Abstraction accessible to both users and developers.
 
-- **Secure default**
+### Design Principles
 
- Uses a multi-signature logic where a threshold of owners must confirm a transaction before execution to provide a secure default without trusting any additional contract—for example, a module, guard, or fallback handler (explained below).
+The architecture of Safe Smart Accounts follows two core principles:
 
-- **Maximum flexibility**
+#### Secure by default
 
- Supports modules that execute transactions using alternative access patterns (instead of multi-signature). It also supports the `delegatecall` function, which introduces complex execution logic by loading instructions from other contracts and executing via a Safe Smart Account.
+Safe uses a multi-signature model where a configurable threshold of owners must approve a transaction before it can be executed. This provides strong security guarantees without requiring trust in additional components such as modules, guards, or fallback handlers.
 
-### Features
+#### Maximum flexibility
 
-#### High Security
+Safe supports:
+- **Modules**, which enable alternative execution patterns beyond multi-signature
+- **`delegatecall`**, allowing Safe to execute logic defined in external contracts
 
-Safe's **multi-signature** functionality allows you to define a list of owner accounts and a threshold number of accounts required to confirm a transaction. Once the threshold of owner accounts have confirmed a transaction, the Safe transaction can be executed. Owners can be EOAs, other smart contract accounts, or even a passkey.
+This design enables advanced workflows while keeping the core contract minimal and secure.
 
-#### Advanced execution logic
+## Features
 
-It is possible to use different **Safe Library contracts** to perform complex transactions. A prevalent example is **batched transactions**, where multiple simple Ethereum transactions are combined and executed at once. That means instead of having to sign several transactions sequentially, a user just needs to sign one batched transaction.
+### High security
 
-#### Advanced access management
+Safe’s **multi-signature** functionality allows you to define:
+- a list of owner accounts
+- a threshold number of approvals required to execute a transaction
 
-You can add **Safe Modules** to your Safe, which facilitates more fine-grained access management. For instance, defining a module that can only be used to **recover access** to a Safe under specific circumstances is possible. Another example is **allowance modules** that allow owners of a Safe to grant limited execution permission, such as a daily limit to external accounts.
+Owners can be:
+- EOAs
+- other smart accounts
+- passkeys or other authentication mechanisms
 
-#### Token callback support
+Once the required number of approvals is collected, the transaction can be executed on-chain.
 
-Many new tokens require wallet contracts to implement callbacks. Token standards like **ERC-721** and **ERC-1155** allow contracts to immediately react to receiving tokens through these and make it even possible to reject the transfer altogether.
+### Advanced execution logic
 
-#### Sponsored transactions
+Safe supports complex execution patterns through **Safe library contracts**.
 
-Another core functionality of the Safe is **token payment**. Generally, Ethereum transactions require ETH to pay transaction fees ("gas"). With the Safe, users can pay transaction fees in several supported ERC20 tokens. This is realized via a transaction relay service that accepts those tokens and submits the transactions to the blockchain, paying the gas fee in ETH. With the same functionality, Ether-less transactions can be implemented, where a 3rd party pays transaction fees on behalf of a Safe via the same relay service.
+A common example is **batched transactions**, where multiple Ethereum transactions are grouped and executed together. This allows users to approve a single transaction instead of signing many individual ones.
 
-### Architecture
+### Advanced access management
+
+Safe can be extended using **Safe Modules**, which enable fine-grained access control.
+
+Examples include:
+- **Recovery modules** that restore access under predefined conditions
+- **Allowance modules** that grant limited execution rights, such as daily spending limits for external accounts
+
+Modules are optional and can be added or removed through owner confirmations.
+
+### Token callback support
+
+Many token standards require wallet contracts to implement callbacks.  
+Safe supports token callbacks for standards such as:
+- **ERC-721**
+- **ERC-1155**
+
+This allows Safe to react to incoming token transfers and, if necessary, reject them.
+
+### Sponsored and token-paid transactions
+
+Normally, Ethereum transactions require ETH to pay gas fees. Safe enables alternative payment models, including:
+- paying gas fees with supported ERC-20 tokens
+- fully gasless transactions where a third party sponsors the fees
+
+This is implemented via transaction relay services that submit transactions on behalf of the Safe and handle gas payment in ETH.
+
+## Architecture
 
 ![Safe Smart Accounts Architecture](/images/diagram-safe-smart-accounts-architecture.png)
 
-#### Safe Singleton Factory
+### Safe Singleton Factory
 
-The Safe Singleton Factory is a contract that deploys all the Safe Smart Account related contracts. This contract helps to deploy Safe Smart Account contracts at the same address across different networks and eventually also helps to deploy Safe proxies at the same address across different networks.
-For more information, refer to the [Safe Singleton Factory](https://github.com/safe-fndn/safe-singleton-factory) repository.
+The **Safe Singleton Factory** deploys Safe-related contracts and enables deterministic contract addresses across different networks.
 
-#### Safe Proxy Factory
+This allows Safe Smart Accounts and their proxies to be deployed at the same address on multiple chains.
 
-The Safe proxy factory contract provides a simple way to create a new proxy contract pointing to a singleton and executing a setup function in the newly deployed proxy all in one transaction.
+See also:
+- [Safe Singleton Factory repository](https://github.com/safe-fndn/safe-singleton-factory)
 
-#### Safe
+### Safe Proxy Factory
 
-This is a singleton contract deployed only once and used by Safe Proxy to delegate calls. It is the main contract that holds the logic for signature verification, executing transactions, managing owners, modules, and the fallback handler.
-As a singleton contract, it cannot be used directly as a Safe account but only through a Safe Proxy contract.
+The **Safe Proxy Factory** provides a convenient way to:
+- deploy a Safe proxy
+- point it to a Safe singleton
+- execute the initial setup
 
-The two types of Safe Smart Accounts are:
-- Safe
-- SafeL2: The version emits additional events and is to be used for L2 chains that don't support tracing.
+All of this happens within a single transaction.
 
-_Hint: For legacy reasons they are referred as Safe._
+### Safe (Singleton)
 
-A Safe contract itself is composed of different contracts. The diagram below shows the main components of a Safe contract.
+The **Safe** contract is a singleton that contains the core logic for:
+- signature verification
+- transaction execution
+- owner management
+- module management
+- fallback handling
+- guards
+
+The Safe singleton is **not used directly**. Instead, Safe accounts interact with it via proxy contracts using `delegatecall`.
+
+There are two variants:
+- **Safe** (mainnet and compatible chains)
+- **SafeL2**, which emits additional events for L2 chains that do not support tracing
+
+> For historical reasons, both variants are often referred to simply as “Safe”.
+
+The diagram below shows the main components of the Safe contract:
 
 ![Safe Smart Account Components](/images/diagram-safe-smart-account-safe-components.png)
 
-##### Owner Management
+### Owner Management
 
-One core feature of a Safe account is that it can be operated by multiple accounts, known as owners. `OwnerManager.sol` allows you to add, remove, and replace owners. Furthermore, a threshold number of owners required to confirm a transaction for it to be executed can be specified and modified. You can retrieve the list of owners. Events are emitted every time an owner is added or removed and whenever the threshold changes.
+Safe supports multiple owners per account. The `OwnerManager.sol` contract enables:
+- adding, removing, and replacing owners
+- changing the approval threshold
+- retrieving the current owner list
 
-##### Module Management
+Events are emitted whenever owners or thresholds are updated.
 
-Modules add additional functionalities to the Safe accounts. They are smart contracts that implement Safe's functionality while separating module logic from Safe's core contract. Depending on the use case, modules could, for instance, allow the execution of transactions without requiring all confirmations. A basic Safe does not require any modules. Adding and removing a module requires confirmation from the required threshold of owners. Modules are very security-critical, so they need to be as secure as all other Safe contracts.
+### Module Management
 
-Some of the available modules are:
+Modules extend Safe functionality while keeping the core contract minimal.
+
+They can, for example:
+- allow transaction execution without collecting all signatures
+- enable alternative authorization schemes
+
+Adding or removing a module requires confirmation from the owner threshold. Because modules can bypass standard authorization logic, they are **security-critical** and must be carefully audited.
+
+Examples:
 - [Allowance Module](https://github.com/safe-global/safe-modules/tree/main/modules/allowances)
 - [Recovery Module](https://github.com/safe-global/safe-modules/tree/main/modules/recovery)
-- [4337 Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
+- [ERC-4337 Module](https://github.com/safe-global/safe-modules/tree/main/modules/4337)
 - [Passkey Module](https://github.com/safe-global/safe-modules/tree/main/modules/passkey)
 
-##### Executor
+### Executor
 
-This contract contains the logic to execute `call` or `delegatecall` to external address.
+The Executor component contains the logic for executing `call` and `delegatecall` operations to external contracts.
 
-##### Fallback Manager
+### Fallback Manager
 
-Ethereum fallback functions are executed when a called function signature does not match any defined function. Specific use cases require those fallback functions to contain some logic. EVM limits the size of a Smart contract to 24KB. The Fallback Manager contract allows you to extend the functionality of the Safe contract by adding additional logic to the fallback function and overcoming the contract size limit.
+Fallback functions are executed when a function selector does not match any defined function.
 
-##### Guard Management
+Because EVM contracts are limited to 24 KB in size, Safe uses a **Fallback Manager** to:
+- delegate fallback logic to a separate contract
+- extend functionality without increasing the core contract size
 
-Guards are used to check if a transaction should be executed or rejected based on the logic defined in the guard. A Guard Manager contract allows you to add, remove, and replace guards. Guards are security critical as a malicious guard could prevent transactions from being executed and block access to funds stored in the Safe. Events are emitted whenever a guard is updated.
+### Guard Management
 
-#### SafeProxy
+Guards define additional checks that run before and after transaction execution.
 
-A Safe Proxy is a contract that delegates all calls to the Safe Singleton. Deploying a Proxy reduces the cost of creating a Safe account, as the proxy contract's byte code size is less than that of the actual Safe contract code.
+The Guard Manager allows guards to be added, removed, or replaced. Guards are security-critical: a faulty or malicious guard can block transactions or lock funds.
+
+Events are emitted whenever a guard is updated.
+
+### Safe Proxy
+
+A **Safe Proxy** is a lightweight contract that delegates all calls to the Safe singleton.
+
+Using proxies significantly reduces deployment costs, since the proxy’s bytecode is much smaller than the full Safe contract.
 
 ![Safe Proxy Creation](/images/diagram-safe-smart-account-proxy-creation.png)
