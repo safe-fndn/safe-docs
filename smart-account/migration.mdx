@@ -3,6 +3,8 @@ title: "Migration"
 description: "Safely upgrade an existing Safe Smart Account proxy to a newer Singleton implementation."
 ---
 
+## Overview
+
 As the smart account ecosystem evolves, Safe periodically releases new versions of the **Safe Singleton** contract. Each Safe Smart Account is implemented as a **SafeProxy**, which delegates all logic to a Singleton contract whose address is stored in storage slot `0`.
 
 Existing SafeProxy contracts can be upgraded to point to a newer Singleton implementation. This process preserves the Safe’s address, owners, and configuration, but requires an explicit migration transaction approved by the Safe owners. The migration is performed via `delegatecall` and must be executed with care.
