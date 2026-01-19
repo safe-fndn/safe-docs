@@ -3,8 +3,6 @@ title: 'Safe and EIP-7702'
 description: 'How to use EIP-7702 with Safe Smart Accounts'
 ---
 
-# Safe and EIP-7702
-
 EIP-7702 doesn't specify how to initialise the storage of the account but only gives a way to set the code of the account. This means that the account will be created with an empty storage, and the user will have to set the storage manually.
 
 Existing Safe contracts cannot be used with EIP-7702, because of following reasons:
@@ -31,7 +29,7 @@ Follow the instructions here to use this approach to set code in EOA: https://gi
 
 ### Modified Safe Singleton
 
-This approach uses the [SafeEIP7702](https://github.com/safe-global/safe-smart-account/blob/feature/eip-7702/contracts/experimental/SafeEIP7702.sol) contract, a derived version of Safe Singleton that overrides the `setup` function and reverts when called. Instead, the contract's new `setupEIP7702` function has a `signature` parameter. The default owner will be set to the address of the EOA account that delegates to this Safe Singleton contract with a threshold of 1.
+This approach uses the [SafeEIP7702](https://github.com/safe-fndn/safe-smart-account/blob/feature/eip-7702/contracts/experimental/SafeEIP7702.sol) contract, a derived version of Safe Singleton that overrides the `setup` function and reverts when called. Instead, the contract's new `setupEIP7702` function has a `signature` parameter. The default owner will be set to the address of the EOA account that delegates to this Safe Singleton contract with a threshold of 1.
 
 Because this approach doesn't use a proxy contract, storage slot 0 remains unused. The Safe Transaction Service and other services that depend on the value at storage slot 0 will not work with this approach.
 
