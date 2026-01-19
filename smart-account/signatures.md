@@ -1,13 +1,17 @@
 ---
 title: "Signatures"
-description: ""
+description: "How Safe Smart Accounts encode, validate, and combine different signature types for transaction execution."
 ---
 
-The Safe supports different types of signatures. All signatures are combined into a single `bytes` and transmitted to the contract when a transaction should be executed.
+Safe Smart Accounts support multiple signature types. All signatures required to authorize a transaction are **combined into a single `bytes` value** and passed to the Safe contract when executing a transaction.
 
-### Encoding
+This page explains how signatures are encoded, ordered, and interpreted by the Safe contract.
 
-Each signature has a constant length of 65 bytes. If more data is necessary it can be appended to the end of concatenated constant data of all signatures. The position is encoded into the constant length data.
+## Encoding overview
+
+Each signature has a **constant-length part of 65 bytes**. If additional data is required (for example, for contract signatures), it is appended as a **dynamic part** after all constant parts.
+
+The position of the dynamic data is encoded in the constant part of the signature.
 
 Constant part per signature: `{(max) 64-bytes signature data}{1-byte signature type}`
 
