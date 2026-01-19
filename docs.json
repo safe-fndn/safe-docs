@@ -23,8 +23,14 @@
               "smart-account/fallback-handler",
               "smart-account/migration",
               "smart-account/signatures",
-              "smart-account/audits",
-              "smart-account/bug-bounty"
+              "smart-account/audits"
+            ]
+          },
+          {
+            "group": "Bug Bounty",
+            "pages": [
+              "overview",
+              "past-paid-bounties"
             ]
           },
           {
