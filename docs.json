@@ -23,7 +23,7 @@
               "smart-account/fallback-handler",
               "smart-account/migration",
               "smart-account/signatures",
-              "smart-account/multi-chain-deployment",
+              "smart-account/multi-chain",
               "smart-account/audits"
             ]
           },
