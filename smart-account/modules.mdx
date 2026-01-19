@@ -1,0 +1,79 @@
+---
+title: "Modules"
+description: "Extend Safe Smart Accounts with modular smart contracts that enable automation, custom authorization, and advanced execution logic."
+---
+
+## Overview
+
+Safe Modules are smart contract extensions that add custom functionality to a Safe Smart Account. They operate alongside Safe’s core multi-signature logic and can execute transactions on behalf of a Safe according to their own rules.
+
+Modules allow Safe accounts to support automation, custom authorization schemes, and advanced workflows, while keeping this logic **separate from the Safe core contracts**. A basic Safe does not require any modules, but modules can be enabled or disabled through a Safe transaction approved by the required owner threshold.
+
+Multiple modules can be enabled at the same time, making Safe highly configurable for different use cases. Events are emitted whenever a module is added or removed, and when a module-initiated transaction succeeds or fails.
+
+### Why use Safe Modules?
+
+Safe Modules enable:
+
+- **Automation**  
+  Recurring payments, scheduled transactions, or automated DeFi interactions without manual approvals.
+
+- **Enhanced security controls**  
+  Rules such as spending limits, whitelists, or rate limits that restrict how funds can be used.
+
+- **Scalability**  
+  Complex logic can be delegated to specialized contracts instead of bloating the Safe core.
+
+- **Flexibility**  
+  Safes can be tailored to unique workflows, DAO operations, or integrations with DeFi protocols.
+
+By decoupling this functionality from the Safe Smart Account itself, modules allow new capabilities to be developed and deployed without weakening Safe’s core security guarantees.
+
+Common examples of Safe Modules include:
+- daily or periodic spending allowances
+- recurring payment and standing order modules
+- social recovery modules that restore access if owners lose their keys
+
+![Safe Modules diagram](/assets/diagram-safe-modules.png)
+
+## How Safe Modules work
+
+1. **Enable a module**  
+   A module is enabled by calling `enableModule()` through a Safe transaction.  
+   The Safe stores the module address in an internal registry of authorized modules.
+
+2. **Trigger a module action**  
+   A user (either an EOA or a contract) interacts with the module by calling one of its functions.
+
+3. **Module validation**  
+   The module verifies that:
+   - the caller is authorized
+   - the requested action complies with the module’s rules
+
+4. **Transaction execution**  
+   If the checks pass, the module calls `execTransactionFromModule` on the Safe to execute the transaction.
+
+## Creating a Safe Module
+
+The best way to understand Safe Modules is to build one.
+
+A good starting point is the tutorial:
+[Safe Modding 101: Create your own Safe Module](https://www.youtube.com/watch?v=nmDYc9PlAic)
+
+<YouTube embedId="nmDYc9PlAic" />
+
+## Examples
+
+- [Safe Modules repository](https://github.com/safe-global/safe-modules)
+- [Zodiac-compliant modules](https://www.zodiac.wiki/documentation)
+- [Pimlico Safe integrations](https://docs.pimlico.io/permissionless/how-to/accounts/use-safe-account)
+
+<Danger>
+  Safe Modules are security-critical. Because modules can execute arbitrary
+  transactions on behalf of a Safe, only enable modules that are trusted,
+  well-reviewed, and audited. A malicious module can fully compromise a Safe.
+</Danger>
+
+## Reference
+
+- [Safe Module reference](/smart-account/reference/modules/enableModule)

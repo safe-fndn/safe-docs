@@ -1,0 +1,77 @@
+---
+title: "Multi-chain"
+description: "Deploy the same Safe Smart Account address across multiple EVM-compatible chains using deterministic deployment."
+---
+
+## Why deploy a Safe on multiple chains?
+
+Deploying the same Safe Smart Account on multiple chains can be useful in several scenarios:
+
+- **Accidental fund transfers**  
+  If funds are mistakenly sent to a chain where the Safe has not yet been deployed, deploying the Safe on that chain allows the funds to be recovered.
+
+- **Cross-chain operations**  
+  Users and teams operating across multiple chains benefit from having the **same Safe address** everywhere, simplifying treasury management, access control, and operational workflows.
+
+---
+
+## How it works
+
+A Safe can be deployed on multiple chains at the **same address** by replaying the original deployment using deterministic contract creation.
+
+In addition to manually constructing the deployment transaction, Safe provides the following supported options:
+
+- **Safe{Wallet} UI**  
+  The Safe{Wallet} interface allows users to deploy an existing Safe to additional chains using the same address.
+
+- **Safe Protocol Kit**  
+  The Safe Protocol Kit supports multi-chain Safe deployments programmatically.  
+  See the [Protocol Kit multi-chain deployment guide](https://docs.safe.global/sdk/protocol-kit/guides/multichain-safe-deployment).
+
+### Deployment process
+
+Multi-chain deployment is performed via the **Safe Proxy Factory** using deterministic deployment (`CREATE2`).
+
+The resulting Safe address is derived from the following inputs:
+
+- Proxy Factory contract address
+- Safe Singleton contract address
+- Deployment salt
+- `initializer` calldata
+- Proxy creation bytecode
+
+As long as all inputs are identical, the deployed Safe address will be the same across chains.
+
+---
+
+## Exceptions and limitations
+
+- **Non-EVM chains**  
+  This method only works on EVM-compatible chains. Non-EVM chains (for example, zkSync Era) are not supported.
+
+- **Version compatibility**  
+  Safes created using Singleton **v1.3.0 or later** are compatible with multi-chain deployment.  
+  Safes created from Singletons **v1.0.0, v1.1.1, or v1.2.0** cannot be replayed on additional chains using this method.
+
+---
+
+## Important considerations
+
+When deploying a Safe across multiple chains, keep the following in mind:
+
+- **Identical configuration**  
+  The Safe deployed on another chain will start with the *exact same configuration* as the original Safe at deployment time, including owners, threshold, and enabled modules. All required owner keys must be available to access and manage the Safe on the new chain.
+
+- **Security assumptions**  
+  Do not use this method if any of the initial owner keys are compromised, as the compromised configuration will be replicated on the new chain.
+
+- **Version immutability**  
+  The Singleton version used during deployment is fixed. You cannot change the Singleton version while replaying the deployment on additional chains.
+
+---
+
+## References
+
+- [Deploying a multi-chain Safe](https://help.safe.global/en/articles/222612-deploying-a-multi-chain-safe)
+
+By understanding these constraints and guarantees, you can safely deploy and operate the same Safe Smart Account across multiple chains.

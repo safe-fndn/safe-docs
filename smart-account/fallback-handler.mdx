@@ -1,0 +1,73 @@
+---
+title: "Fallback handler"
+description: "Extend Safe Smart Accounts with additional logic executed on unmatched function calls, while keeping the core contract minimal."
+---
+
+<Danger>
+  Using a Safe Fallback Handler is security-critical. Because fallback handlers
+  can execute arbitrary external logic within a Safe Smart Account, only use
+  handlers from trusted sources that have undergone thorough security audits.
+</Danger>
+
+The **Safe Fallback Handler** allows a Safe Smart Account to support additional functionality without modifying the core Safe contract. It exists primarily to work around Ethereum’s **24 KB contract size limit** by delegating optional or auxiliary logic to an external smart contract.
+
+Fallback handlers enable Safe to remain minimal and secure, while still supporting advanced behaviors such as token callbacks, signature validation, and compatibility utilities.
+
+A Safe Smart Account does **not** require a fallback handler by default. Adding or removing a fallback handler requires a Safe transaction approved by the configured owner threshold. Whenever the fallback handler is updated, an event is emitted to ensure transparency and auditability.
+
+## How it works
+
+When a fallback handler is configured, it is invoked whenever a transaction is sent to the Safe and the function selector in the calldata does **not** match any function defined in the Safe singleton contract.
+
+When forwarding a call, the Safe:
+- delegates execution to the configured fallback handler
+- appends the original caller’s address to the calldata
+
+This allows the fallback handler to reliably identify who initiated the call and apply appropriate logic or validation.
+
+![Fallback handler diagram](/assets/diagram-fallback-handler.png)
+
+## Examples
+
+The following fallback handlers demonstrate common patterns and real-world use cases for extending Safe Smart Accounts.
+
+### TokenCallbackHandler
+
+Source code:  
+[TokenCallbackHandler](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/handler/TokenCallbackHandler.sol)
+
+Handles callbacks from supported token standards, enabling Safe accounts to receive tokens safely.
+
+Supported interfaces:
+- `ERC1155TokenReceiver`
+- `ERC777TokensRecipient`
+- `ERC721TokenReceiver`
+
+### CompatibilityFallbackHandler
+
+Source code:  
+[CompatibilityFallbackHandler](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol)
+
+Extends `TokenCallbackHandler` and adds several compatibility and utility features:
+
+- Implements **ERC-1271** via `isValidSignature`, enabling on-chain signature verification
+- Provides a `simulate` function that performs a static `delegatecall` and then reverts, allowing off-chain simulation without state changes
+- Exposes helper functions:
+  - **`getMessageHash`**: Generates a message hash scoped to the calling Safe
+  - **`encodeMessageDataForSafe`**: Encodes messages using the Safe’s domain separator and a predefined type hash
+  - **`getMessageHashForSafe`**: Combines encoding and hashing into a final message hash
+  - **`getModules`**: Returns a paginated list (first 10 entries) of enabled Safe modules
+
+### ExtensibleFallbackHandler
+
+Source code:  
+[ExtensibleFallbackHandler](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/handler/ExtensibleFallbackHandler.sol)
+
+Allows assigning different fallback handlers to specific function selectors, enabling fine-grained control over how unmatched calls are handled.
+
+### Safe4337Module as fallback handler
+
+Source code:  
+[Safe4337Module](https://github.com/safe-global/safe-modules/blob/main/modules/4337/contracts/Safe4337Module.sol)
+
+Implements the `validateUserOp` function defined by **ERC-4337**, enabling Safe Smart Accounts to act as ERC-4337–compatible smart contract wallets.

@@ -32,17 +32,17 @@ See also:
 
 ---
 
-## EIP-1271
+## ERC-1271
 
-[EIP-1271](https://eips.ethereum.org/EIPS/eip-1271) defines a standard interface that allows smart contracts to validate signatures. A contract implementing EIP-1271 exposes an `isValidSignature(hash, signature)` function that returns whether a given signature is valid for that contract.
+[ERC-1271](https://eips.ethereum.org/EIPS/eip-1271) defines a standard interface that allows smart contracts to validate signatures. A contract implementing ERC-1271 exposes an `isValidSignature(hash, signature)` function that returns whether a given signature is valid for that contract.
 
 This enables smart accounts to participate in signature-based authentication flows.
 
 ---
 
-## EIP-712
+## ERC-712
 
-[EIP-712](https://eips.ethereum.org/EIPS/eip-712) specifies a standard for hashing and signing typed structured data, making signed messages more readable and secure compared to raw bytestring signing.
+[ERC-712](https://eips.ethereum.org/EIPS/eip-712) specifies a standard for hashing and signing typed structured data, making signed messages more readable and secure compared to raw bytestring signing.
 
 ---
 
