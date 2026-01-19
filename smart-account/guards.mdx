@@ -1,0 +1,36 @@
+---
+title: "Guards"
+description: "Add programmable pre- and post-execution checks to Safe Smart Accounts to enforce custom transaction restrictions."
+---
+
+<Info>
+  Safe Guards were introduced in
+  [Safe contracts version 1.3.0](https://github.com/safe-global/safe-smart-account/blob/v1.3.0/CHANGELOG.md).
+</Info>
+
+Safe Guards add an additional security layer on top of Safe’s `n`-out-of-`m` multi-signature scheme. They allow Safe owners to define **custom rules** that determine whether a transaction should be allowed to execute.
+
+A Safe Guard can perform checks:
+- **Before execution**, to validate the transaction parameters and context
+- **After execution**, to verify the final state of the Safe once the transaction has completed
+
+Pre-execution checks can inspect all transaction parameters—such as the target address, calldata, value, and operation type—and decide whether the transaction should proceed.  
+Post-execution checks run at the end of the transaction and can be used to assert invariants or detect unexpected state changes.
+
+Guards are commonly used to:
+- restrict interactions to approved contracts
+- enforce protocol-specific invariants
+- add additional safety checks around sensitive operations
+
+To explore real-world examples of Safe Guards, see:
+- [Zodiac Guard implementations](https://github.com/gnosis/zodiac-guard-scope)
+- [Yearn Guard design](https://mirror.xyz/yearn-finance-engineering.eth/9uInM_sCrogPBs5qkFSNF6qe-32-0XLN5bty5wKLVqU)
+
+![Safe Guards diagram](/assets/diagram-safe-guards.png)
+
+<Danger>
+  <strong>Important:</strong> Safe Guards are security-critical. Because a Guard
+  can block transaction execution entirely, a faulty or malicious Guard can
+  cause a denial of service and lock funds in a Safe. Only use well-reviewed and
+  audited Guards, and always consider recovery mechanisms.
+</Danger>
