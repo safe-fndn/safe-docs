@@ -34,7 +34,7 @@ The following fallback handlers demonstrate common patterns and real-world use c
 ### TokenCallbackHandler
 
 Source code:  
-[TokenCallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/TokenCallbackHandler.sol)
+[TokenCallbackHandler](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/handler/TokenCallbackHandler.sol)
 
 Handles callbacks from supported token standards, enabling Safe accounts to receive tokens safely.
 
@@ -46,7 +46,7 @@ Supported interfaces:
 ### CompatibilityFallbackHandler
 
 Source code:  
-[CompatibilityFallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol)
+[CompatibilityFallbackHandler](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/handler/CompatibilityFallbackHandler.sol)
 
 Extends `TokenCallbackHandler` and adds several compatibility and utility features:
 
@@ -61,7 +61,7 @@ Extends `TokenCallbackHandler` and adds several compatibility and utility featur
 ### ExtensibleFallbackHandler
 
 Source code:  
-[ExtensibleFallbackHandler](https://github.com/safe-global/safe-smart-account/blob/main/contracts/handler/ExtensibleFallbackHandler.sol)
+[ExtensibleFallbackHandler](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/handler/ExtensibleFallbackHandler.sol)
 
 Allows assigning different fallback handlers to specific function selectors, enabling fine-grained control over how unmatched calls are handled.
 
