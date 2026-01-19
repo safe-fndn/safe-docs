@@ -18,7 +18,7 @@ Below is a list of publicly available audit reports for Safe Smart Accounts and 
 
 ## Module audits
 
-- [Allowance Module v0.1.0](https://github.com/safe-global/safe-modules/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/AllowanceModuleAuditOct2020.md)
+- [Allowance Module v0.1.0](https://github.com/safe-fndn/safe-modules/s/blob/47e2b486b0b31d97bab7648a3f76de9038c6e67b/allowances/AllowanceModuleAuditOct2020.md)
 
 ## Bug bounty
 
