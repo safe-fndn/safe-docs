@@ -22,6 +22,34 @@
             ]
           },
           {
+            "group": "ERC-4337",
+            "pages": [
+              "features/erc-4337/overview",
+              "features/erc-4337/4337-safe"
+            ]
+          },
+          {
+            "group": "ERC-7579",
+            "pages": [
+              "features/erc-7579/overview",
+              "features/erc-7579/7579-safe"
+            ]
+          },
+          {
+            "group": "EIP-7702",
+            "pages": [
+              "features/eip-7702/overview",
+              "features/eip-7702/7702-safe"
+            ]
+          },
+          {
+            "group": "Passkeys",
+            "pages": [
+              "features/passkeys/overview",
+              "features/passkeys/passkeys-safe"
+            ]
+          },
+          {
             "group": "More",
             "pages": [
               "more/glossary"
