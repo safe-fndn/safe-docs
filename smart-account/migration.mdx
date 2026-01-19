@@ -1,52 +1,54 @@
 ---
 title: "Migration"
-description: "Safe Smart Account Migration"
+description: "Safely upgrade an existing Safe Smart Account proxy to a newer Singleton implementation."
 ---
 
-As the Smart Account ecosystem and standards evolve, Safe Team releases new versions of the Singleton contract as and when required.
-The **SafeProxy** contract (aka. Safe Smart Account) stores the address of the Singleton contract at storage `slot(0)`.  The existing SafeProxy contracts can be migrated to the new Singleton contract, but the Safe Smart Account owners must take special steps.
-The guide below provides a step-by-step process for migrating the SafeProxy contract to the new Singleton contract using `delegatecall`.
+As the smart account ecosystem evolves, Safe periodically releases new versions of the **Safe Singleton** contract. Each Safe Smart Account is implemented as a **SafeProxy**, which delegates all logic to a Singleton contract whose address is stored in storage slot `0`.
+
+Existing SafeProxy contracts can be upgraded to point to a newer Singleton implementation. This process preserves the Safe’s address, owners, and configuration, but requires an explicit migration transaction approved by the Safe owners. The migration is performed via `delegatecall` and must be executed with care.
+
+This guide walks through a step-by-step example of migrating an existing SafeProxy to a newer Singleton using the **SafeMigration** contract and the Safe Protocol Kit.
 
 <Warning>
-Only migrate to the trusted and audited contracts. A malicious implementation contract can take over the SafeProxy contract, causing loss of access to the account and potentially losing all funds.
-Also, verify the compatibility of the new Singleton contract with the existing SafeProxy contract.
+Only migrate to trusted and audited Singleton implementations. A malicious or incompatible implementation can take control of the SafeProxy, resulting in permanent loss of access and funds. Always verify compatibility between the existing SafeProxy and the target Singleton version before migrating.
 </Warning>
 
-## Migration Process
+## Migration process
 
-Finding the address of the new Singleton contract is the first step in the migration process. Safe maintains [SafeMigration](https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol) contract to update the Singleton contract address in the `SafeProxy` contract.
+The first step in any migration is identifying the address of the target Singleton contract. Safe provides the **SafeMigration** contract, which updates the Singleton address stored in a SafeProxy.
 
-The officially deployed `SafeMigration` contract addresses can be found in the [Safe Deployments repository](https://github.com/safe-global/safe-deployments).
+- SafeMigration source:  
+  https://github.com/safe-fndn/safe-smart-account/blob/main/contracts/libraries/SafeMigration.sol
+- Official SafeMigration deployments are listed in the  
+  [Safe Deployments repository](https://github.com/safe-global/safe-deployments)
 
 ## SafeMigration contract methods
 
-Currently available [SafeMigration](https://github.com/safe-global/safe-deployments/blob/main/src/assets/v1.4.1/safe_migration.json) contract supports upgrading to the Safe Singleton contract version 1.4.1.
-
-The contract provides the below functions to migrate the SafeProxy contract to the new Singleton contract.
+The currently available SafeMigration contract supports upgrades to **Safe Singleton v1.4.1**.
 
 ### `migrateSingleton()`
 
-    This function updates the Safe's Singleton address to the new Singleton implementation.
+Updates the SafeProxy to point to the new L1 Singleton implementation.
 
 ### `migrateWithFallbackHandler()`
 
-    This function updates the Safe's Singleton address and the fallback handler to the new implementations.
+Updates both the Singleton implementation and the fallback handler.
 
 ### `migrateL2Singleton()`
 
-    This function updates the Safe's Singleton to the Singleton L2 address.
+Updates the SafeProxy to point to the L2 Singleton implementation.
 
 ### `migrateL2WithFallbackHandler()`
 
-    This function updates the Safe's Singleton address (to Singleton L2) and the fallback handler to the new implementations.
-
-The tutorial below provides a step-by-step guide for migrating an existing SafeProxy contract to the Singleton v1.4.1 using the Safe Protocol Kit.
+Updates the L2 Singleton implementation and the fallback handler.
 
 ## Requirements
 
-- A deployed SafeProxy contract.
-- The SafeProxy contract should be compatible with the Singleton contract v1.4.1.
-- This example assumes that the threshold of the Safe Smart Account is one.
+- An already deployed SafeProxy contract
+- Compatibility between the existing SafeProxy and Singleton v1.4.1
+- For simplicity, this example assumes a Safe with a **threshold of 1**
+
+## Migration tutorial
 
 <Steps>
 
