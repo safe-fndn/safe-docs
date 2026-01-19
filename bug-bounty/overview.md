@@ -1,5 +1,5 @@
 ---
-title: "Bug Bounty"
+title: "Overview"
 description: "Report smart contract vulnerabilities in Safe Smart Accounts and earn rewards of up to $1,000,000 through responsible disclosure."
 ---
 
