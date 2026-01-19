@@ -41,7 +41,7 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 `r`, `s` and `v`are the required parts of the ECDSA signature to recover the signer. `v` will be subtracted by `4` to calculate the signature.
 
-#### Contract signature (EIP-1271)
+#### Contract signature (ERC-1271)
 
 `signature type == 0`
 
@@ -49,7 +49,7 @@ To be able to use `eth_sign` we need to take the parameters `r`, `s` and `v` fro
 
 `{32-bytes signature verifier}{32-bytes data position}{1-byte signature type}`
 
-**Signature verifier** - Padded address of the contract that implements the EIP-1271 interface to verify the signature
+**Signature verifier** - Padded address of the contract that implements the ERC-1271 interface to verify the signature
 
 **Data position** - Position of the start of the signature data (offset relative to the beginning of the signature data)
 
@@ -84,7 +84,7 @@ We assume that the following addresses generate the following signatures:
 {/* <!-- vale off --> */}
 
 1. `0x3` (EOA address) -> `bde0b9f486b1960454e326375d0b1680243e031fd4fb3f070d9a3ef9871ccfd5` (r) + `7d1a653cffb6321f889169f08e548684e005f2b0c3a6c06fba4c4a68f5e00624` (s) + `1c` (v)
-2. `0x1` (EIP-1271 validator contract address) -> `0000000000000000000000000000000000000000000000000000000000000001` (address) + `00000000000000000000000000000000000000000000000000000000000000c3` (dynamic position) + `00` (signature type)
+2. `0x1` (ERC-1271 validator contract address) -> `0000000000000000000000000000000000000000000000000000000000000001` (address) + `00000000000000000000000000000000000000000000000000000000000000c3` (dynamic position) + `00` (signature type)
    * The contract takes the following `bytes` (dynamic part) for verification `00000000000000000000000000000000000000000000000000000000deadbeef`
 3. `0x2` (Validator address) -> `0000000000000000000000000000000000000000000000000000000000000002` (address) +`0000000000000000000000000000000000000000000000000000000000000000` (padding - not used) + `01` (signature type)
 
