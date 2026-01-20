@@ -4,7 +4,7 @@ description: "Report smart contract vulnerabilities in Safe Smart Accounts and e
 ---
 
 <Note>
-This bug bounty program **applies only to smart contract–related vulnerabilities**.  For issues related to [Safe Wallet](https://app.safe.global), please contact [wallet-reports@safe.global](mailto:wallet-reports@safe.global).
+This bug bounty program **applies only to smart contract–related vulnerabilities**.  For issues related to [Safe{Wallet}](https://app.safe.global), please contact [wallet-reports@safe.global](mailto:wallet-reports@safe.global).
 </Note>
 
 The Safe Bug Bounty program rewards security researchers who help identify vulnerabilities in Safe Smart Accounts and officially supported modules. Rewards can reach **up to $1,000,000**, depending on severity and impact.
@@ -152,11 +152,11 @@ Questions? Contact us at [bounty@safefoundation.org](mailto:bounty@safefoundatio
 
 _Happy hunting!_
 
-## Note on Safe Wallet
+## Note on Safe{Wallet}
 
-Issues related to **Safe Wallet** (web, mobile, or backend services) are generally **out of scope**.
+Issues related to **Safe{Wallet}** (web, mobile, or backend services) are generally **out of scope**.
 
-For non-security bugs, open an issue in the relevant repository, such as [safe-wallet-web](https://github.com/safe-global/safe-wallet-web/issues).
+For non-security bugs, open an issue in the relevant repository, such as [safe-wallet-monorepo](https://github.com/safe-global/safe-wallet-monorepo/issues).
 
-For **severe security issues** affecting Safe Wallet, contact [wallet-reports@safe.global](mailto:wallet-reports@safe.global).  
-Any rewards for Safe Wallet issues are granted at the sole discretion of the Safe Wallet team.
+For **severe security issues** affecting Safe{Wallet}, contact [wallet-reports@safe.global](mailto:wallet-reports@safe.global).  
+Any rewards for Safe{Wallet} issues are granted at the sole discretion of the team maintaining Safe{Wallet}.
