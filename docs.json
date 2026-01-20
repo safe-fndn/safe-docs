@@ -2,6 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Safe Docs",
+  "ai": "default",
   "colors": {
     "primary": "#00B460",
     "light": "#12ff80",
@@ -112,7 +113,8 @@
     "socials": {
       "x": "https://x.com/safefndn",
       "github": "https://github.com/safe-fndn",
-      "linkedin": "https://www.linkedin.com/company/safe-ecosystem-foundation"
+      "linkedin": "https://www.linkedin.com/company/safe-ecosystem-foundation",
+      "website": "https://safefoundation.org/"
     }
   }
 }
