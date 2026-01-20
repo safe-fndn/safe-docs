@@ -160,23 +160,23 @@ See also:
 
 ---
 
-## Safe{DAO}
+## Safe\{DAO\}
 
-Safe{DAO} is a decentralized autonomous organization that governs and supports the Safe ecosystem through grants, governance, and ecosystem investments.
+Safe\{DAO\} is a decentralized autonomous organization that governs and supports the Safe ecosystem through grants, governance, and ecosystem investments.
 
 See also:
-- [Safe{DAO} Forum](https://forum.safe.global)
+- [Safe\{DAO\} Forum](https://forum.safe.global)
 - [Governance process](https://forum.safe.global/t/how-to-safedao-governance-process/846)
 - [Proposals on Snapshot](https://snapshot.org/#/safe.eth)
 
 ---
 
-## Safe{Wallet}
+## Safe\{Wallet\}
 
-[Safe{Wallet}](https://app.safe.global) is the official interface for creating and managing Safe accounts.
+[Safe\{Wallet\}](https://app.safe.global) is the official interface for creating and managing Safe accounts.
 
 See also:
-- [Getting started with Safe{Wallet}](https://help.safe.global/en/collections/9801-getting-started)
+- [Getting started with Safe\{Wallet\}](https://help.safe.global/en/collections/9801-getting-started)
 
 ---
 
