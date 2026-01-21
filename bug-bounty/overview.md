@@ -42,9 +42,9 @@ The bug bounty covers core Safe contracts and selected officially supported modu
 
 ### Supported Safe Modules
 
-- [Safe 4337 Module v0.3.0](https://github.com/safe-global/safe-modules/tree/4337/v0.3.0/modules/4337)
-- [Safe Passkey Module v0.2.1](https://github.com/safe-global/safe-modules/tree/passkey/v0.2.1/modules/passkey)
-- [Social Recovery Module v0.1.0](https://github.com/safe-global/safe-modules/tree/recovery/v0.1.0/modules/recovery)
+- [Safe 4337 Module v0.3.0](https://github.com/safe-fndn/safe-modules/tree/4337/v0.3.0/modules/4337)
+- [Safe Passkey Module v0.2.1](https://github.com/safe-fndn/safe-modules/tree/passkey/v0.2.1/modules/passkey)
+- [Social Recovery Module v0.1.0](https://github.com/safe-fndn/safe-modules/tree/recovery/v0.1.0/modules/recovery)
 
 ### In scope contracts
 
