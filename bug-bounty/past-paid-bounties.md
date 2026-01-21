@@ -1,5 +1,5 @@
 ---
-title: "Past paid bounties"
+title: "Bug Reports"
 description: "This list includes valid submissions from past and current contract versions for which a bounty has been paid."
 ---
 
@@ -27,7 +27,7 @@ This bug was submitted by [David Nicholas](https://x.com/davidnich11). It was re
 
 The contracts allow to set a Safe as an owner of itself. This has the same effect as lowering the threshold by 1, as it's possible for anyone to generate a valid signature for the Safe itself when triggering `execTransaction`. This is especially an issue for Safes with a threshold of 1. Anyone can execute transactions if a Safe with threshold 1 adds itself as an owner.
 
-To our knowledge, there is no actual use case where it would make sense to set a Safe as an owner of itself. Hence, only a few number of Safes used themselves as owners. Most of these Safes could be contacted, and the Safe has been removed as an owner. The Safes still affected are Safes used for testing by us or Safes owned by a single owner with a threshold > 1 (so no immediate risk).
+To our knowledge, there is no actual use case where it would make sense to set a Safe as an owner of itself. Hence, only a few number of Safes used themselves as owners. Most of these Safes could be contacted, and the Safe has been removed as an owner. The Safes still affected are Safes used for testing by us or Safes owned by a single owner with a threshold \> 1 (so no immediate risk).
 
 To fix this, the next contract update will prevent the Safe as its owner via `require(owner != address(this), "Safe can't be an owner")`. This check can be performed when adding owners and/or when checking signatures.
 

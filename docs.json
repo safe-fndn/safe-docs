@@ -15,33 +15,43 @@
     }
   },
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://safefoundation.org/blog"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Safe Smart Account",
         "groups": [
           {
             "group": "Smart Account",
+            "icon": "user-large",
             "pages": [
               "smart-account/overview",
               "smart-account/concepts",
               "smart-account/modules",
               "smart-account/guards",
               "smart-account/fallback-handler",
-              "smart-account/migration",
-              "smart-account/signatures",
-              "smart-account/multi-chain",
+              "smart-account/signatures"
+            ]
+          },
+          {
+            "group": "Security",
+            "icon": "lock",
+            "pages": [
+              "security/bug-bounty",
+              "bug-bounty/past-paid-bounties",
               "smart-account/audits"
             ]
           },
           {
-            "group": "Bug Bounty",
-            "pages": [
-              "bug-bounty/overview",
-              "bug-bounty/past-paid-bounties"
-            ]
-          },
-          {
             "group": "Features",
+            "icon": "star-sharp",
             "pages": [
               {
                 "group": "ERC-4337",
@@ -74,12 +84,14 @@
                   "features/passkeys/overview",
                   "features/passkeys/passkeys-safe"
                 ]
-              }
+              },
+              "smart-account/multi-chain"
             ]
           },
           {
             "group": "More",
             "pages": [
+              "smart-account/migration",
               "more/glossary"
             ]
           }
@@ -134,16 +146,7 @@
           "safenet/roadmap"
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Blog",
-          "href": "https://safefoundation.org/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",

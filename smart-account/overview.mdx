@@ -14,16 +14,18 @@ Anyone with access to this private key has **full control** over the account. As
 The second type of Ethereum account is the [Smart Account](/more/glossary#smart-account), also referred to as a smart contract account.
 
 Like EOAs, smart accounts:
+
 - have a unique Ethereum address
 - can receive funds
 - can interact with other contracts
 
 From the outside, smart accounts are indistinguishable from EOAs based on their address alone.
 
-The key difference is **how transactions are authorized**.  
+The key difference is **how transactions are authorized**.\
 Smart accounts do not rely on a single private key. Instead, **on-chain smart contract logic** defines who can execute transactions, under which conditions, and how they are validated.
 
 Because this logic is programmable, smart accounts can support advanced features such as:
+
 - multi-signature authorization
 - fine-grained access control
 - transaction batching
@@ -51,6 +53,7 @@ Safe uses a multi-signature model where a configurable threshold of owners must 
 #### Maximum flexibility
 
 Safe supports:
+
 - **Modules**, which enable alternative execution patterns beyond multi-signature
 - **`delegatecall`**, allowing Safe to execute logic defined in external contracts
 
@@ -61,10 +64,12 @@ This design enables advanced workflows while keeping the core contract minimal a
 ### High security
 
 Safe’s **multi-signature** functionality allows you to define:
+
 - a list of owner accounts
 - a threshold number of approvals required to execute a transaction
 
 Owners can be:
+
 - EOAs
 - other smart accounts
 - passkeys or other authentication mechanisms
@@ -82,6 +87,7 @@ A common example is **batched transactions**, where multiple Ethereum transactio
 Safe can be extended using **Safe Modules**, which enable fine-grained access control.
 
 Examples include:
+
 - **Recovery modules** that restore access under predefined conditions
 - **Allowance modules** that grant limited execution rights, such as daily spending limits for external accounts
 
@@ -89,8 +95,9 @@ Modules are optional and can be added or removed through owner confirmations.
 
 ### Token callback support
 
-Many token standards require wallet contracts to implement callbacks.  
+Many token standards require wallet contracts to implement callbacks.\
 Safe supports token callbacks for standards such as:
+
 - **ERC-721**
 - **ERC-1155**
 
@@ -99,6 +106,7 @@ This allows Safe to react to incoming token transfers and, if necessary, reject 
 ### Sponsored and token-paid transactions
 
 Normally, Ethereum transactions require ETH to pay gas fees. Safe enables alternative payment models, including:
+
 - paying gas fees with supported ERC-20 tokens
 - fully gasless transactions where a third party sponsors the fees
 
@@ -115,11 +123,13 @@ The **Safe Singleton Factory** deploys Safe-related contracts and enables determ
 This allows Safe Smart Accounts and their proxies to be deployed at the same address on multiple chains.
 
 See also:
+
 - [Safe Singleton Factory repository](https://github.com/safe-fndn/safe-singleton-factory)
 
 ### Safe Proxy Factory
 
 The **Safe Proxy Factory** provides a convenient way to:
+
 - deploy a Safe proxy
 - point it to a Safe singleton
 - execute the initial setup
@@ -129,6 +139,7 @@ All of this happens within a single transaction.
 ### Safe (Singleton)
 
 The **Safe** contract is a singleton that contains the core logic for:
+
 - signature verification
 - transaction execution
 - owner management
@@ -139,6 +150,7 @@ The **Safe** contract is a singleton that contains the core logic for:
 The Safe singleton is **not used directly**. Instead, Safe accounts interact with it via proxy contracts using `delegatecall`.
 
 There are two variants:
+
 - **Safe** (mainnet and compatible chains)
 - **SafeL2**, which emits additional events for L2 chains that do not support tracing
 
@@ -151,6 +163,7 @@ The diagram below shows the main components of the Safe contract:
 ### Owner Management
 
 Safe supports multiple owners per account. The `OwnerManager.sol` contract enables:
+
 - adding, removing, and replacing owners
 - changing the approval threshold
 - retrieving the current owner list
@@ -162,12 +175,14 @@ Events are emitted whenever owners or thresholds are updated.
 Modules extend Safe functionality while keeping the core contract minimal.
 
 They can, for example:
+
 - allow transaction execution without collecting all signatures
 - enable alternative authorization schemes
 
 Adding or removing a module requires confirmation from the owner threshold. Because modules can bypass standard authorization logic, they are **security-critical** and must be carefully audited.
 
 Examples:
+
 - [Allowance Module](https://github.com/safe-fndn/safe-modules/s/tree/main/modules/allowances)
 - [Recovery Module](https://github.com/safe-fndn/safe-modules/s/tree/main/modules/recovery)
 - [ERC-4337 Module](https://github.com/safe-fndn/safe-modules/s/tree/main/modules/4337)
@@ -182,6 +197,7 @@ The Executor component contains the logic for executing `call` and `delegatecall
 Fallback functions are executed when a function selector does not match any defined function.
 
 Because EVM contracts are limited to 24 KB in size, Safe uses a **Fallback Manager** to:
+
 - delegate fallback logic to a separate contract
 - extend functionality without increasing the core contract size
 
