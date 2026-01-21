@@ -11,7 +11,7 @@
   "favicon": "/favicon.svg",
   "integrations": {
     "plausible": {
-      "domain": "docs.safefoundation.org"
+      "domain": "safefoundation.org"
     }
   },
   "navigation": {
