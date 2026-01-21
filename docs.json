@@ -120,6 +120,30 @@
       "github": "https://github.com/safe-fndn",
       "linkedin": "https://www.linkedin.com/company/safe-ecosystem-foundation",
       "website": "https://safefoundation.org/"
-    }
-  }
+    },
+    "links": [
+      {
+        "header": "Legal",
+        "items": [
+          {
+            "label": "Terms",
+            "href": "https://safefoundation.org/terms"
+          },
+          {
+            "label": "Privacy",
+            "href": "https://safefoundation.org/privacy"
+          },
+          {
+            "label": "Imprint",
+            "href": "https://safefoundation.org/disclaimer"
+          },
+          {
+            "label": "Disclaimer",
+            "href": "https://safefoundation.org/disclaimer"
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Technical documentation for building with Safe."
 }
