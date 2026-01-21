@@ -9,6 +9,11 @@
     "dark": "#00B460"
   },
   "favicon": "/favicon.svg",
+  "integrations": {
+    "plausible": {
+      "domain": "docs.safefoundation.org"
+    }
+  },
   "navigation": {
     "tabs": [
       {
