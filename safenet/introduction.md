@@ -52,22 +52,22 @@ Safenet’s core differentiators are:
 ### Wallet operators
 Integrate Safenet to protect users from malicious transactions without relying on centralized infrastructure.
 
-→ See: [Integration → Wallets](/docs/integration/wallets)
+→ See: [Integration → Wallets](/safenet/integration/wallets)
 
 ### Node operators / validators
 Participate in transaction validation and enforcement by running a Safenet validator.
 
-→ See: [Operators → Validator overview](/docs/operators/overview)
+→ See: [Operators → Validator overview](/safenet/operators/overview)
 
 ### Stakers and delegators
 Delegate stake to validators and earn rewards for securing the network.
 
-→ See: [Protocol → Staking](/docs/protocol/staking)
+→ See: [Protocol → Staking](/safenet/protocol/staking)
 
 ### Transaction checkers and security firms
 Provide detection logic and risk signals that can be enforced onchain via Safenet.
 
-→ See: [Integration → Transaction checkers](/docs/integration/tx_checkers)
+→ See: [Integration → Transaction checkers](/safenet/integration/tx_checkers)
 
 ## Scope, limitations, and outlook
 
@@ -82,4 +82,4 @@ This is a deliberate starting point. Transaction security is complex, and Safene
 
 As a next step, onchain enforcement will be enabled including more advanced security checks, and transaction checker competition.
 
-→ See: [Roadmap](/docs/roadmap)
+→ See: [Roadmap](/safenet/roadmap)
