@@ -86,6 +86,7 @@
         ]
       }, {
         "tab": "Safenet",
+        "hidden": true,
         "pages": [
           "safenet/introduction",
           "safenet/use-cases",
