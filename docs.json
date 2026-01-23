@@ -84,6 +84,54 @@
             ]
           }
         ]
+      }, {
+        "tab": "Safenet",
+        "pages": [
+          "safenet/intoduction",
+          "safenet/use-cases",
+          "safenet/explorer",
+          {
+            "group": "Protocol",
+            "pages": [
+              "safenet/protocol/overview",
+              "safenet/protocol/validators",
+              "safenet/protocol/consensus",
+              "safenet/protocol/staking",
+              "safenet/protocol/rewards"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "safenet/security/threat-model",
+              "safenet/security/audits"
+            ]
+          },
+          {
+            "group": "Operators",
+            "pages": [
+              "safenet/operators/overview",
+              "safenet/operators/config",
+              "safenet/operators/monitoring",
+              "safenet/operators/troubleshooting"
+            ]
+          },
+          {
+            "group": "Integration",
+            "pages": [
+              "safenet/integration/wallet",
+              "safenet/integration/tx-checkers"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "safenet/references/glossary",
+              "safenet/references/faq"
+            ]
+          },
+          "safenet/roadmap"
+        ]
       }
     ],
     "global": {
