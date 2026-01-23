@@ -1,4 +1,7 @@
-# Overview
+---
+title: Overview
+description: 
+---
 
 - Who are permissioned validators.
 - Hardware, network, and operational expectations.

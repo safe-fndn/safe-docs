@@ -1,4 +1,7 @@
-# Use cases
+---
+title: Use cases
+description: How can Safenet be utilized to improve security?
+---
 
 TODO
 

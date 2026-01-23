@@ -1,4 +1,7 @@
-# Glossary
+---
+title: Glossary
+description: "Definitions of terms and concepts used throughout the Safenet documentation."
+---
 
 TODO
 

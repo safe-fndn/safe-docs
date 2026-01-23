@@ -1,4 +1,7 @@
-# FAQ
+---
+title: FAQ
+description: Frequently asked questions and answers related to Safenet.
+---
 
 TODO
 

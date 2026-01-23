@@ -111,7 +111,7 @@
             "group": "Operators",
             "pages": [
               "safenet/operators/overview",
-              "safenet/operators/config",
+              "safenet/operators/configuration",
               "safenet/operators/monitoring",
               "safenet/operators/troubleshooting"
             ]
