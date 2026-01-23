@@ -67,7 +67,7 @@ Delegate stake to validators and earn rewards for securing the network.
 ### Transaction checkers and security firms
 Provide detection logic and risk signals that can be enforced onchain via Safenet.
 
-→ See: [Integration → Transaction checkers](/safenet/integration/tx_checkers)
+→ See: [Integration → Transaction checkers](/safenet/integration/tx-checkers)
 
 ## Scope, limitations, and outlook
 
