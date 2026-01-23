@@ -119,7 +119,7 @@
           {
             "group": "Integration",
             "pages": [
-              "safenet/integration/wallet",
+              "safenet/integration/wallets",
               "safenet/integration/tx-checkers"
             ]
           },
