@@ -12,12 +12,12 @@ The Safe Bug Bounty program rewards security researchers who help identify vulne
 Before submitting, please carefully review the rules and scope below. To report a vulnerability, contact us at
 [bounty@safefoundation.org](mailto:bounty@safefoundation.org).
 
-You can also review [past paid bounties](/bug-bounty/past-paid-bounties).
+You can also review [past bounties](/security/past-bounties).
 
 ## Audits
 
 Safe smart contracts are regularly reviewed by independent security experts.
-For details, see the [Audits](/smart-account/audits) page.
+For details, see the [Audits](/security/audits) page.
 
 ## Rules
 

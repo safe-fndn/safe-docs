@@ -24,4 +24,4 @@ Below is a list of publicly available audit reports for Safe Smart Accounts and 
 
 If you discover a security issue, please report it responsibly.
 
-Contact us via email at [bounty@safefoundation.org](mailto:bounty@safefoundation.org) or learn more about our [bug bounty program](/bug-bounty/overview).
+Contact us via email at [bounty@safefoundation.org](mailto:bounty@safefoundation.org) or learn more about our [bug bounty program](/security/bug-bounty).
