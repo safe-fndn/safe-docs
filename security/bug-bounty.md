@@ -9,14 +9,14 @@ description: "Report smart contract vulnerabilities in Safe Smart Accounts and e
 
 The Safe Bug Bounty program rewards security researchers who help identify vulnerabilities in Safe Smart Accounts and officially supported modules. Rewards can reach **up to \$1,000,000**, depending on severity and impact.
 
-Before submitting, please carefully review the rules and scope below. To report a vulnerability, contact us at\
+Before submitting, please carefully review the rules and scope below. To report a vulnerability, contact us at
 [bounty@safefoundation.org](mailto:bounty@safefoundation.org).
 
 You can also review [past paid bounties](/bug-bounty/past-paid-bounties).
 
 ## Audits
 
-Safe smart contracts are regularly reviewed by independent security experts.\
+Safe smart contracts are regularly reviewed by independent security experts.
 For details, see the [Audits](/smart-account/audits) page.
 
 ## Rules
