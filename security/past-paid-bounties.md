@@ -1,5 +1,5 @@
 ---
-title: "Bug Reports"
+title: "Past bounties"
 description: "This list includes valid submissions from past and current contract versions for which a bounty has been paid."
 ---
 

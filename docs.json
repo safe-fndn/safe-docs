@@ -37,16 +37,17 @@
               "smart-account/modules",
               "smart-account/guards",
               "smart-account/fallback-handler",
-              "smart-account/signatures"
+              "smart-account/signatures",
+              "smart-account/migration"
             ]
           },
           {
             "group": "Security",
             "icon": "lock",
             "pages": [
+              "security/audits",
               "security/bug-bounty",
-              "bug-bounty/past-paid-bounties",
-              "smart-account/audits"
+              "security/past-paid-bounties"
             ]
           },
           {
@@ -91,12 +92,12 @@
           {
             "group": "More",
             "pages": [
-              "smart-account/migration",
               "more/glossary"
             ]
           }
         ]
-      }, {
+      },
+      {
         "tab": "Safenet",
         "hidden": true,
         "pages": [
