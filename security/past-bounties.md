@@ -53,6 +53,6 @@ This bug was submitted by [Adam Egyed](https://github.com/adamegyed). It was reg
 
 ## Transfer replay in Allowance Module
 
-A bug in the allowance module would overflow the `nonce` for a delegate and allow past executed transfers for that particular delegate and token to be replayed. This would allow previously signed transfers to be executed again, as the nonce would start counting again from 0. Note that this only affects delegates that have executed 65536 transfers for a specific token allowance, noting that they must also execute a transfer for a 0-nonce transfer. This does not seem to affect any active accounts at the time of writing.
+A bug in the allowance module would overflow the `nonce` for a delegate and allow past executed transfers for that particular delegate and token to be replayed. This would allow previously signed transfers to be executed again, as the nonce would start counting again from 0. Note that this only affects delegates that have executed 65536 transfers for a specific token allowance, including a transfer with nonce 0. This does not seem to affect any active accounts at the time of writing.
 
-It was regarded as a "Medium Threat," and a bounty of 30,000 USD has been paid out.
+This bug was submitted by [Max Knyazev](https://x.com/mattakuro10). It was regarded as a "Medium Threat," and a bounty of 30,000 USD has been paid out.
