@@ -3,8 +3,6 @@ title: FROST Coordinator
 description: 
 ---
 
-# FROST Coordinator Contract
-
 ## Overview
 
 The `FROSTCoordinator` contract orchestrates **distributed key generation (DKG)** and **threshold signing ceremonies** for FROST groups. It is the cryptographic heart of Safenet, enabling validators to collectively generate and use shared signing keys without any single party knowing the complete private key.

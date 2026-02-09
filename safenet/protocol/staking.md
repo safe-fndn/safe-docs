@@ -3,8 +3,6 @@ title: Staking
 description: 
 ---
 
-# Staking Contract
-
 ## Overview
 
 The `Staking` contract manages SAFE token deposits tied to validator addresses. It serves as the **economic security layer** for Safenet, ensuring validators have skin in the game.

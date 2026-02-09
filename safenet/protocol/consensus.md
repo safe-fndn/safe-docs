@@ -3,8 +3,6 @@ title: Consensus
 description: 
 ---
 
-# Consensus Contract
-
 ## Overview
 
 The `Consensus` contract manages the **protocol state machine** for Safenet. It tracks validator set epochs, coordinates transaction proposals, and records attestations from the validator network.
