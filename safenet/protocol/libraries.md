@@ -90,7 +90,7 @@ bytes32 DOMAIN_TYPEHASH
 // keccak256("EpochRollover(uint64 activeEpoch,uint64 proposedEpoch,uint64 rolloverBlock,uint256 groupKeyX,uint256 groupKeyY)")
 bytes32 EPOCH_ROLLOVER_TYPEHASH
 
-// keccak256("TransactionProposal(uint64 epoch,MetaTransaction transaction)MetaTransaction(...)")
+// keccak256("TransactionProposal(uint64 epoch,bytes32 safeTxHash)")
 bytes32 TRANSACTION_PROPOSAL_TYPEHASH
 ```
 
