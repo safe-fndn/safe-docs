@@ -113,8 +113,7 @@
               "safenet/protocol/consensus",
               "safenet/protocol/staking",
               "safenet/protocol/libraries",
-              "safenet/protocol/rewards",
-              "safenet/protocol/glossary"
+              "safenet/protocol/rewards"
             ]
           },
           {
