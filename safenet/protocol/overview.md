@@ -9,7 +9,7 @@ This documentation covers the onchain smart contract infrastructure that powers 
 
 ## Core Contracts
 
-### 1. [Staking Contract](./staking.md)
+### 1. [Staking Contract](/safenet/protocol/staking)
 **Purpose**: Manages validator registration and SAFE token staking.
 
 | Aspect | Description |
@@ -24,7 +24,7 @@ This documentation covers the onchain smart contract infrastructure that powers 
 - Initiate and claim withdrawals
 - Register/deregister validators (owner)
 
-### 2. [FROST Coordinator Contract](./frost-coordinator.md)
+### 2. [FROST Coordinator Contract](/safenet/protocol/frost-coordinator)
 **Purpose**: Orchestrates distributed key generation (DKG) and threshold signing ceremonies.
 
 | Aspect | Description |
@@ -39,7 +39,7 @@ This documentation covers the onchain smart contract infrastructure that powers 
 - Nonce preprocessing
 - Signature share collection and aggregation
 
-### 3. [Consensus Contract](./consensus.md)
+### 3. [Consensus Contract](/safenet/protocol/consensus)
 **Purpose**: Manages validator epochs and transaction attestations.
 
 | Aspect | Description |

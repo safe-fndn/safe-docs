@@ -53,7 +53,7 @@ The library implements RFC-9591 hash functions:
 |----------|-------|-------------|
 | `B` | 7 | Curve coefficient (y² = x³ + 7) |
 | `P` | 2²⁵⁶ - 2³² - 977 | Field prime |
-| `N` | 0xffffffffffff...0364141 | Group order |
+| `N` | 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141 | Group order |
 
 #### Key Functions
 
