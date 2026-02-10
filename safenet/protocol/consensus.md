@@ -1,11 +1,7 @@
 ---
 title: Consensus
-description: 
+description: The [Consensus contract](https://github.com/safe-research/shieldnet/blob/main/contracts/src/Consensus.sol) is a communication channel with the protocol. It tracks validator set epochs, coordinates transaction proposals, and records attestations from the validator network.
 ---
-
-## Overview
-
-The `Consensus` contract manages the **protocol state machine** for Safenet. It tracks validator set epochs, coordinates transaction proposals, and records attestations from the validator network.
 
 ### Purpose
 
@@ -18,10 +14,10 @@ The `Consensus` contract manages the **protocol state machine** for Safenet. It 
 
 ### Key Characteristics
 
-- **Lazy Rollover**: Epoch transitions happen automatically when triggered
-- **EIP-712 Messages**: All signed messages follow EIP-712 structured data standard
-- **Callback Integration**: Receives completion notifications from FROSTCoordinator
-- **History Preservation**: Maintains previous epoch for recent attestation lookups
+- Optimized for use with a block explorer (so no reliance on a single client, and additional Safenet clients should be thin and easy to implement).
+- Attestation over Safe transactions directly; so you can copy-paste your Safe tx hash to get an indication on whether or not a transaction is verified
+- Cryptographic attestations, that can be cost-effectively verified on any EVM-chain
+- Onchain and publicly auditable
 
 ---
 
@@ -72,10 +68,10 @@ stateDiagram-v2
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `previous` | `uint64` | Last active epoch (for history) |
+| `previous` | `uint64` | Last active epoch (to facilitate the lookup of recently attested transactions) |
 | `active` | `uint64` | Currently active epoch |
 | `staged` | `uint64` | Next epoch (0 if none staged) |
-| `rolloverBlock` | `uint64` | Block when staged becomes active |
+| `rolloverBlock` | `uint64` | Block when staged becomes active (0 if no rollover is scheduled) |
 
 ### Rollover Process
 
@@ -84,225 +80,6 @@ stateDiagram-v2
 3. **Rollover**: Automatic when `block.number >= rolloverBlock`
 
 **Lazy Execution**: Rollover happens automatically on the next state-changing call after `rolloverBlock` is reached.
-
----
-
-## Transaction Attestation Flow
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Consensus
-    participant FROSTCoordinator
-    participant Validators
-    
-    User->>Consensus: proposeTransaction(tx)
-    Consensus->>Consensus: Create EIP-712 message
-    Consensus-->>User: Emit TransactionProposed
-    Consensus->>FROSTCoordinator: sign(groupId, message)
-    
-    Note over Validators: Off-chain coordination
-    Validators->>FROSTCoordinator: signRevealNonces()
-    Validators->>FROSTCoordinator: signShareWithCallback()
-    
-    FROSTCoordinator->>Consensus: onSignCompleted(sid, context)
-    Consensus->>Consensus: attestTransaction()
-    Consensus->>FROSTCoordinator: signatureVerify()
-    Consensus-->>User: Emit TransactionAttested
-```
-
----
-
-## Data Structures
-
-### Structs
-
-#### `Epochs`
-Tracks validator set epoch state.
-
-```solidity
-struct Epochs {
-    uint64 previous;      // Previously active epoch
-    uint64 active;        // Currently active epoch
-    uint64 staged;        // Next epoch (0 if none)
-    uint64 rolloverBlock; // When staged becomes active
-}
-```
-
-**Invariants**:
-- `staged == 0` implies no rollover pending
-- `rolloverBlock > 0` only when `staged > 0`
-- `previous < active` (always)
-- `active < staged` (when staged)
-
----
-
-## Storage Variables
-
-| Variable | Type | Visibility | Description |
-|----------|------|------------|-------------|
-| `_COORDINATOR` | `FROSTCoordinator` | immutable | FROST coordinator contract |
-| `$epochs` | `Epochs` | private | Current epoch state |
-| `$groups` | `mapping(uint64 => FROSTGroupId.T)` | private | Epoch to group mapping |
-| `$attestations` | `mapping(bytes32 => FROSTSignatureId.T)` | private | Message to signature mapping |
-
----
-
-## External Functions
-
-### Epoch Management
-
-#### `proposeEpoch(uint64 proposedEpoch, uint64 rolloverBlock, FROSTGroupId.T group)`
-
-Propose a new epoch for validator approval.
-
-**Parameters**:
-- `proposedEpoch`: The new epoch number
-- `rolloverBlock`: Block number when rollover should occur
-- `group`: FROST group ID for the new epoch
-
-**Requirements**:
-- `proposedEpoch > active epoch`
-- `rolloverBlock > current block`
-- No epoch currently staged
-
-**Flow**:
-1. Validates rollover parameters
-2. Emits `EpochProposed`
-3. Requests signature from active group via `FROSTCoordinator.sign()`
-
-**Note**: This step is optional. You can call `stageEpoch` directly if you already have a valid signature.
-
----
-
-#### `stageEpoch(uint64 proposedEpoch, uint64 rolloverBlock, FROSTGroupId.T group, FROSTSignatureId.T signature)`
-
-Stage an epoch after it's been signed by the active group.
-
-**Parameters**:
-- Same as `proposeEpoch`, plus:
-- `signature`: ID of the FROST signature from active group
-
-**Requirements**:
-- Same as `proposeEpoch`
-- Valid signature from active group
-
-**Effect**:
-- Sets `staged = proposedEpoch`
-- Sets `rolloverBlock`
-- Maps epoch to group
-- Emits `EpochStaged`
-
----
-
-### Transaction Operations
-
-#### `proposeTransaction(MetaTransaction.T transaction) → bytes32`
-
-Submit a transaction for validator approval.
-
-**Parameters**:
-- `transaction`: The meta-transaction to validate
-
-**Returns**: EIP-712 message hash
-
-**Flow**:
-1. Processes any pending rollover
-2. Creates EIP-712 structured message
-3. Emits `TransactionProposed`
-4. Initiates signing via `FROSTCoordinator.sign()`
-
----
-
-#### `attestTransaction(uint64 epoch, bytes32 transactionHash, FROSTSignatureId.T signature)`
-
-Record an attestation for a transaction.
-
-**Parameters**:
-- `epoch`: Epoch when transaction was proposed
-- `transactionHash`: Hash of the meta-transaction
-- `signature`: FROST signature ID
-
-**Effect**:
-- Verifies signature matches group and message
-- Stores attestation mapping
-- Emits `TransactionAttested`
-
-**Note**: No time limit on attestation. Even old signatures can be recorded.
-
----
-
-### Callback Functions (Coordinator Only)
-
-#### `onKeyGenCompleted(FROSTGroupId.T group, bytes context)`
-
-Called by FROSTCoordinator when DKG completes.
-
-**Behavior**: Automatically proposes epoch rollover with the new group.
-
----
-
-#### `onSignCompleted(FROSTSignatureId.T signature, bytes context)`
-
-Called by FROSTCoordinator when signing completes.
-
-**Behavior**: Routes to `stageEpoch` or `attestTransaction` based on context selector.
-
----
-
-### View Functions
-
-#### `domainSeparator() → bytes32`
-
-Get the EIP-712 domain separator.
-
----
-
-#### `getAttestation(uint64 epoch, MetaTransaction.T transaction) → (bytes32, FROST.Signature)`
-
-Get attestation for a specific epoch and transaction.
-
-**Returns**:
-- `message`: EIP-712 message hash
-- `signature`: The FROST signature
-
----
-
-#### `getAttestationByMessage(bytes32 message) → FROST.Signature`
-
-Get attestation by message hash directly.
-
----
-
-#### `getRecentAttestation(MetaTransaction.T transaction) → (bytes32, FROST.Signature)`
-
-Get attestation from active or previous epoch.
-
-**Use Case**: Convenience for clients who recently proposed a transaction.
-
----
-
-#### `getRecentAttestationByHash(bytes32 transactionHash) → (bytes32, FROST.Signature)`
-
-Same as above, by transaction hash.
-
----
-
-#### `getActiveEpoch() → (uint64 epoch, FROSTGroupId.T group)`
-
-Get current active epoch and its group.
-
----
-
-#### `getCurrentEpochs() → Epochs`
-
-Get full epoch state (previous, active, staged).
-
----
-
-#### `getEpochGroup(uint64 epoch) → (FROSTGroupId.T, Secp256k1.Point)`
-
-Get group ID and public key for any epoch.
 
 ---
 
@@ -402,17 +179,24 @@ sequenceDiagram
 
 ## Integration Guide
 
+This section provides examples for integrating with the Consensus contract, primarily for **off-chain clients and applications** that need to propose transactions, monitor their attestation status, or track epoch changes.
+
 ### Proposing a Transaction
 
 ```solidity
-// 1. Create meta-transaction
-MetaTransaction.T memory tx = MetaTransaction.T({
+// 1. Create Safe transaction
+SafeTransaction.T memory tx = SafeTransaction.T({
     chainId: block.chainid,
-    account: safeAddress,
+    safe: safeAddress,
     to: targetContract,
     value: 0,
-    operation: MetaTransaction.Operation.CALL,
     data: abi.encodeCall(Target.someFunction, (args)),
+    operation: SafeTransaction.Operation.CALL,
+    safeTxGas: 0,
+    baseGas: 0,
+    gasPrice: 0,
+    gasToken: address(0),
+    refundReceiver: address(0),
     nonce: currentNonce
 });
 

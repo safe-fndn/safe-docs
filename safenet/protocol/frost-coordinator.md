@@ -1,11 +1,7 @@
 ---
 title: FROST Coordinator
-description: 
+description: The [FROSTCoordinator contract](https://github.com/safe-research/shieldnet/blob/main/contracts/src/FROSTCoordinator.sol) orchestrates **distributed key generation (DKG)** and **threshold signing ceremonies** for FROST groups. It is the cryptographic heart of Safenet, enabling validators to collectively generate and use shared signing keys without any single party knowing the complete private key.
 ---
-
-## Overview
-
-The `FROSTCoordinator` contract orchestrates **distributed key generation (DKG)** and **threshold signing ceremonies** for FROST groups. It is the cryptographic heart of Safenet, enabling validators to collectively generate and use shared signing keys without any single party knowing the complete private key.
 
 ### Purpose
 
@@ -19,13 +15,11 @@ The `FROSTCoordinator` contract orchestrates **distributed key generation (DKG)*
 ### Key Characteristics
 
 - **Stateless Ceremonies**: Each ceremony is identified by deterministic IDs
-- **onchain Verification**: All cryptographic proofs verified onchain
-- **Merkle-based Participation**: Efficient membership verification
-- **RFC-9591 Compliant**: Implements FROST(secp256k1, SHA-256) ciphersuite
+- **[RFC-9591](https://datatracker.ietf.org/doc/html/rfc9591) Compliant**: Implements FROST(secp256k1, SHA-256) ciphersuite
 
 ---
 
-## ELI5: What is FROST and Why Do We Need It?
+## ELI5: What is FROST?
 
 Imagine a treasure chest that needs multiple keys to open:
 
@@ -37,15 +31,12 @@ Imagine a treasure chest that needs multiple keys to open:
 **FROST Threshold Signatures**:
 - 3 people collectively create ONE "master key"
 - Each person holds a PIECE of this key (not a complete key!)
-- Any 2 can combine their pieces to sign
-- The signature looks like it came from one person
 - Nobody can reconstruct the full private key
 
 **Why is this better?**
-1. **Privacy**: Can't tell which 2 of 3 signed
-2. **Efficiency**: One signature instead of multiple
-3. **Compatibility**: Works with existing systems expecting single signatures
-4. **Security**: No single point of failure - the full key never exists in one place
+1. **Efficiency**: One signature instead of multiple
+2. **Compatibility**: Works with existing systems expecting single signatures
+3. **Security**: No single point of failure - the full key never exists in one place
 
 ---
 
@@ -68,9 +59,9 @@ Before diving into the protocol, let's establish the key mathematical concepts:
 | $PK$ | Group public key |
 | $pk_i$ | Participant $i$'s public key share |
 
-#### Shamir's Secret Sharing (The Core Idea)
+#### Lagrange interpolation
 
-FROST uses **Shamir's Secret Sharing** to split a secret into pieces:
+FROST uses **Lagrange interpolation** to split a secret into pieces:
 
 1. Choose a secret $s$ (this will be the group's private key)
 2. Create a polynomial of degree $t-1$: $f(x) = s + a_1x + a_2x² + ... + a_{t-1}x^{t-1}$
@@ -112,7 +103,7 @@ sequenceDiagram
     participant V2 as Validator 2
     participant V3 as Validator 3
     
-    Note over V1,V3: Preprocessing (done in advance)
+    Note over V1,V3: Commitment to nonce commitments (done in advance)
     V1->>Coord: preprocess(gid, commitment₁)
     V2->>Coord: preprocess(gid, commitment₂)
     V3->>Coord: preprocess(gid, commitment₃)
@@ -135,213 +126,12 @@ sequenceDiagram
 
 ---
 
-#### Critical Security Properties
-
-1. ✅ No single party knows the full private key $s$
-2. ✅ Each nonce is used exactly once (enforced by contract)
-3. ✅ Share verification prevents malicious shares
-4. ✅ Binding factors prevent nonce substitution attacks
-
----
-
-## External Functions
-
-### Key Generation
-
-#### `keyGen(bytes32 participants, uint16 count, uint16 threshold, bytes32 context) → FROSTGroupId.T`
-
-Initialize a new DKG ceremony.
-
-**Parameters**:
-- `participants`: Merkle root of participant list
-- `count`: Total number of participants (n)
-- `threshold`: Signing threshold (t)
-- `context`: Application-specific context data
-
-**Requirements**:
-- `count >= threshold`
-- `threshold > 1`
-
-**Returns**: Deterministic group ID
-
----
-
-#### `keyGenCommit(gid, identifier, poap, commitment) → bool`
-
-Submit commitment for Round 1.
-
-**Parameters**:
-- `gid`: Group ID
-- `identifier`: FROST identifier (1 to n)
-- `poap`: Merkle proof of participation
-- `commitment`: Public commitments and proof
-
-**Requirements**:
-- Group status is `COMMITTING`
-- `commitment.c.length == threshold`
-- Valid Merkle proof
-
-**Returns**: `true` if all commitments received (phase advances)
-
----
-
-#### `keyGenAndCommit(...) → (FROSTGroupId.T, bool)`
-
-Combined `keyGen` + `keyGenCommit` for convenience.
-
----
-
-#### `keyGenSecretShare(gid, share) → bool`
-
-Submit encrypted shares for Round 2.
-
-**Parameters**:
-- `gid`: Group ID
-- `share`: Public key share and encrypted evaluations
-
-**Requirements**:
-- Group status is `SHARING`
-- `share.f.length == count - 1`
-- Caller already committed in Round 1
-
-**Returns**: `true` if all shares received (phase advances)
-
----
-
-#### `keyGenConfirm(gid) → bool`
-
-Confirm successful DKG participation.
-
-**Requirements**:
-- Group status is `CONFIRMING`
-- Caller participated in previous rounds
-- No unresolved complaints by this participant
-
-**Returns**: `true` if all confirmed (group finalized)
-
----
-
-#### `keyGenConfirmWithCallback(gid, callback) → bool`
-
-Same as `keyGenConfirm` but calls `callback.target.onKeyGenCompleted()` when finalized.
-
----
-
-#### `keyGenComplain(gid, accused) → bool`
-
-File a complaint against a participant.
-
-**Requirements**:
-- Group status is `SHARING` or `CONFIRMING`
-- Caller is a participant
-- Haven't already complained about this participant
-
-**Returns**: `true` if group becomes compromised (too many complaints)
-
----
-
-#### `keyGenComplaintResponse(gid, plaintiff, secretShare)`
-
-Respond to a complaint by revealing the plaintext share.
-
-**Requirements**:
-- Caller is the accused
-- Complaint exists and unresolved
-
----
-
-### Signing Operations
-
-#### `preprocess(gid, commitment) → uint64`
-
-Submit nonce commitment for future signing.
-
-**Parameters**:
-- `gid`: Group ID
-- `commitment`: Merkle root of 1024 nonce pairs
-
-**Returns**: Chunk index for this commitment
-
-**Note**: Each chunk contains 1024 nonces. Participants should preprocess regularly to maintain signing capacity.
-
----
-
-#### `sign(gid, message) → FROSTSignatureId.T`
-
-Initiate a signing ceremony.
-
-**Parameters**:
-- `gid`: Group ID
-- `message`: 32-byte message to sign
-
-**Requirements**:
-- `message != 0`
-- Group is `FINALIZED`
-
-**Returns**: Deterministic signature ID
-
----
-
-#### `signRevealNonces(sid, nonces, proof)`
-
-Reveal nonce pair for signing ceremony.
-
-**Parameters**:
-- `sid`: Signature ID
-- `nonces`: The nonce pair (d, e)
-- `proof`: Merkle proof against precommitted root
-
-**Requirements**:
-- Signing ceremony exists
-- Valid Merkle proof
-
----
-
-#### `signShare(sid, selection, share, proof) → bool`
-
-Submit signature share.
-
-**Parameters**:
-- `sid`: Signature ID
-- `selection`: Group commitment and participant selection root
-- `share`: Signature share with Lagrange coefficient
-- `proof`: Merkle proof of participation in selection
-
-**Returns**: `true` if signature is complete
-
----
-
-#### `signShareWithCallback(sid, selection, share, proof, callback) → bool`
-
-Same as `signShare` but calls `callback.target.onSignCompleted()` when complete.
-
----
-
-### View Functions
-
-#### `groupKey(gid) → Secp256k1.Point`
-
-Get the group public key.
-
----
-
-#### `participantKey(gid, identifier) → Secp256k1.Point`
-
-Get a participant's public key share.
-
----
-
-#### `signatureVerify(sid, gid, message)`
-
-Verify a signing ceremony completed successfully.
-
-**Reverts** if signature doesn't exist or doesn't match.
-
----
-
-#### `signatureValue(sid) → FROST.Signature`
-
-Get the completed signature.
+#### Security Properties
+
+1. No single party knows the full private key $s$
+2. Each nonce is used exactly once (enforced by contract)
+3. Share verification prevents malicious shares
+4. Binding factors prevent nonce substitution attacks
 
 ---
 
@@ -376,33 +166,6 @@ sequenceDiagram
     FC->>FC: callback.target.onKeyGenCompleted(gid, context)
 ```
 
-### Complete Signing Flow
-
-```mermaid
-sequenceDiagram
-    participant App as Consensus
-    participant FC as FROSTCoordinator
-    participant V1 as Validator 1
-    participant V2 as Validator 2
-    
-    Note over V1,V2: Preprocessing (done ahead of time)
-    V1->>FC: preprocess(gid, nonceRoot)
-    V2->>FC: preprocess(gid, nonceRoot)
-    
-    Note over App,FC: Initiate Signing
-    App->>FC: sign(gid, message)
-    FC-->>App: sid
-    
-    Note over FC,V2: Validators Participate
-    V1->>FC: signRevealNonces(sid, nonces, proof)
-    V2->>FC: signRevealNonces(sid, nonces, proof)
-    
-    V1->>FC: signShare(sid, selection, share, proof)
-    V2->>FC: signShareWithCallback(sid, selection, share, proof, callback)
-    Note over FC: Signature complete!
-    FC->>App: callback.target.onSignCompleted(sid, context)
-```
-
 ---
 
 ## Security Considerations
@@ -424,10 +187,8 @@ $$s_1 = \frac{z_1 - z_2}{c_1 - c_2}$$
 **Secret key share leaked!**
 
 **Mitigations**:
-1. **Precommitment**: Nonces chosen before knowing message
-2. **Sequence numbers**: Each nonce used exactly once
-3. **Merkle proofs**: Contract enforces precommitted nonces
-4. **Two-nonce scheme**: Binding factor $\rho$ varies per ceremony
+1. **Merkle proofs**: Contract enforces precommitted nonces
+2. **Two-nonce scheme**: Binding factor $\rho$ varies per ceremony
 
 ### DKG Security
 
@@ -436,7 +197,6 @@ $$s_1 = \frac{z_1 - z_2}{c_1 - c_2}$$
 | **Rogue key attack** | Choosing commitment based on others | Proof of knowledge in Round 1 |
 | **Biased key** | Influencing final group key | Commit-then-reveal protocol |
 | **Invalid shares** | Sending wrong polynomial evaluations | Complaint mechanism with verification |
-| **Denial of service** | Refusing to participate | Group becomes COMPROMISED |
 | **ECDH key extraction** | Recovering encryption keys | Ephemeral keys per DKG |
 
 ### Threshold Assumptions
@@ -448,6 +208,10 @@ $$s_1 = \frac{z_1 - z_2}{c_1 - c_2}$$
 - Choose $t$ based on your threat model:
   - Higher $t$ = more security, less availability
   - Lower $t$ = less security, more availability
-- If `< t` are honest, liveness fails (can't sign)
+- If $< t$ are honest, liveness fails (can't sign)
 
 ---
+
+## Reference
+
+- [RFC-9591: FROST Protocol](https://datatracker.ietf.org/doc/html/rfc9591)

@@ -1,11 +1,7 @@
 ---
 title: Overview
-description: 
+description: This documentation covers the onchain smart contract infrastructure that powers Safenet.
 ---
-
-## Introduction
-
-This documentation covers the onchain smart contract infrastructure that powers Safenet.
 
 ## Core Contracts
 
@@ -93,4 +89,4 @@ sequenceDiagram
 
 - [RFC-9591: FROST Protocol](https://datatracker.ietf.org/doc/html/rfc9591)
 - [FROST Book](https://frost.zfnd.org/frost.html)
-- [Safenet](https://github.com/safe-research/shieldnet)
+- [Safenet Source Code](https://github.com/safe-research/shieldnet)

@@ -1,11 +1,7 @@
 ---
 title: Staking
-description: 
+description: The [Staking contract](https://github.com/safe-research/shieldnet/blob/main/contracts/src/Staking.sol) manages SAFE token deposits tied to validator addresses. It serves as the **economic security layer** for Safenet, ensuring validators have skin in the game.
 ---
-
-## Overview
-
-The `Staking` contract manages SAFE token deposits tied to validator addresses. It serves as the **economic security layer** for Safenet, ensuring validators have skin in the game.
 
 ### Purpose
 
@@ -37,193 +33,9 @@ The waiting period exists so that if a validator misbehaves, there's time to res
 
 ---
 
-## External Functions
-
-### Staking Operations
-
-#### `stake(address validator, uint256 amount)`
-
-Deposit SAFE tokens toward a validator.
-
-**Requirements**:
-- `amount > 0`
-- `validator != address(0)`
-- `validator` must be registered
-
-**Flow**:
-```mermaid
-flowchart LR
-    A[Call stake] --> B{Checks pass?}
-    B -->|No| C[Revert]
-    B -->|Yes| D[Update storage]
-    D --> E[Emit StakeIncreased]
-    E --> F[Transfer tokens in]
-```
-
-**Example**:
-```solidity
-// Approve tokens first
-safeToken.approve(address(staking), 1000e18);
-
-// Stake toward validator
-staking.stake(validatorAddress, 1000e18);
-```
-
----
-
-#### `initiateWithdrawal(address validator, uint256 amount)`
-
-Start a withdrawal with automatic queue insertion.
-
-**Requirements**:
-- `amount > 0`
-- `stakes[msg.sender][validator] >= amount`
-
-**Flow**:
-```mermaid
-flowchart TD
-    A[Call initiateWithdrawal] --> B[Reduce stake totals]
-    B --> C[Calculate claimableAt]
-    C --> D[Create withdrawal node]
-    D --> E{Queue empty?}
-    E -->|Yes| F[Set as head and tail]
-    E -->|No| G[Find insertion point]
-    G --> H[Insert into queue]
-    F --> I[Emit WithdrawalInitiated]
-    H --> I
-```
-
-**Gas Warning**: This function traverses the queue from tail to find the correct insertion point. For users with many pending withdrawals, consider using `initiateWithdrawalAtPosition()` instead.
-
----
-
-#### `initiateWithdrawalAtPosition(address validator, uint256 amount, uint64 previousId)`
-
-Start a withdrawal with manual queue position (gas optimized).
-
-**Parameters**:
-- `previousId`: ID of the node after which to insert (0 = insert at head)
-
-**Requirements**:
-- Same as `initiateWithdrawal`
-- `previousId` must exist (or be 0)
-- Insertion must maintain ascending `claimableAt` order
-
-**When to Use**:
-- You have many pending withdrawals
-- You know the correct insertion position
-- Gas optimization is important
-
----
-
-#### `claimWithdrawal()`
-
-Claim the first claimable withdrawal from the queue.
-
-**Requirements**:
-- Queue is not empty
-- `block.timestamp >= head.claimableAt`
-
-**Flow**:
-```mermaid
-flowchart TD
-    A[Call claimWithdrawal] --> B{Queue empty?}
-    B -->|Yes| C[Revert: WithdrawalQueueEmpty]
-    B -->|No| D{Head claimable?}
-    D -->|No| E[Revert: NoClaimableWithdrawal]
-    D -->|Yes| F[Remove head from queue]
-    F --> G[Update totalPendingWithdrawals]
-    G --> H[Emit WithdrawalClaimed]
-    H --> I[Transfer tokens to staker]
-```
-
----
-
-### Configuration (Owner Only)
-
-#### `proposeWithdrawDelay(uint128 newDelay)`
-
-Propose a new withdrawal delay.
-
-**Requirements**:
-- Caller is owner
-- `newDelay > 0`
-- `newDelay <= CONFIG_TIME_DELAY`
-
-**Note**: New proposals overwrite pending ones. There's no explicit cancellation.
-
----
-
-#### `proposeValidators(address[] validators, bool[] isRegistration)`
-
-Propose validator registration/deregistration changes.
-
-**Parameters**:
-- `validators`: Array of validator addresses
-- `isRegistration`: `true` = register, `false` = deregister
-
-**Requirements**:
-- Caller is owner
-- Arrays are non-empty and equal length
-- No zero addresses or contract address
-
-**Important**: Only a hash is stored. Execution requires providing the exact same arrays.
-
----
-
-### Configuration Execution (Public)
-
-#### `executeWithdrawDelayChange()`
-
-Execute a pending withdraw delay change after timelock.
-
-**Requirements**:
-- Proposal exists (`executableAt != 0`)
-- `block.timestamp >= executableAt`
-
----
-
-#### `executeValidatorChanges(address[] validators, bool[] isRegistration, uint256 executableAt)`
-
-Execute pending validator changes after timelock.
-
-**Requirements**:
-- Hash of parameters matches stored `pendingValidatorChangeHash`
-- `block.timestamp >= executableAt`
-
----
-
-### Token Recovery (Owner Only)
-
-#### `recoverTokens(address token, address to)`
-
-Recover accidentally sent tokens.
-
-**Behavior**:
-- For `SAFE_TOKEN`: Only recovers excess beyond `totalStakedAmount + totalPendingWithdrawals`
-- For other tokens: Recovers full balance
-
----
-
-### View Functions
-
-#### `getPendingWithdrawals(address staker) → WithdrawalInfo[]`
-
-Get all pending withdrawals for a staker.
-
-**Note**: O(n) traversal - intended for off-chain use.
-
----
-
-#### `getNextClaimableWithdrawal(address staker) → (uint256 amount, uint256 claimableAt)`
-
-Get the next withdrawal in queue.
-
----
-
 ## Process Flows
 
-### Complete Staking Flow
+### Staking Flow
 
 ```mermaid
 sequenceDiagram
@@ -244,7 +56,7 @@ sequenceDiagram
     Staking->>SAFE Token: transferFrom(staker, this, amount)
 ```
 
-### Complete Withdrawal Flow
+### Withdrawal Flow
 
 ```mermaid
 sequenceDiagram
@@ -341,6 +153,8 @@ sequenceDiagram
 
 ## Integration Examples
 
+These integration examples are primarily for **off-chain clients and applications** that interact with the Staking contract.
+
 ### Staking Tokens
 
 ```solidity
@@ -354,6 +168,8 @@ safeToken.approve(address(staking), amount);
 // 3. Stake toward validator
 staking.stake(validatorAddress, amount);
 ```
+
+If batch transactions are possible, then approving of tokens and staking can be done as a single transaction.
 
 ### Checking Stake Balance
 

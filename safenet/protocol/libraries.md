@@ -1,17 +1,12 @@
 ---
 title: Supporting Libraries Reference
-description: 
+sidebarTitle: Supporting Libs
+description: Safenet's smart contracts rely on a set of specialized libraries for cryptographic operations, data management, and protocol utilities. This document provides a reference for each library.
 ---
 
-## Overview
+## Cryptographic Libs
 
-Safenet's smart contracts rely on a set of specialized libraries for cryptographic operations, data management, and protocol utilities. This document provides a reference for each library.
-
----
-
-## Core Cryptographic Libraries
-
-### FROST.sol
+### [FROST.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/FROST.sol)
 
 **Purpose**: Implementation of the FROST(secp256k1, SHA-256) ciphersuite per [RFC-9591](https://datatracker.ietf.org/doc/html/rfc9591).
 
@@ -43,7 +38,7 @@ The library implements RFC-9591 hash functions:
 
 ---
 
-### Secp256k1.sol
+### [Secp256k1.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/Secp256k1.sol)
 
 **Purpose**: Elliptic curve operations on the secp256k1 curve.
 
@@ -75,9 +70,9 @@ The library implements RFC-9591 hash functions:
 
 ---
 
-## Protocol Libraries
+## Protocol Libs
 
-### ConsensusMessages.sol
+### [ConsensusMessages.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/ConsensusMessages.sol)
 
 **Purpose**: Compute EIP-712 structured messages for consensus operations.
 
@@ -104,21 +99,26 @@ bytes32 TRANSACTION_PROPOSAL_TYPEHASH
 
 ---
 
-### MetaTransaction.sol
+### [SafeTransaction.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/SafeTransaction.sol)
 
-**Purpose**: Define and hash meta-transactions for cross-chain execution.
+**Purpose**: Define and hash Safe smart account transactions for cross-chain execution.
 
 #### Structs
 
 ```solidity
 struct T {
-    uint256 chainId;     // Target chain ID
-    address account;     // Executing account
-    address to;          // Target address
-    uint256 value;       // ETH value
-    Operation operation; // CALL or DELEGATECALL
-    bytes data;          // Calldata
-    uint256 nonce;       // Replay protection
+    uint256 chainId;        // Chain ID of the Safe account
+    address safe;           // Safe account address
+    address to;             // Destination address
+    uint256 value;          // Native token value
+    bytes data;             // Data payload
+    Operation operation;    // CALL or DELEGATECALL
+    uint256 safeTxGas;      // Gas for Safe transaction
+    uint256 baseGas;        // Base gas costs
+    uint256 gasPrice;       // Gas price for payment
+    address gasToken;       // Token for gas payment (0 for native)
+    address refundReceiver; // Gas refund receiver (0 for tx.origin)
+    uint256 nonce;          // Safe transaction nonce
 }
 
 enum Operation {
@@ -135,9 +135,9 @@ enum Operation {
 
 ---
 
-## Identifier Libraries
+## Identifier Libs
 
-### FROSTGroupId.sol
+### [FROSTGroupId.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/FROSTGroupId.sol)
 
 **Purpose**: Unique identifier for FROST groups.
 
@@ -170,7 +170,7 @@ The group ID is computed deterministically from:
 
 ---
 
-### FROSTSignatureId.sol
+### [FROSTSignatureId.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/FROSTSignatureId.sol)
 
 **Purpose**: Unique identifier for signing ceremonies.
 
@@ -199,9 +199,9 @@ The `+1` offset ensures signature IDs are never zero even for sequence 0.
 
 ---
 
-## Data Structure Libraries
+## Data Structure Libs
 
-### FROSTParticipantMap.sol
+### [FROSTParticipantMap.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/FROSTParticipantMap.sol)
 
 **Purpose**: Track FROST participants during DKG and signing.
 
@@ -221,7 +221,7 @@ The `+1` offset ensures signature IDs are never zero even for sequence 0.
 
 ---
 
-### FROSTNonceCommitmentSet.sol
+### [FROSTNonceCommitmentSet.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/FROSTNonceCommitmentSet.sol)
 
 **Purpose**: Track precommitted nonces for signing.
 
@@ -242,7 +242,7 @@ The `+1` offset ensures signature IDs are never zero even for sequence 0.
 
 ---
 
-### FROSTSignatureShares.sol
+### [FROSTSignatureShares.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/libraries/FROSTSignatureShares.sol)
 
 **Purpose**: Accumulate and aggregate signature shares.
 
@@ -265,7 +265,7 @@ z = Σ zᵢ  (scalar addition mod N)
 
 ## Interface
 
-### IFROSTCoordinatorCallback.sol
+### [IFROSTCoordinatorCallback.sol](https://github.com/safe-research/shieldnet/blob/main/contracts/src/interfaces/IFROSTCoordinatorCallback.sol)
 
 **Purpose**: Interface for contracts receiving FROST coordinator callbacks.
 
@@ -281,7 +281,7 @@ interface IFROSTCoordinatorCallback {
 
 ---
 
-## Gas Optimization Notes
+## Gas Optimization
 
 ### Storage Packing
 
@@ -306,7 +306,7 @@ Critical paths use inline assembly for:
 
 ---
 
-## Security Notes
+## Security
 
 ### Identifier Validation
 
