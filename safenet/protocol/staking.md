@@ -48,10 +48,6 @@ sequenceDiagram
     
     Note over Staker,Staking: Step 2: Stake
     Staker->>Staking: stake(validator, amount)
-    Staking->>Staking: Update stakes mapping
-    Staking->>Staking: Update totalValidatorStakes
-    Staking->>Staking: Update totalStakerStakes
-    Staking->>Staking: Update totalStakedAmount
     Staking-->>Staker: Emit StakeIncreased
     Staking->>SAFE Token: transferFrom(staker, this, amount)
 ```
@@ -66,17 +62,12 @@ sequenceDiagram
     
     Note over Staker,SAFE Token: Step 1: Initiate withdrawal
     Staker->>Staking: initiateWithdrawal(validator, amount)
-    Staking->>Staking: Reduce stakes
-    Staking->>Staking: Create WithdrawalNode
-    Staking->>Staking: Insert into queue
     Staking-->>Staker: Emit WithdrawalInitiated
     
     Note over Staker,SAFE Token: Step 2: Wait for withdrawDelay
     
     Note over Staker,SAFE Token: Step 3: Claim
     Staker->>Staking: claimWithdrawal()
-    Staking->>Staking: Remove from queue
-    Staking->>Staking: Update totalPendingWithdrawals
     Staking-->>Staker: Emit WithdrawalClaimed
     Staking->>SAFE Token: transfer(staker, amount)
 ```
@@ -91,15 +82,12 @@ sequenceDiagram
     
     Note over Owner,Staking: Step 1: Propose
     Owner->>Staking: proposeValidators([addr1, addr2], [true, true])
-    Staking->>Staking: Store hash of proposal
     Staking-->>Owner: Emit ValidatorsProposed
     
     Note over Anyone,Staking: Step 2: Wait for CONFIG_TIME_DELAY
     
     Note over Anyone,Staking: Step 3: Execute
     Anyone->>Staking: executeValidatorChanges([addr1, addr2], [true, true], executableAt)
-    Staking->>Staking: Verify hash matches
-    Staking->>Staking: Update isValidator mapping
     Staking-->>Anyone: Emit ValidatorUpdated (×2)
 ```
 
@@ -115,13 +103,6 @@ sequenceDiagram
 | `proposeValidators`, `proposeWithdrawDelay` | Owner | Sensitive configuration |
 | `executeValidatorChanges`, `executeWithdrawDelayChange` | Public | Anyone can execute after timelock |
 | `recoverTokens` | Owner | Emergency operation |
-
-### Invariants
-
-1. **Token Conservation**: `SAFE_TOKEN.balanceOf(this) >= totalStakedAmount + totalPendingWithdrawals`
-2. **Queue Ordering**: Withdrawals are sorted by `claimableAt` ascending
-3. **Delay Bounds**: `0 < withdrawDelay <= CONFIG_TIME_DELAY`
-4. **ID Monotonicity**: `nextWithdrawalId` only increases
 
 ### Known Risks
 

@@ -44,76 +44,6 @@ When you want to execute a transaction:
 
 ---
 
-## Epoch Lifecycle
-
-Epochs represent periods governed by specific validator sets. Each epoch has an associated FROST group.
-
-```mermaid
-stateDiagram-v2
-    direction LR
-    
-    state "Epoch N (Active)" as Active
-    state "Epoch N+1 (Proposed)" as Proposed
-    state "Epoch N+1 (Staged)" as Staged
-    state "Epoch N+1 (Active)" as NewActive
-    
-    [*] --> Active: Genesis
-    Active --> Proposed: proposeEpoch()
-    Proposed --> Staged: stageEpoch() [signed]
-    Staged --> NewActive: block.number >= rolloverBlock
-    NewActive --> Proposed: proposeEpoch()
-```
-
-### Epoch States
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `previous` | `uint64` | Last active epoch (to facilitate the lookup of recently attested transactions) |
-| `active` | `uint64` | Currently active epoch |
-| `staged` | `uint64` | Next epoch (0 if none staged) |
-| `rolloverBlock` | `uint64` | Block when staged becomes active (0 if no rollover is scheduled) |
-
-### Rollover Process
-
-1. **Propose**: Create a new epoch proposal (optional step)
-2. **Stage**: Active validators sign approval → epoch is staged
-3. **Rollover**: Automatic when `block.number >= rolloverBlock`
-
-**Lazy Execution**: Rollover happens automatically on the next state-changing call after `rolloverBlock` is reached.
-
----
-
-## Process Flows
-
-### Complete Epoch Rollover
-
-```mermaid
-sequenceDiagram
-    participant Consensus
-    participant FC as FROSTCoordinator
-    participant Validators
-    
-    Note over Consensus,Validators: Step 1: DKG for new group
-    Validators->>FC: keyGen + commit + share + confirm
-    FC->>Consensus: onKeyGenCompleted(newGroup, context)
-    
-    Note over Consensus: Step 2: Propose rollover
-    Consensus->>Consensus: proposeEpoch(epoch+1, rolloverBlock, newGroup)
-    Consensus->>FC: sign(activeGroup, rolloverMessage)
-    
-    Note over Validators: Step 3: Sign approval
-    Validators->>FC: signRevealNonces() + signShare()
-    FC->>Consensus: onSignCompleted(sig, stageEpoch.selector)
-    
-    Note over Consensus: Step 4: Stage
-    Consensus->>Consensus: stageEpoch(epoch+1, rolloverBlock, newGroup, sig)
-    
-    Note over Consensus: Step 5: Automatic rollover
-    Note right of Consensus: block.number >= rolloverBlock
-    Consensus->>Consensus: Any state-changing call triggers rollover
-    Consensus-->>Consensus: Emit EpochRolledOver
-```
-
 ### Transaction Attestation
 
 ```mermaid
@@ -140,40 +70,6 @@ sequenceDiagram
     Wallet->>Consensus: getRecentAttestation(tx)
     Consensus-->>Wallet: (message, signature)
 ```
-
----
-
-## Security Considerations
-
-### Access Control
-
-| Function | Access | Rationale |
-|----------|--------|-----------|
-| `proposeEpoch`, `stageEpoch` | Public | Anyone can initiate, but requires valid signature |
-| `proposeTransaction` | Public | Anyone can propose |
-| `attestTransaction` | Public | Requires valid FROST signature |
-| `onKeyGenCompleted`, `onSignCompleted` | Coordinator only | Callbacks from trusted contract |
-
-### Invariants
-
-1. **Epoch Ordering**: `previous < active < staged` (when all set)
-2. **Signature Validity**: Attestations always verified against group
-3. **Rollover Consistency**: Can't stage while one is pending
-
-### Attack Vectors
-
-| Attack | Mitigation |
-|--------|------------|
-| **Unauthorized epoch change** | Requires signature from active group |
-| **Transaction forgery** | FROST signature verification |
-| **Replay attacks** | Epoch-scoped messages, nonces in transactions |
-| **Front-running rollover** | Deterministic rollover at block number |
-
-### Edge Cases
-
-1. **Attestation timing**: No expiry on attestations - old signatures remain valid
-2. **Missed rollover**: Rollover is lazy; happens on next state-changing call
-3. **Previous epoch queries**: Only active and previous epochs accessible via `getRecentAttestation`
 
 ---
 
