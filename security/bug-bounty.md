@@ -86,6 +86,7 @@ Deployed contract addresses can be found in the [Safe Deployments repository](ht
 - Gas optimizations
 - Known issues listed in audits or documentation
 - Issues already fixed in newer versions
+- Issues related to additional non-standard features or alternative gas schedules on EVM-compatible chains that differ from Ethereum Mainnet
 
 ## Intended behavior
 
