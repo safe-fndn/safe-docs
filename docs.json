@@ -112,7 +112,8 @@
               "safenet/protocol/frost-coordinator",
               "safenet/protocol/consensus",
               "safenet/protocol/validators",
-              "safenet/protocol/rewards"
+              "safenet/protocol/rewards",
+              "safenet/protocol/glossary"
             ]
           },
           {
