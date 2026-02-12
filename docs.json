@@ -108,10 +108,12 @@
             "group": "Protocol",
             "pages": [
               "safenet/protocol/overview",
-              "safenet/protocol/validators",
-              "safenet/protocol/consensus",
               "safenet/protocol/staking",
-              "safenet/protocol/rewards"
+              "safenet/protocol/frost-coordinator",
+              "safenet/protocol/consensus",
+              "safenet/protocol/validators",
+              "safenet/protocol/rewards",
+              "safenet/protocol/glossary"
             ]
           },
           {

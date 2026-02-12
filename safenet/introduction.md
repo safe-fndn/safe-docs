@@ -75,7 +75,7 @@ Safenet v1 focuses on:
 
 - **Safe transactions on EVM chains**
 - **Permissioned validator set**
-- **Pre-defined security security checks**
+- **Pre-defined security checks**
 - **Onchain enforcement via Safe guards**
 
 This is a deliberate starting point. Transaction security is complex, and Safenet prioritizes correctness, reliability, and measurable guarantees in its initial deployment.
