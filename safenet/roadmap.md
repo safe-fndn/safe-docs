@@ -1,10 +1,10 @@
 ---
 title: Roadmap
-description: Building the coordination layer for transaction security
+description: Building the enforcement layer for transaction security
 ---
 
 <Note>
-Safenet is developed iteratively based on user feedback, research, and ecosystem needs. This roadmap is directional and will evolve over time.  
+Safenet is developed iteratively based on user feedback, research, and ecosystem needs. This roadmap is directional and will evolve over time.
 If you would like to contribute, [please reach out](mailto:research+safenet@safe.dev).
 </Note>
 
@@ -17,11 +17,11 @@ Safenet Beta marks the first live deployment of the network, focused on validato
 
 **Focus areas**
 
-- Launch of the Safenet Beta network  
-- Validator onboarding and coordination  
-- Initial SAFE token staking mechanics  
-- Basic transaction attestation flow  
-- Explorer and network monitoring tools  
+- Launch of the Safenet Beta network
+- Validator onboarding and coordination
+- Initial SAFE token staking mechanics
+- Basic transaction attestation flow
+- Explorer and network monitoring tools
 
 This phase validates the core architecture, staking mechanics, and validator participation in a controlled production environment.
 
@@ -32,11 +32,11 @@ Safenet expands its transaction verification capabilities with more advanced sec
 
 **Focus areas**
 
-- Expanded transaction security checks  
-- Improved attack pattern detection  
-- Guard-level enforcement mechanisms  
-- Configurable security policy frameworks  
-- Validator performance monitoring  
+- Expanded transaction security checks
+- Improved attack pattern detection
+- Guard-level enforcement mechanisms
+- Configurable security policy frameworks
+- Validator performance monitoring
 
 This phase strengthens Safenet’s ability to proactively prevent malicious or high-risk transactions before execution.
 
@@ -47,25 +47,24 @@ Safenet integrates directly into wallet flows and introduces a sustainable econo
 
 **Focus areas**
 
-- Native Safe\{Wallet\} integrations  
-- Seamless transaction proposal UX  
-- Fee model design and implementation  
-- Validator reward distribution logic  
-- Delegator participation improvements  
+- Native Safe\{Wallet\} integrations
+- Seamless transaction proposal UX
+- Fee model design and implementation
+- Validator reward distribution logic
 
 This phase improves accessibility for end users while aligning long-term incentives across validators and token holders.
 
 
 # Q4 2026 - Transaction Check Markets
 
-Safenet evolves into a market-based coordination layer for transaction validation.
+Safenet evolves into a market-based enforcement layer for transaction validation.
 
 **Focus areas**
 
-- Transaction check specialization  
-- Market-based pricing for validation services  
-- Validator reputation mechanisms  
-- Competitive security service dynamics  
+- Transaction check specialization
+- Market-based pricing for validation services
+- Validator reputation mechanisms
+- Competitive security service dynamics
 
 This phase introduces economic competition to optimize security quality, responsiveness, and efficiency.
 
@@ -76,10 +75,10 @@ Safenet transitions toward stronger crypto-economic guarantees and optional prot
 
 **Focus areas**
 
-- Slashing mechanisms for validator misbehavior  
-- Cryptoeconomic accountability guarantees  
-- Risk-weighted validation models  
-- Transaction insurance primitives  
-- Advanced security assurances  
+- Slashing mechanisms for validator misbehavior
+- Cryptoeconomic accountability guarantees
+- Risk-weighted validation models
+- Transaction insurance primitives
+- Advanced security assurances
 
 This phase establishes Safenet as a fully incentive-aligned security layer with enforceable accountability and optional insurance coverage.
