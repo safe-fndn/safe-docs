@@ -104,6 +104,7 @@
           "safenet/introduction",
           "safenet/use-cases",
           "safenet/explorer",
+          "safenet/roadmap",
           {
             "group": "Protocol",
             "pages": [
@@ -145,8 +146,7 @@
               "safenet/references/glossary",
               "safenet/references/faq"
             ]
-          },
-          "safenet/roadmap"
+          }
         ]
       }
     ]
