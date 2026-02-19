@@ -41,13 +41,13 @@ Safenet expands its transaction verification capabilities with more advanced sec
 This phase strengthens Safenet’s ability to proactively prevent malicious or high-risk transactions before execution.
 
 
-# Q3 2026 - Safe{Wallet} Integration & Fee Implementation
+# Q3 2026 - Safe\{Wallet\} Integration & Fee Implementation
 
 Safenet integrates directly into wallet flows and introduces a sustainable economic model.
 
 **Focus areas**
 
-- Native Safe{Wallet} integrations  
+- Native Safe\{Wallet\} integrations  
 - Seamless transaction proposal UX  
 - Fee model design and implementation  
 - Validator reward distribution logic  
