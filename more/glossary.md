@@ -78,7 +78,7 @@ See also:
 
 ## Gasless Transaction
 
-Gasless transactions (also called meta-transactions) allow users to interact with the blockchain without directly paying gas fees. Instead, a third party—commonly a [Relayer](#relayer) or a [Paymaster](#paymaster)—submits and pays for the transaction on the user’s behalf.
+Gasless transactions (also called meta-transactions) allow users to interact with the blockchain without directly paying gas fees. Instead, a third party-commonly a [Relayer](#relayer) or a [Paymaster](#paymaster)-submits and pays for the transaction on the user’s behalf.
 
 Users sign a message describing the desired action, while the relayer constructs and executes the on-chain transaction.
 
@@ -90,16 +90,16 @@ A multi-signature account is a type of [smart account](#smart-account) that requ
 
 ### Common configurations
 
-- **0/0 Safe**  
+- **0/0 Safe**
   An account with no owners, fully controlled by [Safe Modules](#safe-module). Commonly used for automation.
 
-- **1/1 Safe**  
+- **1/1 Safe**
   A single-owner account. Simple to manage but requires a recovery plan in case the owner loses access.
 
-- **N/N Safe**  
+- **N/N Safe**
   All owners must approve each transaction. Offers strong shared control but requires careful key management.
 
-- **N/M Safe**  
+- **N/M Safe**
   Only a subset of owners must approve transactions, balancing security and flexibility.
 
 ### How it works
