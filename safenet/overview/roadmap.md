@@ -11,7 +11,7 @@ If you would like to contribute, [please reach out](mailto:research+safenet@safe
 ![Safenet roadmap](/assets/safenet-roadmap.png)
 
 
-# Q1 2026 - Safenet Beta & SAFE Staking
+## Q1 2026 - Safenet Beta & SAFE Staking
 
 Safenet Beta marks the first live deployment of the network, focused on validator coordination and core consensus with a permissioned validator set.
 
@@ -23,10 +23,10 @@ Safenet Beta marks the first live deployment of the network, focused on validato
 - Basic transaction attestation flow
 - Explorer and network monitoring tools
 
-This phase validates the core architecture, staking mechanics, and validator participation in a controlled production environment.
+This phase validates the core architecture, staking mechanics, and validator participation in a limited production environment.
 
 
-# Q2 2026 - Advanced Checks & Guard Enforcement
+## Q2 2026 - Advanced Checks & Guard Enforcement
 
 Safenet expands its transaction verification capabilities with more advanced security logic and enforceable guard integrations.
 
@@ -41,7 +41,7 @@ Safenet expands its transaction verification capabilities with more advanced sec
 This phase strengthens Safenet’s ability to proactively prevent malicious or high-risk transactions before execution.
 
 
-# Q3 2026 - Safe\{Wallet\} Integration & Fee Implementation
+## Q3 2026 - Safe\{Wallet\} Integration & Fee Implementation
 
 Safenet integrates directly into wallet flows and introduces a sustainable economic model.
 
@@ -55,7 +55,7 @@ Safenet integrates directly into wallet flows and introduces a sustainable econo
 This phase improves accessibility for end users while aligning long-term incentives across validators and token holders.
 
 
-# Q4 2026 - Transaction Check Markets
+## Q4 2026 - Transaction Check Markets
 
 Safenet evolves into a market-based enforcement layer for transaction validation.
 
@@ -69,7 +69,7 @@ Safenet evolves into a market-based enforcement layer for transaction validation
 This phase introduces economic competition to optimize security quality, responsiveness, and efficiency.
 
 
-# 2027+ - Economic Slashing & Transaction Insurance
+## 2027+ - Economic Slashing & Transaction Insurance
 
 Safenet transitions toward stronger crypto-economic guarantees and optional protection layers.
 
