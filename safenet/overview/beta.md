@@ -26,33 +26,4 @@ See the [Roadmap](/safenet/overview/roadmap) for what comes after Beta.
 
 ## Explorer
 
-The Beta Explorer provides a transparent, public view into transactions proposed and checked by the Safenet validator set.
-
-The Explorer is available at _TODO_.
-
-TODO: Add screenshots of UI.
-
-### Explore network activity
-
-- Live stream of recently proposed Safe transactions
-- Status tracking: **Proposed**, **Attested**, **Timed-out**
-- Search by Safe address or safeTxHash
-
-Each transaction has a dedicated detail page showing:
-
-- Safe transaction summary and decoding
-- Proposal history and attestation status
-- Validator participation
-- Links to Safe\{Wallet\} and chain explorers (if available)
-
-### Submit a proposal
-
-If a Safe transaction has not yet been proposed to Safenet Beta, it can be submitted directly from the explorer.
-
-- No wallet connection required
-- Sponsored relayer submission
-- Manual entry or SafeTxHash prefill
-
-[Code on GitHub](https://github.com/safe-research/safenet/tree/main/explorer)
-
-[Report feedback / open issue](https://github.com/safe-research/issues/new)
+The Beta Explorer is a public tool for viewing transactions proposed and checked by the Safenet validator set. See the [FAQ](/safenet/faq) for details.
