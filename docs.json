@@ -101,52 +101,26 @@
         "tab": "Safenet",
         "hidden": true,
         "pages": [
-          "safenet/introduction",
-          "safenet/use-cases",
-          "safenet/explorer",
-          "safenet/roadmap",
           {
-            "group": "Protocol",
+            "group": "Overview",
             "pages": [
-              "safenet/protocol/overview",
-              "safenet/protocol/staking",
-              "safenet/protocol/frost-coordinator",
-              "safenet/protocol/consensus",
-              "safenet/protocol/validators",
-              "safenet/protocol/rewards",
-              "safenet/protocol/glossary"
+              "safenet/overview/introduction",
+              "safenet/overview/validators",
+              "safenet/overview/beta",
+              "safenet/overview/roadmap"
             ]
           },
           {
-            "group": "Security",
+            "group": "Staking",
             "pages": [
-              "safenet/security/threat-model",
-              "safenet/security/audits"
+              "safenet/staking/validator-staking",
+              "safenet/staking/delegate",
+              "safenet/staking/rewards",
+              "safenet/staking/lockup",
+              "safenet/staking/risk"
             ]
           },
-          {
-            "group": "Operators",
-            "pages": [
-              "safenet/operators/overview",
-              "safenet/operators/configuration",
-              "safenet/operators/monitoring",
-              "safenet/operators/troubleshooting"
-            ]
-          },
-          {
-            "group": "Integration",
-            "pages": [
-              "safenet/integration/wallets",
-              "safenet/integration/tx-checkers"
-            ]
-          },
-          {
-            "group": "References",
-            "pages": [
-              "safenet/references/glossary",
-              "safenet/references/faq"
-            ]
-          }
+          "safenet/faq"
         ]
       }
     ]

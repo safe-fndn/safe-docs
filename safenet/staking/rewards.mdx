@@ -1,11 +1,11 @@
 ---
-title: Rewards
-description: How rewards are calculated and distributed in Safenet Beta
+title: Staking rewards
+description: How rewards are calculated and distributed in Safenet Beta.
 ---
 
-<Warning>
-    This page is just a proposal and pending SafeDAO approval.
-</Warning>
+<Note>
+The reward mechanism described on this page is a proposal pending SafeDAO approval. Parameters and mechanics may change before launch.
+</Note>
 
 ## Overview
 
@@ -48,54 +48,54 @@ Safenet Beta distributes rewards to validators and delegators every two weeks (t
 
 ## Calculation
 
-This section provides the formal definition of the Safenet Beta reward mechanism.  
+This section provides the formal definition of the Safenet Beta reward mechanism.
 All stake values are time-averaged over the reward period.
 
 **Glossary**
 
 *Sets and participants*
 
-- $V$ – set of active validators  
-- $N = |V|$ – number of active validators  
+- $V$ – set of active validators
+- $N = |V|$ – number of active validators
 
 *Stake*
 
-- $\bar s_i$ - average SAFE tokens self-staked by validator $i$ over the reward period  
-- $\bar d_{j,i}$ - average SAFE tokens delegated by delegator $j$ to validator $i$  
-- $\bar d_i = \sum_j \bar d_{j,i}$ - total average delegated stake to validator $i$  
-- $\bar S_i = \bar s_i + \bar d_i$ - total average stake backing validator $i$  
-- $\bar S_{\text{total}} = \sum_{i \in V} \bar S_i$ - total average stake in the network  
+- $\bar s_i$ - average SAFE tokens self-staked by validator $i$ over the reward period
+- $\bar d_{j,i}$ - average SAFE tokens delegated by delegator $j$ to validator $i$
+- $\bar d_i = \sum_j \bar d_{j,i}$ - total average delegated stake to validator $i$
+- $\bar S_i = \bar s_i + \bar d_i$ - total average stake backing validator $i$
+- $\bar S_{\text{total}} = \sum_{i \in V} \bar S_i$ - total average stake in the network
 
 *Participation*
 
-- $p_i \in [0,1]$ - participation rate of validator $i$ during the reward period  
-- $p_{\min} = 0.75$ - minimum participation threshold required to earn rewards  
+- $p_i \in [0,1]$ - participation rate of validator $i$ during the reward period
+- $p_{\min} = 0.75$ - minimum participation threshold required to earn rewards
 
 *Minimum self-stake requirement*
 
-- $s_{\min} = 3{,}500{,}000$ SAFE  
+- $s_{\min} = 3{,}500{,}000$ SAFE
 
 *Rewards*
 
 - $\Delta t$ - duration of the reward period
-- $R$ - total reward pool distributed in the reward period  
-- $R_i$ - reward allocated to validator $i$ before commission  
-- $R_i^{\text{self}}$ - portion of $R_i$ attributable to validator self-stake  
-- $R_i^{\text{del}}$ - portion of $R_i$ attributable to delegated stake  
-- $R_i^{\text{validator}}$ - total reward earned by validator $i$ before minimum payout filtering  
-- $R_i^{\text{delegators}}$ - total reward allocated to delegators of validator $i$  
-- $R_{j,i}$ - reward allocated to delegator $j$ for delegation to validator $i$  
+- $R$ - total reward pool distributed in the reward period
+- $R_i$ - reward allocated to validator $i$ before commission
+- $R_i^{\text{self}}$ - portion of $R_i$ attributable to validator self-stake
+- $R_i^{\text{del}}$ - portion of $R_i$ attributable to delegated stake
+- $R_i^{\text{validator}}$ - total reward earned by validator $i$ before minimum payout filtering
+- $R_i^{\text{delegators}}$ - total reward allocated to delegators of validator $i$
+- $R_{j,i}$ - reward allocated to delegator $j$ for delegation to validator $i$
 
 *Incentive parameters*
 
-- $T$ - stake threshold where linear rewards stop  
-- $c = 0.05$ - validator commission rate on delegated rewards  
-- $m = 1$ - minimum payout threshold (in SAFE tokens)  
+- $T$ - stake threshold where linear rewards stop
+- $c = 0.05$ - validator commission rate on delegated rewards
+- $m = 1$ - minimum payout threshold (in SAFE tokens)
 
 *Weights*
 
-- $w(\bar S_i)$ - stake-based reward weight for validator $i$  
-- $\tilde w_i$ - effective reward weight after participation filtering  
+- $w(\bar S_i)$ - stake-based reward weight for validator $i$
+- $\tilde w_i$ - effective reward weight after participation filtering
 
 *Payouts*
 
@@ -103,8 +103,8 @@ All stake values are time-averaged over the reward period.
 - $P_{j,i}$ - raw reward payout allocated to delegator $j$ **before applying the minimum payout rule**
 - $\hat P_i$ - final reward payout transferred to validator $i$ **after applying the minimum payout rule**
 - $\hat P_{j,i}$ - final reward payout transferred to delegator $j$ **after applying the minimum payout rule**
-- $R_{\text{paid}}$ - total rewards paid out in the reward period  
-- $R_{\text{unpaid}}$ - rewards not paid out and carried forward  
+- $R_{\text{paid}}$ - total rewards paid out in the reward period
+- $R_{\text{unpaid}}$ - rewards not paid out and carried forward
 
 **Time-averaged stake**
 
@@ -143,18 +143,16 @@ Validators must satisfy the minimum participation requirement in order for **any
 $$
 \tilde w_i =
 \begin{cases}
-p_i \cdot w(\bar S_i), 
+p_i \cdot w(\bar S_i),
 & \text{if } p_i \ge p_{\min} \\
-0, 
+0,
 & \text{if } p_i < p_{\min}
 \end{cases}
 $$
 
 If $p_i < p_{\min}$, no rewards are generated for validator $i$ or its delegators during that reward period.
 
-The minimum self-stake requirement affects validator earnings only:
-
-If $\bar s_i < s_{\min}$ and $p_i \ge p_{\min}$, the validator forfeits its validator reward share, while delegator rewards remain unaffected.
+The minimum self-stake requirement affects validator earnings only: if $\bar s_i < s_{\min}$ and $p_i \ge p_{\min}$, the validator forfeits its validator reward share, while delegator rewards remain unaffected.
 
 **Reward allocation across validators**
 
@@ -162,7 +160,7 @@ $$
 W = \sum_{k \in V} \tilde w_k
 $$
 
-Validator $i$’s reward allocation:
+Validator $i$'s reward allocation:
 
 $$
 R_i = R \cdot \frac{\tilde w_i}{W}
@@ -236,8 +234,6 @@ P_i, & \text{if } P_i \ge m \\
 \end{cases}
 $$
 
-Final delegator payout:
-
 $$
 \hat P_{j,i} =
 \begin{cases}
@@ -269,21 +265,20 @@ Rewards are calculated offchain and distributed onchain via a Merkle distributor
 
 Once allocated, rewards do not expire. Recipients must actively claim their rewards either:
 
-- Directly from the Merkle distributor contract, or  
+- Directly from the Merkle distributor contract, or
 - Through the dedicated staking / claiming interface.
 
 **Resources**
 
-- Rewards calculation repository: _TBD_  
-- Claiming / staking interface: _TBD_  
-
+- Rewards calculation repository: _TBD_
+- Claiming / staking interface: _TBD_
 
 ## Compliance
 
 As rewards are funded by assets held on the books of the Safe Ecosystem Foundation (SEF), KYC and AML requirements apply.
 
-- Addresses sanctioned by OFAC, as identified through [Chainalysis’ on-chain oracle](https://go.chainalysis.com/chainalysis-oracle-docs.html), are excluded from receiving rewards.
+- Addresses sanctioned by OFAC, as identified through [Chainalysis' on-chain oracle](https://go.chainalysis.com/chainalysis-oracle-docs.html), are excluded from receiving rewards.
 - Addresses receiving rewards exceeding the equivalent of USD 1,000 within a two-week payout period are required to complete a KYC process prior to distribution.
 
-For KYC inquiries or to initiate the verification process, please contact  
+For KYC inquiries or to initiate the verification process, please contact
 [legal@safefoundation.org](mailto:legal@safefoundation.org).
