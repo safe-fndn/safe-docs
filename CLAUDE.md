@@ -56,7 +56,19 @@ The docs are **not** primarily targeted at:
 - Prefer short paragraphs over walls of text.
 - Use `<Note>` callouts for important caveats (e.g. pending DAO approval, Beta limitations).
 - Use `<Warning>` callouts sparingly: only for things that could cause loss of funds or security issues.
-- Do not use `---` as a section separator in page content. The only valid use of `---` is as the opening and closing fence of Mintlify YAML frontmatter.
+- Do not use `---` as a section separator in page content. The only valid `---` lines in any file are line 1 (opening frontmatter fence) and the line immediately after the last frontmatter field (closing frontmatter fence). Every other `---` in a file is a content separator and must be removed. When removing content `---` separators, be careful not to accidentally remove the frontmatter closing fence on line 4 or 5.
+- Remove trailing whitespace from all lines.
+- Every file must end with a single newline.
+
+### Right sidebar (table of contents) depth
+
+Mintlify renders every `##` and `###` heading as an entry in the right-hand sidebar. Long sidebars hurt scannability.
+
+Target a maximum of **6 entries** in the right sidebar per page. Count every `##` and `###` heading when assessing a page.
+
+If adding `###` headings would push the total above 6, use **bold labels** (`**Label**`) instead. Bold labels give visual structure on the page without creating sidebar entries.
+
+Use `###` headings only when a subsection is substantial enough that a reader would want to navigate directly to it. Prefer bold labels for short subsections, glossary entries, parameter lists, and formula groups.
 
 ### Stubs and TODOs
 - Pages that are not yet written should still have a clear structure: frontmatter title and description, a `<Note>` saying the page is in progress, and `TODO:` comments that are specific enough for a writer to act on.
@@ -152,7 +164,7 @@ safenet/
 ├── staking/
 │   ├── validator-staking.md  # How are validators staked?
 │   ├── delegate.md           # How to delegate stake?
-│   ├── rewards.md            # Staking rewards
+│   ├── rewards.mdx           # Staking rewards
 │   ├── lockup.md             # Staking lock-up periods
 │   └── risk.md               # Is my stake at risk? (incl. audits)
 └── faq.md                    # FAQs
