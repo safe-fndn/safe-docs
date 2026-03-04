@@ -38,7 +38,7 @@ Any Safe on any supported EVM chain can use Safenet. No proprietary infrastructu
 ## Who is Safenet for?
 
 **Safe users**
-Safenet protects your account from malicious transactions, even if your wallet UI is compromised. See the [FAQ](/safenet/faq) to learn more and explore recent network activity.
+Safenet protects your account from malicious transactions, even if your wallet UI is compromised. See the [FAQ](/safenet/resources/faq) to learn more and explore recent network activity.
 
 **Stakers and delegators**
 Delegate SAFE tokens to validators and earn rewards for securing the network. See [Staking](/safenet/staking/validator-staking).

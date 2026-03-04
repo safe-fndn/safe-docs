@@ -72,4 +72,4 @@ See the [Roadmap](/safenet/overview/roadmap) for what comes after Beta.
 
 ## Explorer
 
-The Beta Explorer is a public tool for viewing transactions proposed and checked by the Safenet validator set. See the [FAQ](/safenet/faq) for details.
+The Beta Explorer is a public tool for viewing transactions proposed and checked by the Safenet validator set. See the [FAQ](/safenet/resources/faq) for details.

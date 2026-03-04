@@ -35,7 +35,7 @@ Both stake types use the same Staking contract with the same deposit and withdra
 
 TODO: Insert contract address and block explorer link.
 
-The Staking contract source is available on GitHub: [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol). It has been independently audited and formally verified by Certora. See [Security](/safenet/security) for the full report.
+The Staking contract source is available on GitHub: [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol). It has been independently audited and formally verified by Certora. See [Security](/safenet/resources/security) for the full report.
 
 ## In this section
 
