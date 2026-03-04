@@ -7,7 +7,7 @@ description: How SAFE tokens are staked in Safenet, who participates, and how re
 Safenet is currently in Beta. Slashing is not active and the validator set is permissioned. The mechanics described here reflect the live Beta state.
 </Note>
 
-Safenet uses staked SAFE tokens as its economic security layer. Validators back their attestation activity with locked SAFE, and SAFE token holders can delegate to a validator to earn a share of rewards without running a node themselves.
+Safenet uses staked SAFE tokens to align validator incentives and determine reward eligibility. Validators commit locked SAFE to participate, and SAFE token holders can delegate to a validator to earn a share of rewards without running a node themselves.
 
 ## Actors and incentives
 
