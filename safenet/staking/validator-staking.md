@@ -36,7 +36,7 @@ TODO: Link to staking interface once available.
 Your stake is active once the transaction is confirmed. You can monitor your balance and reward eligibility in the Explorer.
 
 <Note>
-  Validators need to set the `staker` in their environment so their Gnosis Chain validator address is connected to their Ethereum staking address.
+  Validators need to set the `STAKER_ADDRESS` in their environment so their Gnosis Chain validator address is connected to their Ethereum staking address.
 </Note>
 
 **Via the contract directly**
