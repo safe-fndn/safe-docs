@@ -3,6 +3,7 @@ Attestors
 calldata
 Chainalysis
 Delegator
+Validators
 delegatecalls
 EOAs
 ERC20
@@ -25,5 +26,6 @@ Stakers
 timelocked
 timelock
 Validator
+Validators
 zkSync
 permissionless
