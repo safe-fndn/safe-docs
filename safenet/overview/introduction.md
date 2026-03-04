@@ -64,7 +64,7 @@ Participate in transaction validation and enforcement by running a Safenet valid
 ### Stakers and delegators
 Delegate stake to validators and earn rewards for securing the network.
 
-→ See: [Staking](/safenet/staking/validator-staking)
+→ See: [Staking](/safenet/staking/overview)
 
 ### Transaction checkers and security firms
 Provide detection logic and risk signals that can be enforced onchain via Safenet.

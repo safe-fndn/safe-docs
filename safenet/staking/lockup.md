@@ -1,55 +1,33 @@
 ---
-title: Staking lock-up periods
+title: Lock-up periods
 description: How withdrawal delays work and what to expect when unstaking SAFE tokens.
 ---
 
-Staked SAFE tokens are not immediately withdrawable. A mandatory **withdrawal delay** applies between initiating an unstake and being able to claim your tokens back.
+Staked SAFE tokens are not immediately withdrawable. After requesting a withdrawal, a mandatory **2-day waiting period** applies before you can claim your tokens back.
 
-## Withdrawal flow
+## How to withdraw
 
-```mermaid
-sequenceDiagram
-    participant Staker
-    participant Staking
-    participant SAFE Token
+TODO: Link to staking interface once available.
 
-    Note over Staker,SAFE Token: Step 1: Initiate withdrawal
-    Staker->>Staking: initiateWithdrawal(validator, amount)
-    Staking-->>Staker: Emit WithdrawalInitiated
+1. Go to the staking interface and connect your wallet
+2. Select the validator you want to withdraw from and enter the amount
+3. Confirm the withdrawal transaction. Your tokens enter the 2-day waiting period
+4. After 2 days, return to the staking interface to claim your tokens
 
-    Note over Staker,SAFE Token: Step 2: Wait for withdrawDelay
+Tokens in the withdrawal queue do not count toward your time-weighted stake average, so they do not earn rewards during the waiting period.
 
-    Note over Staker,SAFE Token: Step 3: Claim
-    Staker->>Staking: claimWithdrawal()
-    Staking-->>Staker: Emit WithdrawalClaimed
-    Staking->>SAFE Token: transfer(staker, amount)
-```
+## Waiting period
 
-### Checking when you can claim
+The withdrawal delay is currently **2 days**. This delay exists so that if a validator misbehaves, there is time to respond before they can exit their stake.
 
-```solidity
-// Check when your next withdrawal is claimable
-(uint256 amount, uint256 claimableAt) = staking.getNextClaimableWithdrawal(myAddress);
+**Multiple pending withdrawals**: If you initiate more than one withdrawal, they are processed in the order they were submitted. You must claim each one before the next becomes available.
 
-// After claimableAt has passed:
-staking.claimWithdrawal();
-```
+## Changing the delay
 
-## Parameters
-
-| Parameter | Description |
-|-----------|-------------|
-| `withdrawDelay` | Mandatory waiting period between initiating and claiming a withdrawal |
-| `CONFIG_TIME_DELAY` | Minimum timelock for any changes to protocol configuration, including `withdrawDelay` |
-
-The current `withdrawDelay` value is set at deployment. Any change to it requires a governance proposal and must wait out the `CONFIG_TIME_DELAY` before taking effect.
-
-## Withdrawal queue
-
-Withdrawals are processed in FIFO order per staker. If you have multiple pending withdrawals, they are queued and must be claimed in order.
+The withdrawal delay is a protocol parameter governed by SafeDAO. Any proposed change must wait **7 days** after approval before taking effect. This ensures stakers always have advance notice before a change applies. The maximum withdrawal delay that can be set is 7 days, ie. **there will never be a withdrawal delay longer than 7 days** with the current, immutable Staking contract.
 
 <Note>
-If the withdrawal queue becomes very long, `initiateWithdrawal` can become expensive in gas. Use `initiateWithdrawalAtPosition` to specify your position in the queue and avoid this.
+The current withdrawal delay is 2 days. If this changes upon SafeDAO approval, the new value will be reflected here.
 </Note>
 
-TODO: Add current `withdrawDelay` value once contracts are deployed.
+The Staking contract is deployed on Ethereum Mainnet. TODO: Add contract address and block explorer link.

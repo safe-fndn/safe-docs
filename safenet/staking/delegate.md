@@ -3,64 +3,49 @@ title: How to delegate stake?
 description: How to delegate SAFE tokens to a Safenet validator and earn staking rewards.
 ---
 
-<Note>
-This page is a work in progress. The staking interface and delegation flow will be documented ahead of the Safenet Beta launch.
-</Note>
+Anyone holding SAFE tokens can delegate stake to a validator and earn a share of their rewards, without running a node. See [Staking overview](/safenet/staking/overview) for how delegation fits into the broader staking system.
 
-## Delegators vs. validator self-stake
+## Choosing a validator
 
-Anyone holding SAFE tokens can participate in Safenet security by delegating stake to a validator; you do not need to run a node yourself.
+Your rewards depend directly on the validator you back.
 
-- **Validators** stake SAFE tokens toward their own address (self-stake) and must maintain a minimum of **3,500,000 SAFE** to be eligible for validator rewards.
-- **Delegators** stake SAFE toward a validator's address. Your tokens back that validator's security contribution and entitle you to a share of rewards.
+**Participation rate** is the most important factor. If a validator's participation falls below 75% in a reward period, neither they nor their delegators earn rewards for that period. Look for validators with a consistently high participation rate.
 
-Delegated stake and self-stake are tracked separately in the Staking contract but both contribute to the validator's total stake weight for reward purposes.
+**Self-stake level** signals a validator's own exposure. Validators must maintain a minimum average self-stake of 3,500,000 SAFE to be eligible for their own reward share. If they fall below this, they forfeit their own rewards but delegator rewards are unaffected.
 
-## Choosing a validator to delegate to
+**Total stake** affects reward efficiency. Reward weight grows sub-linearly once a validator's total stake exceeds a per-validator threshold. Very large validators earn proportionally less per token than smaller ones, so delegating to a mid-sized validator may yield better returns.
 
-TODO: Cover the following:
+You can view validator stats, including participation rates and stake levels in the staking interface.
 
-- What to look for in a validator (participation rate, total stake, self-stake level)
-- Where to see a live list of validators and their stats (Explorer / staking interface)
-- Risks of delegating to a low-participation validator (rewards affected, stake is not at risk)
-- Whether you can split delegation across multiple validators
+You can split your delegation across more than one validator simultaneously.
 
 ## How to delegate
 
-TODO: Step-by-step walkthrough:
+TODO: Link to staking interface once available.
 
-1. Connect your wallet to the staking interface (link TBD)
+1. Connect your wallet to the staking interface
 2. Browse the validator list and select a validator
 3. Enter the amount of SAFE to delegate
 4. Approve the SAFE token transfer
 5. Confirm the staking transaction
 
-Alternatively, delegate directly via the Staking contract:
+For those who prefer to interact with the contract directly, the Staking contract source and ABI are available on [GitHub](https://github.com/safe-research/safenet).
 
-```solidity
-// 1. Approve the staking contract to spend your SAFE
-IERC20(SAFE_TOKEN).approve(STAKING_ADDRESS, amount);
+Your delegation is active once the transaction is confirmed. Rewards are calculated using a time-weighted average over the reward period, so stake added mid-period earns proportionally for the time it was active.
 
-// 2. Stake toward your chosen validator
-Staking(STAKING_ADDRESS).stake(validatorAddress, amount);
-```
+## Checking your balance
 
-## Checking your delegation balance
+Your current delegation balance and accrued rewards are visible in the staking interface. You can look up your wallet address to see which validators you have delegated to and your current stake amounts for each.
 
-```solidity
-// Your stake toward a specific validator
-uint256 myStake = staking.stakes(myAddress, validatorAddress);
+## Moving to a different validator
 
-// Your total stake across all validators
-uint256 myTotal = staking.totalStakerStakes(myAddress);
-```
+There is no direct redelegation path. To move stake from one validator to another, you must go through a full withdrawal and restake cycle:
 
-## Moving delegation between validators
+1. Initiate a withdrawal from your current validator
+2. Wait out the withdrawal delay period
+3. Claim your tokens
+4. Delegate to your new validator
 
-TODO: Describe whether and how delegators can move stake from one validator to another: whether this requires a withdrawal + re-stake cycle or if there is a direct redelegation path.
+Your tokens are locked and not earning rewards during the withdrawal delay. Factor this time cost in when deciding whether to switch validators.
 
-→ See: [Staking lock-up periods](/safenet/staking/lockup) for withdrawal delay implications.
-
-## Staking interface
-
-TODO: Link to the dedicated staking and claiming interface once available.
+→ See: [Staking lock-up periods](/safenet/staking/lockup) for the withdrawal flow and current delay duration.
