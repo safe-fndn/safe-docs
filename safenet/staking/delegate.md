@@ -15,7 +15,7 @@ Your rewards depend directly on the validator you back.
 
 **Total stake** affects reward efficiency. Reward weight grows sub-linearly once a validator's total stake exceeds a per-validator threshold. Very large validators earn proportionally less per token than smaller ones, so delegating to a mid-sized validator may yield better returns.
 
-You can view validator stats, including participation rates and stake levels in the staking interface.
+You can view validator stats, including participation rates and stake levels in the staking interface. There is also a [Safenet Beta dashboard on Dune](https://dune.com/safe/safenet-beta) available.
 
 You can split your delegation across more than one validator simultaneously.
 
@@ -42,7 +42,7 @@ Your current delegation balance and accrued rewards are visible in the staking i
 There is no direct redelegation path. To move stake from one validator to another, you must go through a full withdrawal and restake cycle:
 
 1. Initiate a withdrawal from your current validator
-2. Wait out the withdrawal delay period
+2. Wait out the **2-day** withdrawal delay
 3. Claim your tokens
 4. Delegate to your new validator
 

@@ -34,7 +34,7 @@ The Staking contract has an owner (the SafeDAO via the Safe Ecosystem Foundation
 
 The owner can also recover tokens accidentally sent to the contract, but cannot access staked SAFE or tokens in the withdrawal queue.
 
-The Staking contract has been audited by [Certora](https://www.certora.com/): [Audit report](https://github.com/safe-research/safenet/blob/main/contracts/audits/Safe%20Research%20-%20Certora%20-%20Safenet%20Staking%20-%20report%20v1%20-%20January%202026.pdf).
+The Staking contract has been independently formally verified and audited by [Certora](https://www.certora.com/). See the [full report](https://github.com/safe-research/safenet/blob/main/contracts/audits/audit.md) for details.
 
 **Consensus and FROSTCoordinator contracts**
 
