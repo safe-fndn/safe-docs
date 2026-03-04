@@ -1,5 +1,5 @@
 ---
-title: What is Safenet?
+title: Overview
 description: Safenet enforces transaction security onchain by preventing high-risk transactions from executing.
 ---
 
@@ -13,73 +13,43 @@ It acts as a **last line of defense** against malicious or high-risk transaction
 
 Safenet replaces centralized transaction-checking services with a **resilient, validator-based network** that enforces security guarantees onchain.
 
-## Core problem
+## How Safenet protects accounts
 
-Transaction security remains an unsolved problem in Web3:
+Most transaction security tools today display warnings. They cannot stop a transaction from executing. Safenet changes this.
 
-- Users are forced to **blind-sign** opaque transactions
-- Wallet UIs can be compromised or misleading
-- One malicious signature can lead to **irreversible loss**
-- Proper operational security is hard, and failure probability increases over time
+When a transaction is proposed, Safenet validators check it against a defined set of security rules. If the transaction passes, validators produce a cryptographic attestation. The Safe guard verifies that attestation onchain before allowing execution. If no valid attestation exists, the transaction is blocked.
 
-Even simple onchain actions (e.g. approvals, signer changes) can be embedded in deceptive transaction flows.
-
-## Goals and value proposition
-
-Safenet is designed to:
-
-- **Prevent malicious transactions from executing**, not just warn about them
-- Make transaction security **accessible to all users**, not only advanced or institutional ones
-- Provide **additive security** that complements existing wallets and protocols
-- Create **public, accountable security guarantees**, enforced onchain
-
-Unlike offchain checkers, Safenet produces **binding enforcement**, not advisory signals.
+This means protection is enforced by the protocol, not by user behavior. A phishing site, a compromised wallet UI, or an opaque approval cannot bypass it.
 
 ## What makes Safenet different
 
-Safenet’s core differentiators are:
+**Decentralized validation**
+Security checks are performed by a network of validators, not a single API or server. The network tolerates up to one-third of validators acting dishonestly and still produces correct attestations.
 
-- **Onchain enforcement**
-  Transactions deemed malicious are prevented from executing.
+**Onchain enforcement**
+Attestations are compact cryptographic signatures. Verification is gas-efficient and permissionless: any EVM-compatible chain can integrate without proprietary infrastructure. A transaction without a valid attestation cannot execute, regardless of who signed it.
 
-- **Decentralized validation**
-  Security checks are performed by a network of validators, not a single API or server.
+**A path to sustainable security incentives**
+Safenet aims to create a market for transaction security: checkers compete to provide real-time risk signals, and validators attest to market outcomes. It is envisioned that this creates a sustainable path toward fee-based security services, which makes staking economically meaningful. This market mechanism is planned for after Beta.
 
-- **Public accountability**
-  Validator attestations are onchain and auditable, increasing trust and reliability.
-
-- **Open integration**
-  Any wallet, protocol, or transaction-checking service can integrate with Safenet.
+**Open to all chains and wallets**
+Any Safe on any supported EVM chain can use Safenet. No proprietary infrastructure required.
 
 ## Who is Safenet for?
 
-### Wallet operators
-Integrate Safenet to protect users from malicious transactions without relying on centralized infrastructure.
+**Safe users**
+Safenet protects your account from malicious transactions, even if your wallet UI is compromised. See the [FAQ](/safenet/faq) to learn more and explore recent network activity.
 
-### Validators
-Participate in transaction validation and enforcement by running a Safenet validator node.
+**Stakers and delegators**
+Delegate SAFE tokens to validators and earn rewards for securing the network. See [Staking](/safenet/staking/validator-staking).
 
-→ See: [Safenet Validators](/safenet/overview/validators)
+**Validators, wallet operators, and security firms**
+If you are interested in running a validator, integrating Safenet into your wallet, or contributing transaction security logic, reach out.
 
-### Stakers and delegators
-Delegate stake to validators and earn rewards for securing the network.
+TODO: Add reach-out form link once available.
 
-→ See: [Staking](/safenet/staking/overview)
+## Safenet Beta
 
-### Transaction checkers and security firms
-Provide detection logic and risk signals that can be enforced onchain via Safenet.
+Safenet is currently live in Beta, focusing on core consensus, threshold signing, and SAFE token staking with a permissioned validator set.
 
-## Scope, limitations, and outlook
-
-Safenet Beta focuses on:
-
-- **Safe transactions on EVM chains**
-- **Permissioned validator set**
-- **Pre-defined security checks**
-- **Onchain enforcement via Safe guards**
-
-This is a deliberate starting point. Transaction security is complex, and Safenet prioritizes correctness, reliability, and measurable guarantees in its initial deployment.
-
-As a next step, onchain enforcement will be enabled including more advanced security checks, and transaction checker competition.
-
-→ See: [Roadmap](/safenet/overview/roadmap)
+See [Safenet Beta](/safenet/overview/beta) for what is live today, and the [Roadmap](/safenet/overview/roadmap) for what comes next.
