@@ -102,7 +102,7 @@
         "hidden": true,
         "pages": [
           {
-            "group": "Overview",
+            "group": "What is Safenet?",
             "pages": [
               "safenet/overview/introduction",
               "safenet/overview/validators",
