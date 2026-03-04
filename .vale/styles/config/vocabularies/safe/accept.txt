@@ -3,7 +3,6 @@ Attestors
 calldata
 Chainalysis
 Delegator
-delegators
 EOAs
 ERC20
 ERC721
