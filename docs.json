@@ -113,6 +113,7 @@
           {
             "group": "Staking",
             "pages": [
+              "safenet/staking/overview",
               "safenet/staking/validator-staking",
               "safenet/staking/delegate",
               "safenet/staking/rewards",
@@ -120,6 +121,7 @@
               "safenet/staking/risk"
             ]
           },
+          "safenet/security",
           "safenet/faq"
         ]
       }
