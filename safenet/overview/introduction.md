@@ -27,7 +27,7 @@ This means protection is enforced by the protocol, not by user behavior. A phish
 Security checks are performed by a network of validators, not a single API or server. The network tolerates up to one-third of validators acting dishonestly and still produces correct attestations.
 
 **Onchain enforcement**
-Attestations are cryptographic signatures verifiable on any EVM-compatible chain. A transaction without a valid attestation cannot execute, regardless of who signed it.
+Attestations are compact cryptographic signatures. Verification is gas-efficient and permissionless: any EVM-compatible chain can integrate without proprietary infrastructure. A transaction without a valid attestation cannot execute, regardless of who signed it.
 
 **A path to sustainable security incentives**
 Safenet aims to create a market for transaction security: checkers compete to provide real-time risk signals, and validators attest to market outcomes. It is envisioned that this creates a sustainable path toward fee-based security services, which makes staking economically meaningful. This market mechanism is planned for after Beta.

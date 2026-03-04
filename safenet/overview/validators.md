@@ -13,7 +13,7 @@ The Safe guard checks this attestation onchain before allowing execution. Withou
 
 Validators only attest to outcomes that are fully deterministic. Given the same transaction data, every honest validator reaches the same conclusion. This is what allows the network to maintain its security guarantees even when some validators behave dishonestly.
 
-The network tolerates up to one-third of validators acting dishonestly. As long as fewer than one-third are compromised, no invalid attestation can be produced.
+The network tolerates up to one-third of validators acting dishonestly. As long as fewer than one-third are compromised, no invalid attestation can be produced. This property is known as Byzantine Fault Tolerance (BFT).
 
 ## Decentralization and trust
 

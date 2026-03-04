@@ -26,9 +26,9 @@ Beta staking rewards are subsidized for an initial period. Long-term, rewards wi
 
 ## Validator set
 
-The Beta validator set consists of validators run by independent organizations, selected by the Safe Ecosystem Foundation. All validators must maintain a minimum self-stake of 3.5M SAFE.
+The Beta validator set consists of validators run by independent organizations, selected by the Safe Ecosystem Foundation. All validators must maintain a minimum self-stake of 3,500,000 SAFE.
 
-Safenet Beta runs on Gnosis Chain. Deployment info:
+Validator coordination is handled via contracts on Gnosis Chain. Deployment info:
 
 - Consensus contract: `TODO`
 - Coordinator contract: `TODO`
@@ -42,6 +42,8 @@ Safenet Beta uses the following permissioned validator set:
 | TODO | `TODO` |
 | TODO | `TODO` |
 | TODO | `TODO` |
+
+TODO: Link to validator.json once live
 
 ## Transaction checks
 
