@@ -19,7 +19,7 @@ Safenet Beta marks the first live deployment of the network, focused on validato
 
 - Launch of the Safenet Beta network
 - Validator onboarding and coordination
-- Initial SAFE token staking mechanics
+- Initial SAFE token staking and open delegation
 - Basic transaction attestation flow
 - Explorer and network monitoring tools
 
@@ -28,17 +28,17 @@ This phase validates the core architecture, staking mechanics, and validator par
 
 ## Q2 2026 - Advanced Checks & Guard Enforcement
 
-Safenet expands its transaction verification capabilities with more advanced security logic and enforceable guard integrations.
+Safenet expands its transaction verification capabilities and introduces onchain enforcement via the Safe guard. The guard verifies Safenet attestations directly onchain before allowing transaction execution, providing enforcement at low cost on supported chains.
 
 **Focus areas**
 
 - Expanded transaction security checks
 - Improved attack pattern detection
-- Guard-level enforcement mechanisms
+- Safe guard deployment and onchain enforcement
 - Configurable security policy frameworks
 - Validator performance monitoring
 
-This phase strengthens Safenet’s ability to proactively prevent malicious or high-risk transactions before execution.
+This phase strengthens Safenet's ability to proactively prevent malicious or high-risk transactions before execution.
 
 
 ## Q3 2026 - Safe\{Wallet\} Integration & Fee Implementation
@@ -69,9 +69,9 @@ Safenet evolves into a market-based enforcement layer for transaction validation
 This phase introduces economic competition to optimize security quality, responsiveness, and efficiency.
 
 
-## 2027+ - Economic Slashing & Transaction Insurance
+## 2027+ - Slashing, Insurance & Permissionless Validators
 
-Safenet transitions toward stronger crypto-economic guarantees and optional protection layers.
+Safenet transitions toward stronger crypto-economic guarantees, optional protection layers, and an open validator set.
 
 **Focus areas**
 
@@ -79,6 +79,13 @@ Safenet transitions toward stronger crypto-economic guarantees and optional prot
 - Cryptoeconomic accountability guarantees
 - Risk-weighted validation models
 - Transaction insurance primitives
-- Advanced security assurances
+- Permissionless validator onboarding
+- P2P validator network (replacing onchain communication for scalability)
 
-This phase establishes Safenet as a fully incentive-aligned security layer with enforceable accountability and optional insurance coverage.
+This phase establishes Safenet as a fully incentive-aligned, open security layer with enforceable accountability and optional insurance coverage.
+
+<Note>
+Interested in becoming a validator or transaction checker?
+
+TODO: Add reach link to form.
+</Note>

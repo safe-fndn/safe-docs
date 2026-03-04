@@ -73,6 +73,9 @@ Use `###` headings only when a subsection is substantial enough that a reader wo
 ### Stubs and TODOs
 - Pages that are not yet written should still have a clear structure: frontmatter title and description, a `<Note>` saying the page is in progress, and `TODO:` comments that are specific enough for a writer to act on.
 - Never leave a page with only `TODO` and a bullet list if you can give it proper section headings instead.
+- Always write TODOs as plain text on their own line: `TODO: description of what is needed.`
+- Never use HTML comments for TODOs (`<!-- TODO: ... -->`). Mintlify renders these as errors.
+- TODOs should be placed on their own line, not inline within a sentence.
 
 ### Links
 - Always use absolute paths from the site root (e.g. `/safenet/staking/rewards`), not relative paths.
