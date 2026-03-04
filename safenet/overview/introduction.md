@@ -1,6 +1,5 @@
 ---
-title: What is Safenet?
-sidebarTitle: Overview
+title: Overview
 description: Safenet enforces transaction security onchain by preventing high-risk transactions from executing.
 ---
 
