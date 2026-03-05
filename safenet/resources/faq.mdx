@@ -1,0 +1,137 @@
+---
+title: FAQs
+description: Frequently asked questions about Safenet and Safenet Beta.
+---
+
+<AccordionGroup>
+
+  <Accordion title="Is this supported by SafeDAO?">
+    Safenet Beta is initiated by the Safe Ecosystem Foundation (SEF), which is accountable to SafeDAO governance. The Safenet Beta, the Staking contract, and the validator network are live and run under SEF's mandate.
+
+    The staking rewards mechanism is a proposal currently pending SafeDAO approval. No rewards have been distributed yet. If the proposal passes governance, rewards will be distributed according to the mechanism described in [Staking rewards](/safenet/staking/rewards).
+
+    Configuration changes to the protocol, including any updates to the withdrawal delay, require a timelock before taking effect. Changes to reward parameters require a governance proposal.
+
+    <Note>
+      The rewards proposal is not yet approved. This page will be updated when the SafeDAO vote concludes.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Is the code open source?">
+    Yes. The Safenet Beta contracts, Explorer and staking UI are publicly available on GitHub: [safe-research/safenet](https://github.com/safe-research/safenet)
+
+    - **Smart contracts**: [safe-research/safenet/contracts](https://github.com/safe-research/safenet/tree/main/contracts)
+    - **Explorer**: [safe-research/safenet/explorer](https://github.com/safe-research/safenet/tree/main/explorer)
+    - TODO: Staking UI
+
+    The Staking contract has been independently audited. The audit report is available in the repository. See [Security](/safenet/resources/security) for the full audit report and contract details.
+  </Accordion>
+
+  <Accordion title="Where can I learn more about the technical details?">
+    A technical overview is provided in the [Safenet repository](https://github.com/safe-research/safenet/blob/main/docs/overview.md).
+
+    **Smart contracts**
+
+    The full source for the Staking and Consensus contracts is in [safe-research/safenet/contracts](https://github.com/safe-research/safenet/tree/main/contracts). Inline documentation covers the key functions, events, and parameters.
+
+    **FROST threshold signing**
+
+    Safenet uses FROST (Flexible Round-Optimized Schnorr Threshold Signatures) for validator attestations. The standard is defined in [RFC 9591](https://datatracker.ietf.org/doc/html/rfc9591).
+
+    **Staking mechanics**
+
+    The staking and rewards documentation covers how stake is weighted, how rewards are calculated, and what conditions affect eligibility. Start with [Staking](/safenet/staking/overview).
+
+    **Validators**
+
+    There is a [validator handbook](https://github.com/safe-research/safenet/blob/main/docs/validator-handbook.md) available.
+
+    For questions not covered by the documentation, open an issue on [GitHub](https://github.com/safe-research/safenet/issues/new).
+  </Accordion>
+
+  <Accordion title="How do I use Safenet and the Explorer in Beta?">
+    The Safenet Beta Explorer is a public interface for observing transaction validation activity on the network. No wallet connection or account is required to view activity.
+
+    **Exploring network activity**
+
+    The Explorer provides a live stream of Safe transactions that have been proposed to the Safenet validator set. Each transaction shows its current status (**Proposed**, **Attested**, or **Timed-out**) and a detail page with the full transaction breakdown, validator participation, and links to Safe\{Wallet\} and chain explorers.
+
+    You can search by Safe address or `safeTxHash`.
+
+    **Submitting a transaction for validation**
+
+    If your Safe transaction has not yet been proposed to Safenet Beta, you can submit it directly from the Explorer:
+
+    1. Navigate to the Explorer at _TODO: link_
+    2. Enter your `safeTxHash` or paste the transaction details manually
+    3. Submit - no wallet required, the submission is relayed for you
+  </Accordion>
+
+  <Accordion title="How long does transaction validation take?">
+    Under normal network conditions, a transaction moves from **Proposed** to **Attested** within a few signing rounds. In practice this is typically a matter of seconds to low minutes.
+
+    The exact duration depends on two factors. First, validator participation: if enough validators are online and responsive, the FROST threshold signature completes in a single round. If some validators are slow or offline, the signing coordinator retries until quorum is reached or the round times out. Second, network conditions: latency between validators affects round-trip times for the threshold signing protocol.
+
+    You can monitor the status of any transaction in the Explorer. A transaction that reaches **Timed-out** did not receive enough validator signatures within the signing window. You can resubmit it for a new signing round.
+  </Accordion>
+
+  <Accordion title="How do I verify my transaction is secure?">
+    <Note>
+      Safenet Beta only does basic transaction security checks. It is a Beta product and might misbehave.
+    </Note>
+
+    **Check the attestation status in the Explorer**
+
+    Look up your transaction by `safeTxHash` in the Explorer. The status field shows one of three states:
+
+    - **Proposed**: the transaction has been submitted to the validator set and a signing round is in progress.
+    - **Attested**: a threshold of validators produced a FROST signature over the transaction. This signature is recorded onchain on Gnosis Chain.
+    - **Timed-out**: the signing round did not reach quorum within the allowed window. The transaction can be resubmitted.
+
+    **What "Attested" means**
+
+    An attested transaction has a threshold FROST signature from the active validator set. FROST is a standard threshold signing scheme (see [RFC 9591](https://datatracker.ietf.org/doc/html/rfc9591)). It means no single validator approved the transaction alone: a defined minimum number of independent validators all participated in producing the signature.
+
+    The signature and the signed message are stored in the Consensus contract on Gnosis Chain. Anyone can retrieve and verify the signature against the validator set's public key using standard cryptographic tools.
+
+    **Checking onchain**
+
+    ```solidity
+    (bytes32 msg, FROST.Signature memory sig) = consensus.getRecentAttestation(tx);
+    ```
+
+    See the Consensus contract documentation for the full verification flow.
+  </Accordion>
+
+  <Accordion title="Can I become a validator?">
+    In Safenet Beta, the validator set is **permissioned**. Validators are selected and onboarded by the Safe Ecosystem Foundation. The validator set is intentionally small in Beta to allow the core staking, consensus, and FROST threshold signing mechanics to be proven out in a controlled environment.
+
+    If you are interested in running a validator node in a future phase, watch the [Roadmap](/safenet/overview/roadmap) for updates on when the validator set opens up.
+
+    TODO: Add link to the validator interest form once available.
+  </Accordion>
+
+  <Accordion title="How do I programmatically propose Safe transactions for validation?">
+    Transactions are submitted to the Consensus contract on Gnosis Chain via the `proposeTransaction` function.
+
+    ```solidity
+    // Submit a transaction for validation
+    bytes32 message = consensus.proposeTransaction(tx);
+
+    // Listen for the TransactionAttested event, then retrieve the signature:
+    (bytes32 msg, FROST.Signature memory sig) = consensus.getRecentAttestation(tx);
+    ```
+
+    The `tx` parameter is a `SafeTransaction.T` struct containing the standard Safe transaction fields. After calling `proposeTransaction`, listen for the `TransactionProposed` event to confirm submission, then wait for `TransactionAttested` before using the resulting FROST signature.
+
+    **Events to listen for**
+
+    - `TransactionProposed(bytes32 indexed safeTxHash, ...)`: emitted on successful submission
+    - `TransactionAttested(bytes32 indexed safeTxHash, FROST.Signature sig)`: emitted when threshold signing completes
+
+    See the [Consensus contract source](https://github.com/safe-research/safenet) for the full interface and struct definitions.
+  </Accordion>
+
+</AccordionGroup>
+
+For questions not covered here, reach out at [research+safenet@safe.dev](mailto:research+safenet@safe.dev).

@@ -3,6 +3,8 @@ Attestors
 calldata
 Chainalysis
 Delegator
+Validators
+delegatecalls
 EOAs
 ERC20
 ERC721
@@ -14,13 +16,16 @@ Mintlify
 Multisig
 offchain
 onchain
+permissioned
 Pimlico
 Reality.eth
 redelegate
 SafeDAO
 Safenet
+Stakers
 timelocked
 timelock
 Validator
+Validators
 zkSync
 permissionless

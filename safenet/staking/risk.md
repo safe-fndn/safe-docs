@@ -14,7 +14,7 @@ In Safenet Beta, **staked tokens cannot be slashed**. There is no mechanism for 
 Staking SAFE tokens in any smart contract carries inherent risk. Key facts about the Staking contract:
 
 - The contract is **non-upgradeable**: its logic cannot be changed after deployment
-- It has been independently **audited**: See: [Security](/safenet/security) for the full audit report and contract details
+- It has been independently **audited**: See: [Security](/safenet/resources/security) for the full audit report and contract details
 - It holds no protocol-level permissions over your tokens beyond what you approve
 
 As with any smart contract interaction, you should only stake amounts you are comfortable locking under these conditions.

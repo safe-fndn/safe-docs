@@ -121,8 +121,13 @@
               "safenet/staking/risk"
             ]
           },
-          "safenet/security",
-          "safenet/faq"
+          {
+            "group": "Resources",
+            "pages": [
+              "safenet/resources/security",
+              "safenet/resources/faq"
+            ]
+          }
         ]
       }
     ]
