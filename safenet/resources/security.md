@@ -40,7 +40,7 @@ The Staking contract has been independently formally verified and audited by [Ce
 
 Both contracts are non-upgradeable and have no owner. There are no admin functions and no configurable parameters.
 
-Validator staker addresses in the Consensus contract are self-set by each validator. Epoch transitions (changes to the active validator set) require a threshold signature from the current validator set, not any central authority.
+Validator Staker addresses in the Consensus contract are self-set by each Validator. Epoch transitions (changes to the active Validator set) require a threshold signature from the current Validator set, not any central authority.
 
 <Note>
     In case there is an unrecoverable failure in Safenet Beta, both contracts have to be redeployed and the network needs to be relaunched.
