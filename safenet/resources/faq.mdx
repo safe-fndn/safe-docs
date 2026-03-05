@@ -6,7 +6,7 @@ description: Frequently asked questions about Safenet and Safenet Beta.
 <AccordionGroup>
 
   <Accordion title="Is this supported by SafeDAO?">
-    Safenet Beta is initiated by the Safe Ecosystem Foundation (SEF), which is accountable to SafeDAO governance. The Safenet Beta, the Staking contract, and the validator network are live and run under SEF's mandate.
+    Safenet Beta is initiated by the Safe Ecosystem Foundation (SEF), which is accountable to SafeDAO governance. The Safenet Beta, the Staking contract, and the Validator network are live and run under SEF's mandate.
 
     The staking rewards mechanism is a proposal currently pending SafeDAO approval. No rewards have been distributed yet. If the proposal passes governance, rewards will be distributed according to the mechanism described in [Staking rewards](/safenet/staking/rewards).
 
@@ -36,7 +36,7 @@ description: Frequently asked questions about Safenet and Safenet Beta.
 
     **FROST threshold signing**
 
-    Safenet uses FROST (Flexible Round-Optimized Schnorr Threshold Signatures) for validator attestations. The standard is defined in [RFC 9591](https://datatracker.ietf.org/doc/html/rfc9591).
+    Safenet uses FROST (Flexible Round-Optimized Schnorr Threshold Signatures) for Validator attestations. The standard is defined in [RFC 9591](https://datatracker.ietf.org/doc/html/rfc9591).
 
     **Staking mechanics**
 
@@ -44,7 +44,7 @@ description: Frequently asked questions about Safenet and Safenet Beta.
 
     **Validators**
 
-    There is a [validator handbook](https://github.com/safe-research/safenet/blob/main/docs/validator-handbook.md) available.
+    There is a [Validator handbook](https://github.com/safe-research/safenet/blob/main/docs/Validator-handbook.md) available.
 
     For questions not covered by the documentation, open an issue on [GitHub](https://github.com/safe-research/safenet/issues/new).
   </Accordion>
@@ -54,7 +54,7 @@ description: Frequently asked questions about Safenet and Safenet Beta.
 
     **Exploring network activity**
 
-    The Explorer provides a live stream of Safe transactions that have been proposed to the Safenet validator set. Each transaction shows its current status (**Proposed**, **Attested**, or **Timed-out**) and a detail page with the full transaction breakdown, validator participation, and links to Safe\{Wallet\} and chain explorers.
+    The Explorer provides a live stream of Safe transactions that have been proposed to the Safenet Validator set. Each transaction shows its current status (**Proposed**, **Attested**, or **Timed-out**) and a detail page with the full transaction breakdown, Validator participation, and links to Safe\{Wallet\} and chain explorers.
 
     You can search by Safe address or `safeTxHash`.
 
@@ -70,9 +70,9 @@ description: Frequently asked questions about Safenet and Safenet Beta.
   <Accordion title="How long does transaction validation take?">
     Under normal network conditions, a transaction moves from **Proposed** to **Attested** within a few signing rounds. In practice this is typically a matter of seconds to low minutes.
 
-    The exact duration depends on two factors. First, validator participation: if enough validators are online and responsive, the FROST threshold signature completes in a single round. If some validators are slow or offline, the signing coordinator retries until quorum is reached or the round times out. Second, network conditions: latency between validators affects round-trip times for the threshold signing protocol.
+    The exact duration depends on two factors. First, Validator participation: if enough Validators are online and responsive, the FROST threshold signature completes in a single round. If some Validators are slow or offline, the signing coordinator retries until quorum is reached or the round times out. Second, network conditions: latency between Validators affects round-trip times for the threshold signing protocol.
 
-    You can monitor the status of any transaction in the Explorer. A transaction that reaches **Timed-out** did not receive enough validator signatures within the signing window. You can resubmit it for a new signing round.
+    You can monitor the status of any transaction in the Explorer. A transaction that reaches **Timed-out** did not receive enough Validator signatures within the signing window. You can resubmit it for a new signing round.
   </Accordion>
 
   <Accordion title="How do I verify my transaction is secure?">
@@ -84,15 +84,15 @@ description: Frequently asked questions about Safenet and Safenet Beta.
 
     Look up your transaction by `safeTxHash` in the Explorer. The status field shows one of three states:
 
-    - **Proposed**: the transaction has been submitted to the validator set and a signing round is in progress.
-    - **Attested**: a threshold of validators produced a FROST signature over the transaction. This signature is recorded onchain on Gnosis Chain.
+    - **Proposed**: the transaction has been submitted to the Validator set and a signing round is in progress.
+    - **Attested**: a threshold of Validators produced a FROST signature over the transaction. This signature is recorded onchain on Gnosis Chain.
     - **Timed-out**: the signing round did not reach quorum within the allowed window. The transaction can be resubmitted.
 
     **What "Attested" means**
 
-    An attested transaction has a threshold FROST signature from the active validator set. FROST is a standard threshold signing scheme (see [RFC 9591](https://datatracker.ietf.org/doc/html/rfc9591)). It means no single validator approved the transaction alone: a defined minimum number of independent validators all participated in producing the signature.
+    An attested transaction has a threshold FROST signature from the active Validator set. FROST is a standard threshold signing scheme (see [RFC 9591](https://datatracker.ietf.org/doc/html/rfc9591)). It means no single Validator approved the transaction alone: a defined minimum number of independent Validators all participated in producing the signature.
 
-    The signature and the signed message are stored in the Consensus contract on Gnosis Chain. Anyone can retrieve and verify the signature against the validator set's public key using standard cryptographic tools.
+    The signature and the signed message are stored in the Consensus contract on Gnosis Chain. Anyone can retrieve and verify the signature against the Validator set's public key using standard cryptographic tools.
 
     **Checking onchain**
 
@@ -103,12 +103,12 @@ description: Frequently asked questions about Safenet and Safenet Beta.
     See the Consensus contract documentation for the full verification flow.
   </Accordion>
 
-  <Accordion title="Can I become a validator?">
-    In Safenet Beta, the validator set is **permissioned**. Validators are selected and onboarded by the Safe Ecosystem Foundation. The validator set is intentionally small in Beta to allow the core staking, consensus, and FROST threshold signing mechanics to be proven out in a controlled environment.
+  <Accordion title="Can I become a Validator?">
+    In Safenet Beta, the Validator set is **permissioned**. Validators are selected and onboarded by the Safe Ecosystem Foundation. The Validator set is intentionally small in Beta to allow the core staking, consensus, and FROST threshold signing mechanics to be proven out in a controlled environment.
 
-    If you are interested in running a validator node in a future phase, watch the [Roadmap](/safenet/overview/roadmap) for updates on when the validator set opens up.
+    If you are interested in running a Validator node in a future phase, watch the [Roadmap](/safenet/overview/roadmap) for updates on when the Validator set opens up.
 
-    TODO: Add link to the validator interest form once available.
+    TODO: Add link to the Validator interest form once available.
   </Accordion>
 
   <Accordion title="How do I programmatically propose Safe transactions for validation?">

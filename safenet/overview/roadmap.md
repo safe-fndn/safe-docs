@@ -13,7 +13,7 @@ If you would like to contribute, [please reach out](mailto:research+safenet@safe
 
 ## Q1 2026 - Safenet Beta & SAFE Staking
 
-Safenet Beta marks the first live deployment of the network, focused on validator coordination and core consensus with a permissioned validator set.
+Safenet Beta marks the first live deployment of the network, focused on Validator coordination and core consensus with a permissioned Validator set.
 
 **Focus areas**
 
@@ -23,7 +23,7 @@ Safenet Beta marks the first live deployment of the network, focused on validato
 - Basic transaction attestation flow
 - Explorer and network monitoring tools
 
-This phase validates the core architecture, staking mechanics, and validator participation in a limited production environment.
+This phase validates the core architecture, staking mechanics, and Validator participation in a limited production environment.
 
 
 ## Q2 2026 - Advanced Checks & Guard Enforcement
@@ -52,7 +52,7 @@ Safenet integrates directly into wallet flows and introduces a sustainable econo
 - Fee model design and implementation
 - Validator reward distribution logic
 
-This phase improves accessibility for end users while aligning long-term incentives across validators and token holders.
+This phase improves accessibility for end users while aligning long-term incentives across Validators and token holders.
 
 
 ## Q4 2026 - Transaction Check Markets
@@ -71,21 +71,21 @@ This phase introduces economic competition to optimize security quality, respons
 
 ## 2027+ - Slashing, Insurance & Permissionless Validators
 
-Safenet transitions toward stronger crypto-economic guarantees, optional protection layers, and an open validator set.
+Safenet transitions toward stronger crypto-economic guarantees, optional protection layers, and an open Validator set.
 
 **Focus areas**
 
-- Slashing mechanisms for validator misbehavior
+- Slashing mechanisms for Validator misbehavior
 - Cryptoeconomic accountability guarantees
 - Risk-weighted validation models
 - Transaction insurance primitives
-- Permissionless validator onboarding
-- P2P validator network (replacing onchain communication for scalability)
+- Permissionless Validator onboarding
+- P2P Validator network (replacing onchain communication for scalability)
 
 This phase establishes Safenet as a fully incentive-aligned, open security layer with enforceable accountability and optional insurance coverage.
 
 <Note>
-Interested in becoming a validator or transaction checker?
+Interested in becoming a Validator or transaction checker?
 
 TODO: Add reach link to form.
 </Note>

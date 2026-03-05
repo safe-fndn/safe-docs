@@ -26,13 +26,13 @@ Navigation is defined in `docs.json` at the root. Adding a file without register
 
 ## Safenet: what it is
 
-Safenet is a protocol for onchain transaction security enforcement. It replaces centralized transaction-checking services with a decentralized validator network that attests to Safe transactions before they execute. In Safenet Beta, validators are permissioned, the validator set is small, and no slashing is active. The Beta focuses on proving out the core staking, consensus, and FROST threshold signing mechanics.
+Safenet is a protocol for onchain transaction security enforcement. It replaces centralized transaction-checking services with a decentralized Validator network that attests to Safe transactions before they execute. In Safenet Beta, Validators are permissioned, the Validator set is small, and no slashing is active. The Beta focuses on proving out the core staking, consensus, and FROST threshold signing mechanics.
 
 ## Safenet: target audience
 
 The Safenet docs are primarily written for **non-technical readers** who hold SAFE tokens and are evaluating whether to stake or delegate. Secondary audiences:
 
-- **Stakers and delegators**: SAFE token holders who want to earn rewards by backing validators. Main audience for all staking pages. Assume no Solidity knowledge; explain mechanics in plain language with analogies where helpful.
+- **Stakers and Delegators**: SAFE token holders who want to earn rewards by backing Validators. Main audience for all staking pages. Assume no Solidity knowledge; explain mechanics in plain language with analogies where helpful.
 - **Validators**: technically sophisticated node operators. Can handle more precise language, but avoid unnecessary jargon.
 - **Curious observers**: people who have heard about Safenet and want to understand what it does and whether it is safe. The overview and FAQ are their entry points.
 
@@ -83,14 +83,14 @@ Use `###` headings only when a subsection is substantial enough that a reader wo
 - When referencing a page that doesn't exist yet, add a TODO note rather than a broken link.
 
 ### Code and technical content
-- Include code examples where they help a developer audience, but keep them out of pages targeted purely at stakers/delegators.
+- Include code examples where they help a developer audience, but keep them out of pages targeted purely at Stakers/Delegators.
 - Mermaid diagrams are supported and useful for flows (staking, withdrawal, signing rounds).
 - Math (LaTeX) is supported for the rewards calculation page; use it there, not elsewhere.
 
 ## Source of truth and factual boundaries
 
-- Do not invent tokenomics parameters, reward rates, validator counts, timelines, or DAO decisions.
-- If a parameter (e.g. APR, lock-up duration, validator minimum stake) is not explicitly stated in the repo, ask before adding it.
+- Do not invent tokenomics parameters, reward rates, Validator counts, timelines, or DAO decisions.
+- If a parameter (e.g. APR, lock-up duration, Validator minimum stake) is not explicitly stated in the repo, ask before adding it.
 - If something depends on future DAO approval, clearly label it as proposed and not final.
 - If unsure whether something is live onchain, state that explicitly rather than assuming.
 - Do not imply security guarantees beyond what is formally enforced by the protocol.
@@ -106,16 +106,48 @@ Avoid language that implies "guaranteed protection", "fully secure", or "trustle
 Use canonical terms consistently:
 - "Validator" (not checker, node, guardian, etc.)
 - "Attestation" (not approval or guarantee)
-- "Delegator" (not nominator or staker, unless specifically referring to validator self-staking)
+- "Delegator" (not nominator or Staker, unless specifically referring to Validator self-staking)
 - "Safenet Beta" (capitalized, as a proper name)
 
 If you introduce a new term, define it once and reuse it consistently.
+
+### Vale vocabulary and capitalization
+
+A vale spell-check vocabulary is maintained at `.vale/styles/config/vocabularies/safe/accept.txt`. The capitalization in that file is canonical and must be followed exactly in prose.
+
+Current canonical spellings:
+
+| Term | Notes |
+|------|-------|
+| Attestation, Attestors | Capitalized when used as proper role/concept names |
+| calldata, delegatecalls | Lowercase, one word |
+| Chainalysis | Proper noun |
+| Delegator | Capitalized |
+| EOAs, ERC20, ERC721 | Uppercase acronyms |
+| Ethereum | Proper noun |
+| gasless, offchain, onchain | Lowercase, one word |
+| Mainnet | Capitalized |
+| Merkle | Capitalized |
+| Mintlify | Proper noun |
+| Multisig | Capitalized |
+| permissioned, permissionless | Lowercase |
+| Pimlico | Proper noun |
+| Reality.eth | Exact spelling |
+| redelegate | Lowercase, one word |
+| SafeDAO | Exact spelling |
+| Safenet | Capitalized, one word |
+| Stakers | Capitalized |
+| timelocked, timelock | Lowercase, one word |
+| Validator, Validators | Capitalized |
+| zkSync | Exact spelling (lowercase z) |
+
+**Exception: file names and link paths.** Do not apply these capitalizations to file names, directory names, or link paths. Those use lowercase kebab-case only (e.g. `/safenet/staking/validator-staking`, not `/safenet/staking/Validator-staking`).
 
 ## Beta labeling pattern
 
 Every page that describes live Safenet functionality must:
 - Clearly state that Safenet is currently in Beta.
-- Specify what is not yet active (e.g. slashing, permissionless validators).
+- Specify what is not yet active (e.g. slashing, permissionless Validators).
 - Avoid forward-looking guarantees about mainnet launch timelines.
 
 Do not assume Beta means temporary. Describe the current state as it exists.
@@ -133,7 +165,7 @@ If a page does not help a reader make a decision, reconsider its structure.
 
 ## Change impact awareness
 
-Before modifying any page that touches staking mechanics, reward calculation, lock-up periods, validator requirements, or slashing (future), explicitly check:
+Before modifying any page that touches staking mechanics, reward calculation, lock-up periods, Validator requirements, or slashing (future), explicitly check:
 
 1. Does this contradict another Safenet page?
 2. Does this require updating the FAQ?
@@ -165,7 +197,7 @@ safenet/
 │   ├── beta.md               # Safenet Beta (status + Explorer)
 │   └── roadmap.md            # Roadmap
 ├── staking/
-│   ├── validator-staking.md  # How are validators staked?
+│   ├── validator-staking.md  # How are Validators staked?
 │   ├── delegate.md           # How to delegate stake?
 │   ├── rewards.mdx           # Staking rewards
 │   ├── lockup.md             # Staking lock-up periods
