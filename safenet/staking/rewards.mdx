@@ -41,14 +41,18 @@ Safenet Beta distributes rewards to Validators and Delegators every two weeks (t
 
 ```mermaid
 flowchart TD
-    R[Reward pool] -->|proportional to stake weight| V[Validator share]
-    V --> RS[Self-stake rewards]
-    V --> RD[Delegated rewards]
-    RS --> Val[Validator]
+    classDef neutral  fill:#555555,stroke:#555555,color:#ffffff
+    classDef green    fill:#00855a,stroke:#00855a,color:#ffffff
+    classDef blue     fill:#1a6fa8,stroke:#1a6fa8,color:#ffffff
+
+    R[Reward pool]:::neutral -->|proportional to stake weight| V[Validator share]:::neutral
+    V --> RS[Self-stake rewards]:::green
+    V --> RD[Delegated rewards]:::neutral
+    RS --> Val[Validator]:::green
     RD -->|5% commission| Val
-    RD -->|95%| Dels[Delegators]
-    Dels -->|pro-rata by stake| D1[Delegator A]
-    Dels -->|pro-rata by stake| D2[Delegator B]
+    RD -->|95%| Dels[Delegators]:::blue
+    Dels -->|pro-rata by stake| D1[Delegator A]:::blue
+    Dels -->|pro-rata by stake| D2[Delegator B]:::blue
 ```
 
 *How rewards flow from the pool to a single Validator and its Delegators in a reward period.*
