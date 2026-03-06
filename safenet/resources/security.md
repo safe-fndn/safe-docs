@@ -9,9 +9,9 @@ Safenet Beta is built on three smart contracts. The Staking contract lives on Et
 
 | Contract | Chain | Source | Audit |
 |---|---|---|---|
-| Staking | Ethereum Mainnet | [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol) | [Report](https://github.com/safe-research/safenet/blob/main/contracts/audits/audit.md) |
-| Consensus | Gnosis Chain | [Consensus.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Consensus.sol) | **Not audited** |
-| FROSTCoordinator | Gnosis Chain | [FROSTCoordinator.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/FROSTCoordinator.sol) | **Not audited** |
+| Staking | Ethereum Mainnet | [Staking.sol](https://github.com/safe-research/safenet/blob/beta/contracts/src/Staking.sol) | [Report](https://github.com/safe-research/safenet/blob/beta/contracts/audits/audit.md) |
+| Consensus | Gnosis Chain | [Consensus.sol](https://github.com/safe-research/safenet/blob/beta/contracts/src/Consensus.sol) | **Not audited** |
+| FROSTCoordinator | Gnosis Chain | [FROSTCoordinator.sol](https://github.com/safe-research/safenet/blob/beta/contracts/src/FROSTCoordinator.sol) | **Not audited** |
 
 <Note>
 Contract addresses will be added here once deployed. TODO: Insert Staking (Mainnet), Consensus, and FROSTCoordinator (Gnosis Chain) addresses with block explorer links.
@@ -34,7 +34,7 @@ The Staking contract has an owner (the SafeDAO via the Safe Ecosystem Foundation
 
 The owner can also recover tokens accidentally sent to the contract, but cannot access staked SAFE or tokens in the withdrawal queue.
 
-The Staking contract has been independently formally verified and audited by [Certora](https://www.certora.com/). See the [full report](https://github.com/safe-research/safenet/blob/main/contracts/audits/audit.md) for details.
+The Staking contract has been independently formally verified and audited by [Certora](https://www.certora.com/). See the [full report](https://github.com/safe-research/safenet/blob/beta/contracts/audits/audit.md) for details.
 
 **Consensus and FROSTCoordinator contracts**
 
