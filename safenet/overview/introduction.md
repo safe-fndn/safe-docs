@@ -19,6 +19,18 @@ Most transaction security tools today only issue warnings and have no effect on 
 
 When a transaction is proposed, Safenet Validators evaluate it against a defined set of security rules. If the transaction satisfies these rules, Validators produce a cryptographic attestation. The Safe Guard verifies this attestation onchain as part of the execution process. Transactions without a valid attestation cannot satisfy the protocol's execution requirements.
 
+```mermaid
+flowchart LR
+    A[Transaction proposed] --> B[Validators evaluate]
+    B -->|Rules satisfied| C[Onchain attestation]
+    B -->|Rules not met| D[No attestation]
+    C --> E[Safe Guard verifies onchain]
+    E --> F[Transaction executes]
+    D --> G[Execution requirements not met]
+```
+
+*How a transaction moves through Safenet.*
+
 <Note>
 Users remain in full self-custody at all times. If a transaction does not satisfy the protocol's requirements and you still want to proceed, that is possible upon explicit, additional owner approval after a time delay. Safenet does not override owner control.
 </Note>
