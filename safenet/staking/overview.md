@@ -33,7 +33,7 @@ Both stake types use the same Staking contract with the same deposit and withdra
 - **No Rewards/Slashing in Beta**: Pure ledger for deposits (rewards handled separately)
 - **Timelocked Config**: All configuration changes require waiting periods
 
-TODO: Insert contract address and block explorer link.
+The Staking contract is deployed on Ethereum Mainnet at [`0x115E78f160e1E3eF163B05C84562Fa16fA338509`](https://etherscan.io/address/0x115E78f160e1E3eF163B05C84562Fa16fA338509).
 
 The Staking contract source is available on GitHub: [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol). It has been independently audited and formally verified by Certora. See [Security](/safenet/resources/security) for the full report.
 
