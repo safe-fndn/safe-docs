@@ -5,7 +5,7 @@ description: How withdrawal delays work and what to expect when unstaking SAFE t
 
 Staked SAFE tokens are not immediately withdrawable. After initiating a withdrawal, a mandatory **2-day waiting period** applies before you can execute your withdrawal and receive your tokens back.
 
-![Withdrawal timeline showing staked, initiate withdrawal, 2-day waiting period, and execute withdrawal](/assets/safenet-withdrawal-timeline.svg)
+![Withdrawal timeline showing staked, initiate withdrawal, 2-day waiting period, and execute withdrawal](/assets/safenet-withdrawal-timeline.png)
 
 *Tokens stop earning rewards as soon as you initiate a withdrawal. The 2-day waiting period must pass before you can execute it.*
 
