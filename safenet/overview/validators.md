@@ -3,13 +3,13 @@ title: Safenet Validators
 description: The role of Validators in the Safenet protocol - what they do, why decentralization matters, and how they are incentivized.
 ---
 
-Validators are the core participants in the Safenet network. They collectively check and attest to Safe transactions before execution. Because attestations require a threshold of Validators to cooperate, no single participant controls whether a transaction is approved or blocked.
+Validators are the core participants in the Safenet network. They collectively check and attest to Safe transactions before execution. Because attestations require a threshold of Validators to cooperate, no single participant controls whether a transaction is approved or not.
 
 ## What Validators do
 
 When a Safe transaction is proposed to Safenet, Validators check it against a defined set of security rules. If the transaction satisfies all rules, Validators coordinate to produce a FROST threshold signature: a cryptographic attestation that the transaction is valid.
 
-The Safe guard checks this attestation onchain before allowing execution. Without a valid attestation, the transaction cannot proceed.
+The Safe Guard checks this attestation onchain before allowing execution. Without a valid attestation, the transaction cannot proceed.
 
 Validators only attest to outcomes that are fully deterministic. Given the same transaction data, every honest Validator reaches the same conclusion. This is what allows the network to maintain its security guarantees even when some Validators behave dishonestly.
 

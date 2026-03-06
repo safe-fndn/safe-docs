@@ -28,13 +28,13 @@ This phase validates the core architecture, staking mechanics, and Validator par
 
 ## Q2 2026 - Advanced Checks & Guard Enforcement
 
-Safenet expands its transaction verification capabilities and introduces onchain enforcement via the Safe guard. The guard verifies Safenet attestations directly onchain before allowing transaction execution, providing enforcement at low cost on supported chains.
+Safenet expands its transaction verification capabilities and introduces onchain enforcement via the Safe Guard. The Guard verifies Safenet attestations directly onchain before allowing transaction execution, providing enforcement at low cost on supported chains.
 
 **Focus areas**
 
 - Expanded transaction security checks
 - Improved attack pattern detection
-- Safe guard deployment and onchain enforcement
+- Safe Guard deployment and onchain enforcement
 - Configurable security policy frameworks
 - Validator performance monitoring
 
@@ -62,9 +62,9 @@ Safenet evolves into a market-based enforcement layer for transaction validation
 **Focus areas**
 
 - Transaction check specialization
-- Market-based pricing for validation services
+- Market-based pricing for validation mechanisms
 - Validator reputation mechanisms
-- Competitive security service dynamics
+- Competitive security mechanisms
 
 This phase introduces economic competition to optimize security quality, responsiveness, and efficiency.
 
@@ -85,7 +85,7 @@ Safenet transitions toward stronger crypto-economic guarantees, optional protect
 This phase establishes Safenet as a fully incentive-aligned, open security layer with enforceable accountability and optional insurance coverage.
 
 <Note>
-Interested in becoming a Validator or transaction checker?
+Interested in becoming a Validator or Transaction Checker?
 
 TODO: Add reach link to form.
 </Note>
