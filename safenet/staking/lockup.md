@@ -3,7 +3,11 @@ title: Lock-up periods
 description: How withdrawal delays work and what to expect when unstaking SAFE tokens.
 ---
 
-Staked SAFE tokens are not immediately withdrawable. After requesting a withdrawal, a mandatory **2-day waiting period** applies before you can claim your tokens back.
+Staked SAFE tokens are not immediately withdrawable. After initiating a withdrawal, a mandatory **2-day waiting period** applies before you can execute your withdrawal and receive your tokens back.
+
+![Withdrawal timeline showing staked, initiate withdrawal, 2-day waiting period, and execute withdrawal](/assets/safenet-withdrawal-timeline.svg)
+
+*Tokens stop earning rewards as soon as you initiate a withdrawal. The 2-day waiting period must pass before you can execute it.*
 
 ## How to withdraw
 
@@ -12,7 +16,7 @@ TODO: Link to staking interface once available.
 1. Go to the staking interface and connect your wallet
 2. Select the Validator you want to withdraw from and enter the amount
 3. Confirm the withdrawal transaction. Your tokens enter the 2-day waiting period
-4. After 2 days, return to the staking interface to claim your tokens
+4. After 2 days, return to the staking interface to execute your withdrawal
 
 Tokens in the withdrawal queue do not count toward your time-weighted stake average, so they do not earn rewards during the waiting period.
 
@@ -20,7 +24,7 @@ Tokens in the withdrawal queue do not count toward your time-weighted stake aver
 
 The withdrawal delay is currently **2 days**. This delay exists so that if a Validator misbehaves, there is time to respond before they can exit their stake.
 
-**Multiple pending withdrawals**: If you initiate more than one withdrawal, they are processed in the order they were submitted. You must claim each one before the next becomes available.
+**Multiple pending withdrawals**: If you initiate more than one withdrawal, they are processed in the order they were submitted. You must execute each one before the next becomes available.
 
 ## Changing the delay
 
