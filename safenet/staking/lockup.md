@@ -30,4 +30,4 @@ The withdrawal delay is a protocol parameter governed by SafeDAO. Any proposed c
 The current withdrawal delay is 2 days. If this changes upon SafeDAO approval, the new value will be reflected here.
 </Note>
 
-The Staking contract is deployed on Ethereum Mainnet. TODO: Add contract address and block explorer link.
+The Staking contract is deployed on Ethereum Mainnet at [`0x115E78f160e1E3eF163B05C84562Fa16fA338509`](https://etherscan.io/address/0x115E78f160e1E3eF163B05C84562Fa16fA338509).

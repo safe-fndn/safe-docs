@@ -7,14 +7,14 @@ Safenet Beta is built on three smart contracts. The Staking contract lives on Et
 
 ## Deployed contracts
 
-| Contract | Chain | Source | Audit |
-|---|---|---|---|
-| Staking | Ethereum Mainnet | [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol) | [Report](https://github.com/safe-research/safenet/blob/main/contracts/audits/audit.md) |
-| Consensus | Gnosis Chain | [Consensus.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Consensus.sol) | **Not audited** |
-| FROSTCoordinator | Gnosis Chain | [FROSTCoordinator.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/FROSTCoordinator.sol) | **Not audited** |
+| Contract | Chain | Address | Source | Audit |
+|---|---|---|---|---|
+| Staking | Ethereum Mainnet | [`0x115E78f160e1E3eF163B05C84562Fa16fA338509`](https://etherscan.io/address/0x115E78f160e1E3eF163B05C84562Fa16fA338509) | [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol) | [Report](https://github.com/safe-research/safenet/blob/main/contracts/audits/audit.md) |
+| Consensus | Gnosis Chain | TBD | [Consensus.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Consensus.sol) | **Not audited** |
+| FROSTCoordinator | Gnosis Chain | TBD | [FROSTCoordinator.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/FROSTCoordinator.sol) | **Not audited** |
 
 <Note>
-Contract addresses will be added here once deployed. TODO: Insert Staking (Mainnet), Consensus, and FROSTCoordinator (Gnosis Chain) addresses with block explorer links.
+Consensus and FROSTCoordinator contract addresses will be added once deployed.
 </Note>
 
 Both Consensus and FROSTCoordinator contracts are non-upgradeable and hold **no user funds**.
