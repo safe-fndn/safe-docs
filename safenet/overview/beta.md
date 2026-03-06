@@ -52,10 +52,10 @@ In Safenet Beta, Validators attest to a fixed set of static security checks. The
 [Current checks applied to every proposed Safe transaction:](https://github.com/safe-research/safenet/tree/beta/validator/src/consensus/verify/safeTx/checks)
 
 - No unexpected delegatecalls
-- Upgrade only to trusted singletons
-- Only allow adding trusted modules
-- Only trusted fallback handlers can be set
-- Only trusted guards can be set
+- Upgrade only to trusted Safe Singletons
+- Only allow adding trusted Safe Modules
+- Only trusted Safe Fallback Handlers can be set
+- Only trusted Safe Guards can be set
 
 Advanced, context-specific checks (transfer volume analysis, allow/deny lists, actively exploited contracts) are planned for later phases. See the [Roadmap](/safenet/overview/roadmap).
 
@@ -65,7 +65,7 @@ Safenet Beta is a deliberate starting point:
 
 - **Safe transactions on EVM chains only**
 - **Permissioned Validator set**: Validators are selected by the Safe Ecosystem Foundation
-- **Static security checks only**: no open transaction checker market yet
+- **Static security checks only**: no open Transaction Checker market yet
 - **No slashing**: stake is not at risk of being slashed in Beta
 
 See the [Roadmap](/safenet/overview/roadmap) for what comes after Beta.

@@ -2,30 +2,40 @@ Attestation
 Attestors
 calldata
 Chainalysis
-Delegator
-Validators
 delegatecalls
+Delegator
 EOAs
 ERC20
 ERC721
 Ethereum
+Fallback Handler
+Fallback Handlers
 gasless
+Guard
+Guards
 Mainnet
 Merkle
 Mintlify
+Module
+Modules
 Multisig
 offchain
 onchain
 permissioned
+permissionless
 Pimlico
 Reality.eth
 redelegate
 SafeDAO
 Safenet
+Singleton
+Singletons
 Stakers
-timelocked
 timelock
+timelocked
+Transaction Checker
+Transaction Checkers
 Validator
 Validators
+Validators
 zkSync
-permissionless
