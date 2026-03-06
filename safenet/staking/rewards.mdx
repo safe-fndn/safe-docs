@@ -39,6 +39,26 @@ Safenet Beta distributes rewards to Validators and Delegators every two weeks (t
 - **5%** is retained by the Validator, in addition to rewards earned on their own stake (if eligible).
 - If the Validator's registered Staker address changes during the period, the full period's commission (including any earned before the change) is paid to the address registered at period end.
 
+```mermaid
+flowchart TD
+    classDef neutral  fill:#555555,stroke:#555555,color:#ffffff
+    classDef green    fill:#00855a,stroke:#00855a,color:#ffffff
+    classDef blue     fill:#1a6fa8,stroke:#1a6fa8,color:#ffffff
+
+    R[Reward pool]:::neutral -->|proportional to stake weight| V[Validator share]:::neutral
+    V --> RS[Self-stake rewards]:::green
+    V --> RD[Delegated rewards]:::neutral
+    RS --> Val[Validator]:::green
+    RD -->|5% commission| Val
+    RD -->|95%| Dels[Delegators]:::blue
+    Dels -->|pro-rata by stake| D1[Delegator A]:::blue
+    Dels -->|pro-rata by stake| D2[Delegator B]:::blue
+```
+
+*How rewards flow from the pool to a single Validator and its Delegators in a reward period.*
+
+*Simplified: omits the stake weight curve, participation filter, and minimum self-stake requirement. These affect the size of each Validator's share but not the flow shown above. See [Calculation](#calculation) for the full mechanics.*
+
 **Minimum payout threshold**
 
 - Rewards are only paid out if the recipient is entitled to at least **1 SAFE token** for the reward period.
@@ -131,11 +151,19 @@ $$
 w(\bar S_i) =
 \begin{cases}
 \bar S_i, & \text{if } \bar S_i \le T \\
-T + \sqrt{\bar S_i - T}, & \text{if } \bar S_i > T
+\sqrt{\bar S_i \cdot T}, & \text{if } \bar S_i > T
 \end{cases}
 $$
 
 This penalizes oversized Validators and incentivizes delegation toward smaller Validators.
+
+The curve is linear from zero up to the threshold $T$ (the average stake per Validator in the network). Above $T$, additional stake continues to earn rewards but at a diminishing rate.
+
+In practice: delegating to a Validator already above $T$ earns less marginal reward than delegating to one below it.
+
+![Reward weight curve showing linear growth up to T and sub-linear growth above T](/assets/safenet-reward-weight-curve.png)
+
+*Reward weight as a function of total stake. Below $T$, each additional SAFE earns the same marginal reward. Above $T$, marginal reward decreases smoothly. $T$ is recalculated each reward period as total network stake divided by the number of active Validators.*
 
 **Participation filter**
 
