@@ -35,7 +35,7 @@ Both stake types use the same Staking contract with the same deposit and withdra
 
 The Staking contract is deployed on Ethereum Mainnet at [`0x115E78f160e1E3eF163B05C84562Fa16fA338509`](https://etherscan.io/address/0x115E78f160e1E3eF163B05C84562Fa16fA338509).
 
-The Staking contract source is available on GitHub: [Staking.sol](https://github.com/safe-research/safenet/blob/main/contracts/src/Staking.sol). It has been independently audited and formally verified by Certora. See [Security](/safenet/resources/security) for the full report.
+The Staking contract source is available on GitHub: [Staking.sol](https://github.com/safe-research/safenet/blob/beta/contracts/src/Staking.sol). It has been independently audited and formally verified by Certora. See [Security](/safenet/resources/security) for the full report.
 
 ## In this section
 

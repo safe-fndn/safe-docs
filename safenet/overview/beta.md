@@ -49,7 +49,7 @@ TODO: Link to Validator.json once live
 
 In Safenet Beta, Validators attest to a fixed set of static security checks. These checks are fully deterministic: given the same transaction data, every honest Validator reaches the same conclusion.
 
-[Current checks applied to every proposed Safe transaction:](https://github.com/safe-research/safenet/tree/main/Validator/src/consensus/verify/safeTx/checks)
+[Current checks applied to every proposed Safe transaction:](https://github.com/safe-research/safenet/tree/beta/validator/src/consensus/verify/safeTx/checks)
 
 - No unexpected delegatecalls
 - Upgrade only to trusted Safe Singletons
