@@ -21,16 +21,19 @@ When a transaction is proposed, Safenet Validators evaluate it against a defined
 
 ```mermaid
 flowchart LR
-    classDef neutral fill:#555555,stroke:#555555,color:#ffffff
-    classDef green   fill:#00855a,stroke:#00855a,color:#ffffff
-    classDef orange  fill:#f07030,stroke:#f07030,color:#ffffff
-
-    A[Transaction proposed]:::neutral --> B[Validators evaluate]:::neutral
-    B -->|Rules satisfied| C[Onchain attestation]:::green
-    B -->|Rules not met|  D[No attestation]:::orange
-    C --> E[Safe Guard verifies onchain]:::green
-    E --> F[Transaction executes]:::green
-    D --> G[Execution requirements not met]:::orange
+A[Transaction proposed] --> B[Validators evaluate]
+B -->|Rules satisfied| C[Onchain attestation]
+B -->|Rules not met| D[No attestation]
+C --> E[Safe Guard verifies onchain]
+E --> F[Transaction executes]
+D --> G[Execution requirements not met]
+style A fill:#555555,stroke:#555555,color:#ffffff
+style B fill:#555555,stroke:#555555,color:#ffffff
+style C fill:#00855a,stroke:#00855a,color:#ffffff
+style E fill:#00855a,stroke:#00855a,color:#ffffff
+style F fill:#00855a,stroke:#00855a,color:#ffffff
+style D fill:#f07030,stroke:#f07030,color:#ffffff
+style G fill:#f07030,stroke:#f07030,color:#ffffff
 ```
 
 *How a transaction moves through Safenet.*
