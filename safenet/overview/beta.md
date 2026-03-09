@@ -43,7 +43,7 @@ Safenet Beta uses the following permissioned Validator set:
 | TODO | `TODO` |
 | TODO | `TODO` |
 
-TODO: Link to Validator.json once live
+A JSON with validator stats is published at [safe-fndn/safebet-beta-data](https://github.com/safe-fndn/safenet-beta-data/blob/main/assets/validator-info.json).
 
 ## Transaction checks
 
