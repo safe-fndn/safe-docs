@@ -21,7 +21,7 @@ You can split your delegation across more than one Validator simultaneously.
 
 ## How to delegate
 
-TODO: Link to staking interface once available.
+Choose one of the [available staking interfaces](http://safefoundation.org/safenet).
 
 1. Connect your wallet to the staking interface
 2. Browse the Validator list and select a Validator

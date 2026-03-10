@@ -27,7 +27,7 @@ In Safenet Beta, staked tokens cannot be confiscated. There is no slashing. Vali
 
 **Via the staking interface**
 
-TODO: Link to staking interface once available.
+Choose one of the [available staking interfaces](http://safefoundation.org/safenet).
 
 1. Connect your wallet to the staking interface
 2. Navigate to the Validator staking section

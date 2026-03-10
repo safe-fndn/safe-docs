@@ -11,7 +11,7 @@ Staked SAFE tokens are not immediately withdrawable. After initiating a withdraw
 
 ## How to withdraw
 
-TODO: Link to staking interface once available.
+Choose one of the [available staking interfaces](http://safefoundation.org/safenet).
 
 1. Go to the staking interface and connect your wallet
 2. Select the Validator you want to withdraw from and enter the amount
