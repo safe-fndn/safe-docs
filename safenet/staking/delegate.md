@@ -43,7 +43,7 @@ There is no direct redelegation path. To move stake from one Validator to anothe
 
 1. Initiate a withdrawal from your current Validator
 2. Wait out the **2-day** withdrawal delay
-3. Claim your tokens
+3. Execute your withdrawal
 4. Delegate to your new Validator
 
 Your tokens are locked and not earning rewards during the withdrawal delay. Factor this time cost in when deciding whether to switch Validators.
